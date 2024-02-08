@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.util.PIDConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
 
@@ -23,7 +22,7 @@ public final class Constants {
     public static final int kDriverPort = 0;
     public static final int kManipulatorPort = 1;
     public static final boolean fieldCentric = true; //FRONT IS THE SIDE OPPOSITE TO BATTERY
-    public static final double joystickDeadband = 0.1; //HAS TO BE TUNED A BIT
+    public static final double joystickDeadband = 0.15; //HAS TO BE TUNED A BIT
   }
 
   public static class MotorConstants {
@@ -37,12 +36,11 @@ public final class Constants {
 
     public static final int throughBoreEncPort = 3;
 
-
     // 0 indexing
-    public static final Integer[] driveMotorIDS = {11, 21, 31, 40}; 
-    public static final Integer[] angleMotorIDS = {10, 20, 30, 41};
-    public static final Integer[] CANCoderID = {9, 12, 8, 19};
-    public static final Double[] motorDegrees = {90.54, 181.93356, 345.32244, 334.68768};
+    public static final Integer[] driveMotorIDS = {10, 12, 14, 16}; 
+    public static final Integer[] angleMotorIDS = {11, 13, 15, 17};
+    public static final Integer[] CANCoderID = {3, 4, 2, 1};
+    public static final Double[] motorDegrees = {90.54, 181.93356, 275.32244, 334.68768};
     public static final Double[] angleOffsets = {0.0, 0.0, 0.0, 0.0};
     public static final Double[][] angleMotorPID = {
       {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}};
@@ -89,7 +87,7 @@ public final class Constants {
   }
 
   public static class DriveTrainConstants {
-    public static final double DRIVETRAIN_WIDTH = 0.635; // in meters
+    public static final double DRIVETRAIN_WIDTH = 0.6604; // in meters
   
     public static final PIDConstants ROTATION_PID = new PIDConstants(0, 0, 0);
     public static final PIDConstants TRANSLATION_PID = new PIDConstants(0, 0, 0);

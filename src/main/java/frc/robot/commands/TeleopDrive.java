@@ -6,10 +6,10 @@ package frc.robot.commands;
 
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveBase;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Manipulator;
+// import frc.robot.subsystems.Elevator;
+// import frc.robot.subsystems.Manipulator;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.math.MathUtil;
+// import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /** An example command that uses an example subsystem. */
@@ -25,8 +25,8 @@ public class TeleopDrive extends Command {
   // Called when the command is initially scheduled.
 
   private final DriveBase m_driveBase;
-  private final Manipulator m_manipulator;
-  private final Elevator m_elevator;
+  // private final Manipulator m_manipulator;
+  // private final Elevator m_elevator;
 
   private int cnt = 0;
 
@@ -38,10 +38,10 @@ public class TeleopDrive extends Command {
 
   double manipulatorPosition = 0;
 
-  public TeleopDrive(DriveBase driveBase, Manipulator manipulator, Elevator elevator) {
+  public TeleopDrive(DriveBase driveBase) {
     m_driveBase = driveBase;
-    m_manipulator = manipulator;
-    m_elevator = elevator;
+    // m_manipulator = manipulator;
+    // m_elevator = elevator;
   }
 
   @Override
@@ -53,7 +53,7 @@ public class TeleopDrive extends Command {
     //   temp[i] = new Module.ModuleState(0, Constants.MotorConstants.motorDegrees[i] * (Math.PI/180));
 
     // m_driveBase.setHardStates(temp);
-    RobotContainer.setLEDsOn();
+    // RobotContainer.setLEDsOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -79,42 +79,42 @@ public class TeleopDrive extends Command {
     m_driveBase.setDriveSpeed(RobotContainer.getSaturatedSpeeds(xVel, yVel, omega));
     // m_driveBase.setDriveSpeed(RobotContainer.getSaturatedSpeeds(1, 0, 0));
 
-    m_elevator.UpAndAway(RobotContainer.getManipulatorLeftJoyY());
-    if (RobotContainer.getManipulatorLeftTrigger() > 0 && RobotContainer.getManipulatorRightTrigger() <= 0) {
-      m_manipulator.setIntake(RobotContainer.getManipulatorLeftTrigger());
-    } else if (RobotContainer.getManipulatorLeftTrigger() <= 0 && RobotContainer.getManipulatorRightTrigger() > 0) {
-      m_manipulator.setIntake(RobotContainer.getManipulatorRightTrigger() * -1);
-    } else {
-      m_manipulator.setIntake(0.0);
+    // m_elevator.UpAndAway(RobotContainer.getManipulatorLeftJoyY());
+    // if (RobotContainer.getManipulatorLeftTrigger() > 0 && RobotContainer.getManipulatorRightTrigger() <= 0) {
+    //   m_manipulator.setIntake(RobotContainer.getManipulatorLeftTrigger());
+    // } else if (RobotContainer.getManipulatorLeftTrigger() <= 0 && RobotContainer.getManipulatorRightTrigger() > 0) {
+    //   m_manipulator.setIntake(RobotContainer.getManipulatorRightTrigger() * -1);
+    // } else {
+    //   m_manipulator.setIntake(0.0);
     }
     
     // m_manipulator.setWristSpeed(RobotContainer.getManipulatorRightJoyY());
 
-    if (RobotContainer.getManipulatorABool()) {
-      manipulatorPosition = 0.0108; //FULL CLOSE, CUBE INTAKE
-    }
+    // if (RobotContainer.getManipulatorABool()) {
+    //   manipulatorPosition = 0.0108; //FULL CLOSE, CUBE INTAKE
+    // }
 
-    if (RobotContainer.getManipulatorBBool()) {
-      manipulatorPosition = 0.150; //CONE INTAKE, CUBE OUTAKE
-    }
+    // if (RobotContainer.getManipulatorBBool()) {
+    //   manipulatorPosition = 0.150; //CONE INTAKE, CUBE OUTAKE
+    // }
 
-    if (RobotContainer.getManipulatorXBool()) {
-      manipulatorPosition = 0.253; //CONE INTAKE, CUBE OUTAKE
-    }
+    // if (RobotContainer.getManipulatorXBool()) {
+    //   manipulatorPosition = 0.253; //CONE INTAKE, CUBE OUTAKE
+    // }
 
-    if (RobotContainer.getManipulatorYBool()) {
-      manipulatorPosition = 0.073; //CONE DURING CYCLING
-    }
+    // if (RobotContainer.getManipulatorYBool()) {
+    //   manipulatorPosition = 0.073; //CONE DURING CYCLING
+    // }
 
     // if (RobotContainer.getManipulatorXBool()) {
     //   manipulatorPosition = Constants.ManipulatorConstants.wristConeOCubeI;
     // }
     
     // m_manipulator.setWrist(manipulatorPosition);
-    manipulatorPosition += RobotContainer.getManipulatorRightJoyY() * 0.01;
-    manipulatorPosition = MathUtil.clamp(manipulatorPosition, 0, 1);
-    m_manipulator.setWrist(manipulatorPosition);
-  }
+    // manipulatorPosition += RobotContainer.getManipulatorRightJoyY() * 0.01;
+    // manipulatorPosition = MathUtil.clamp(manipulatorPosition, 0, 1);
+    // m_manipulator.setWrist(manipulatorPosition);
+  // }
 
   // Called once the command ends or is interrupted.
   @Override

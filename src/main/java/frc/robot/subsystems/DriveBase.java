@@ -32,26 +32,19 @@ public class DriveBase extends SubsystemBase {
     double mod1Curr = 0;
     int counter = 0;
 
-    double tic, toc = 0;
-
     Translation2d m_frontLeftLocation = new Translation2d(-0.23495, 0.23495);
     Translation2d m_frontRightLocation = new Translation2d(0.23495, 0.23495);
     Translation2d m_backLeftLocation = new Translation2d(-0.23495, -0.23495);
     Translation2d m_backRightLocation = new Translation2d(0.23495, -0.23495);
 
     SwerveDriveKinematics m_skdKine = new SwerveDriveKinematics(m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
-
     SwerveDriveOdometry m_sdkOdom;
-
 
     Pose2d globalPose = new Pose2d(0.0, 0.0, new Rotation2d());
     double X = 0.0;
     double Y = 0.0;
-    
 
     ChassisSpeeds autoSetSpeed = new ChassisSpeeds();
-
-
 
     public DriveBase(Kinematics kinematics, AHRS ahrs) {
         m_kinematics = kinematics;
@@ -78,8 +71,6 @@ public class DriveBase extends SubsystemBase {
             }, new Pose2d (0.0, 0.0, new Rotation2d())
         );
 
-
-    
     } 
 
     // public Pose2d getCurrentPose() {

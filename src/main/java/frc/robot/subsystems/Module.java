@@ -1,3 +1,7 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
@@ -6,10 +10,6 @@ import com.ctre.phoenix6.configs.CANcoderConfigurator;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
