@@ -138,6 +138,7 @@ public class DriveBase extends SubsystemBase {
             moduleGroup[i].setSpeedAndAngle(targetModuleStates[i]);
             odomDeltas[i] = (((moduleGroup[i].integratedDriveEncoder.getPosition() - encoderDriveOffset[i])/6.12) * (0.102*Math.PI));// - odomPrevDeltas[i];
             odomAngles[i] = smallestAngle(moduleGroup[i].getAngleInRadians());//smallestAngle(moduleGroup[i].getAngleInRadians()*(180.0/Math.PI)) * (Math.PI/180.0);
+            SmartDashboard.putNumber("Module" + i + "_Angle", moduleGroup[i].getAngle());
         }
         
 
@@ -148,12 +149,10 @@ public class DriveBase extends SubsystemBase {
             new SwerveModulePosition(Math.abs(odomDeltas[0]), new Rotation2d(odomAngles[0]))
         });
 
-
         SmartDashboard.putNumber("Yaw", m_ahrs.getYaw());
         SmartDashboard.putNumber("Pitch", m_ahrs.getPitch());
         SmartDashboard.putNumber("Roll", m_ahrs.getRoll());
         SmartDashboard.putNumber("Rotations", m_ahrs.getAngle());
-
 
         // double voltage = m_pdp.getVoltage();
         // SmartDashboard.putNumber("Voltage", voltage);
