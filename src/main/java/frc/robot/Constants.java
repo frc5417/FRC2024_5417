@@ -26,8 +26,8 @@ public final class Constants {
   }
 
   public static class MotorConstants {
-    public static final Integer[] elevatorMotorIDS = {50, 51};
-    public static final Boolean[] elevatorMotorInversions = {false, true};
+    public static final Integer elevatorMotorID = 50;
+    public static final Boolean elevatorMotorInversion = false;
 
     public static final int wristMotorID = 61;
     public static final boolean wristMotorInversion = false;
@@ -57,6 +57,7 @@ public final class Constants {
     public static final double wristConeOCubeI = 0.25;
     //
     public static final double intakePower = 0.5;
+    public static final double elevatorPower = 0.5;
     public static final int limitSwithPort = 0;
   }
   

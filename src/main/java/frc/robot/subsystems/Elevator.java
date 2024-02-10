@@ -12,36 +12,20 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
+  CANSparkMax elevator = new CANSparkMax(Constants.MotorConstants.elevatorMotorID,MotorType.kBrushless);
   /** Creates a new Elevator. */
-  public CANSparkMax Motor1;
-  public CANSparkMax Motor2;
-
-  // private final RelativeEncoder integratedMotor1Encoder;
-  // private final RelativeEncoder integratedMotor2Encoder;
-
-
   public Elevator() {
-    Motor1 = new CANSparkMax(Constants.MotorConstants.elevatorMotorIDS[0], MotorType.kBrushless);
-    Motor2 = new CANSparkMax(Constants.MotorConstants.elevatorMotorIDS[1], MotorType.kBrushless);
+    elevator.setInverted(Constants.MotorConstants.elevatorMotorInversion);
 
-    Motor1.setIdleMode(IdleMode.kBrake);
-    Motor2.setIdleMode(IdleMode.kBrake);
-    Motor1.setInverted(Constants.MotorConstants.elevatorMotorInversions[0]);
-    Motor2.setInverted(Constants.MotorConstants.elevatorMotorInversions[1]);
-
-    // integratedMotor1Encoder = Motor1.getEncoder();
-    // Motor1.getPIDController();
-    // integratedMotor2Encoder = Motor2.getEncoder();
-    // Motor2.getPIDController();
+    elevator.setIdleMode(IdleMode.kBrake);
   }
+
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
-  public void UpAndAway(double speed) {
-    Motor1.set(speed*0.25);
-    Motor2.set(speed*0.25);
+  public void setElevatorPower(double elevatorPower) {
+    elevator.set(Constants.ManipulatorConstants.elevatorPower*elevatorPower);
   }
 }

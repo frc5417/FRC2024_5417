@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutonLoader;
+import frc.robot.commands.ElevatorJoystick;
 import frc.robot.commands.SetLightConfig;
 import frc.robot.commands.TeleopDrive;
 import frc.robot.commands.ToggleIntake;
@@ -40,14 +41,19 @@ public class RobotContainer {
 
   public static AHRS ahrs = new AHRS(SerialPort.Port.kMXP);
   public static Kinematics kinematics = new Kinematics(ahrs);
+
   public static DriveBase driveBase = new DriveBase(kinematics, ahrs);
   public static Intake intake = new Intake();
+  public static Elevator elevator = new Elevator();
+
   // public static Manipulator manipulator = new Manipulator();
   // public static Elevator elevator = new Elevator();
   // public static AutonLoader autonLoader = new AutonLoader(driveBase, manipulator, elevator); //NEEDED SUBSYSTEMS FOR AUTON, ELEVATOR NOT USED
   public static TeleopDrive teleopDrive = new TeleopDrive(driveBase/*, manipulator, elevator*/); //ALL SUBSYSTEMS
   public static ToggleIntake intakeIn = new ToggleIntake(intake, 1);
   public static ToggleIntake intakeOut = new ToggleIntake(intake, -1);
+  public static ElevatorJoystick elevatorJoystick = new ElevatorJoystick(elevator);
+
   private final static CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverPort);
   private final static CommandXboxController m_manipulatorController = new CommandXboxController(OperatorConstants.kManipulatorPort);
 
@@ -151,13 +157,13 @@ public class RobotContainer {
     }
   }
   // =========================================================
-  // public static double getManipulatorLeftJoyY() {
-  //   if (Math.abs(m_manipulatorController.getLeftY()) > Constants.OperatorConstants.joystickDeadband) {
-  //     return m_manipulatorController.getLeftY();
-  //   } else {
-  //     return 0;
-  //   }
-  // }
+  public static double getManipulatorLeftJoyY() {
+    if (Math.abs(m_manipulatorController.getLeftY()) > Constants.OperatorConstants.joystickDeadband) {
+      return m_manipulatorController.getLeftY();
+    } else {
+      return 0;
+    }
+  }
 
   // public static double getManipulatorLeftJoyX() {
   //   if (Math.abs(m_manipulatorController.getLeftX()) > Constants.OperatorConstants.joystickDeadband) {
@@ -238,6 +244,12 @@ public class RobotContainer {
 
   public void runTeleopCommand() {
     teleopDrive.schedule();
+    elevatorJoystick.schedule();
+  }
+
+  public void stopTeleopCommand() {
+    teleopDrive.cancel();
+    elevatorJoystick.cancel();
   }
 
   // public static void setLEDsOff() {
