@@ -18,8 +18,10 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.AutonLoader;
 import frc.robot.commands.SetLightConfig;
 import frc.robot.commands.TeleopDrive;
+import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Kinematics;
 import frc.robot.subsystems.LightsControl;
 import frc.robot.subsystems.Manipulator;
@@ -39,12 +41,15 @@ public class RobotContainer {
   public static AHRS ahrs = new AHRS(SerialPort.Port.kMXP);
   public static Kinematics kinematics = new Kinematics(ahrs);
   public static DriveBase driveBase = new DriveBase(kinematics, ahrs);
+  public static Intake intake = new Intake();
   // public static Manipulator manipulator = new Manipulator();
   // public static Elevator elevator = new Elevator();
   // public static AutonLoader autonLoader = new AutonLoader(driveBase, manipulator, elevator); //NEEDED SUBSYSTEMS FOR AUTON, ELEVATOR NOT USED
   public static TeleopDrive teleopDrive = new TeleopDrive(driveBase/*, manipulator, elevator*/); //ALL SUBSYSTEMS
+  public static ToggleIntake intakeIn = new ToggleIntake(intake, 1);
+  public static ToggleIntake intakeOut = new ToggleIntake(intake, -1);
   private final static CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverPort);
-  // private final static CommandXboxController m_manipulatorController = new CommandXboxController(OperatorConstants.kManipulatorPort);
+  private final static CommandXboxController m_manipulatorController = new CommandXboxController(OperatorConstants.kManipulatorPort);
 
   // private static final LightsControl m_lightsControl = new LightsControl();
   // private static final SetLightConfig lightConfigRed = new SetLightConfig(m_lightsControl, 0);
@@ -75,6 +80,8 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
+    m_manipulatorController.b().whileTrue(intakeIn);
+    m_manipulatorController.a().whileTrue(intakeOut);
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     // m_driverController.povUp().onTrue(lightConfigRed);

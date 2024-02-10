@@ -55,6 +55,9 @@ public final class Constants {
     public static final double wristICubeI = 0.0;
     public static final double wristConeICubeO = 0.14;
     public static final double wristConeOCubeI = 0.25;
+    //
+    public static final double intakePower = 0.5;
+    public static final int limitSwithPort = 0;
   }
   
   public static class Swerve {
