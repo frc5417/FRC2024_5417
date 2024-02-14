@@ -26,6 +26,6 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public void setElevatorPower(double elevatorPower) {
-    elevator.set(Constants.ManipulatorConstants.elevatorPower*elevatorPower);
+    elevator.set(Constants.ManipulatorConstants.elevatorMaxPower*elevatorPower);
   }
 }

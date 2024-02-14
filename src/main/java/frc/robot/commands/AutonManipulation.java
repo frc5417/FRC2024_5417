@@ -41,9 +41,9 @@ class ElevationUp extends Command {
   public void execute() {
     if(counter < 3500/20){  
       counter += 1;  
-      m_elevator.UpAndAway(-0.375);  
+      // m_elevator.UpAndAway(-0.375);  
     } else {
-      m_elevator.UpAndAway(0);
+      // m_elevator.UpAndAway(0);
       ended = true; 
     }
   }
@@ -76,9 +76,9 @@ class ElevationDown extends Command {
   public void execute() {
     if(counter < 3000/20){  
       counter += 1;  
-      m_elevator.UpAndAway(0.375);  
+      // m_elevator.UpAndAway(0.375);  
     } else {
-      m_elevator.UpAndAway(0);
+      // m_elevator.UpAndAway(0);
       ended = true;
     }
   }

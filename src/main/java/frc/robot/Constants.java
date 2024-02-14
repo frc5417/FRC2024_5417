@@ -26,11 +26,19 @@ public final class Constants {
   }
 
   public static class MotorConstants {
+
+    // Intake Motors
+    public static final int wristMotorID = 22;
+    public static final boolean wristMotorInversion = false;
+    public static final int intakeMotorID = 24;
+    public static final boolean intakeMotorInversion = false;
+
+    // Elevator Electronics
     public static final Integer elevatorMotorID = 50;
     public static final Boolean elevatorMotorInversion = false;
+    public static final int throughBoreEncPort = 3;
 
-    public static final int wristMotorID = 61;
-    public static final boolean wristMotorInversion = false;
+    // Shooter Motors
     public static final int shooter1MotorID = 61;
     public static final boolean shooter1Inversion = false;
     public static final int shooter2MotorID = 61;
@@ -39,10 +47,6 @@ public final class Constants {
     public static final boolean intestineInversion = false;
     public static final int pivotMotorID = 61;
     public static final boolean pivotInversion = false;
-    public static final int intakeMotorID = 62;
-    public static final boolean intakeMotorInversion = false;
-
-    public static final int throughBoreEncPort = 3;
 
     // 0 indexing
     public static final Integer[] driveMotorIDS = {10, 12, 14, 16}; 
@@ -59,15 +63,19 @@ public final class Constants {
     public static final double wristTolerance = 0.05;
     public static final double wristMax = 500.0;
     public static final double wristMin = -500.0;
+    
     // TUNE ALL OF THESE VALUES BASED ON PID, ONE PLAYER SUBSTATION ONLY
     public static final double wristICubeI = 0.0;
     public static final double wristConeICubeO = 0.14;
     public static final double wristConeOCubeI = 0.25;
-    //
-    public static final double intakePower = 0.5;
+    
+    // Max Powers
+    public static final double wristMaxPower = 0.9;
+    public static final double elevatorMaxPower = 0.5;
+    public static final double intakePower = 0.9;
     public static final double intestinePower = 0.5;
-    public static final double elevatorPower = 0.5;
-    public static final int limitSwithPort = 0;
+
+    public static final int intakeLimitSwithPort = 0;
 
     public static final double shooterPivotP = 0.2;
     public static final double shooterPivotI = 0.2;

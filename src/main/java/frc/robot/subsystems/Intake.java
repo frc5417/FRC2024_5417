@@ -15,7 +15,7 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
   CANSparkMax wrist = new CANSparkMax(Constants.MotorConstants.wristMotorID,MotorType.kBrushless);
   CANSparkMax intake = new CANSparkMax(Constants.MotorConstants.intakeMotorID,MotorType.kBrushless);
-  DigitalInput intakeSwitch = new DigitalInput(Constants.ManipulatorConstants.limitSwithPort);  
+  DigitalInput intakeSwitch = new DigitalInput(Constants.ManipulatorConstants.intakeLimitSwithPort);  
   /** Creates a new Intake. */
   public Intake() {
     intake.setInverted(Constants.MotorConstants.intakeMotorInversion);
@@ -33,6 +33,11 @@ public class Intake extends SubsystemBase {
   public void setIntakePower(double intakePower) {
     intake.set(Constants.ManipulatorConstants.intakePower * intakePower);
   }
+
+  public void setWristPower(double wristPower) {
+    wrist.set(Constants.ManipulatorConstants.wristMaxPower * wristPower);
+  }
+
   public boolean limitSwitch() {
     return intakeSwitch.get();
   }
