@@ -31,6 +31,14 @@ public final class Constants {
 
     public static final int wristMotorID = 61;
     public static final boolean wristMotorInversion = false;
+    public static final int shooter1MotorID = 61;
+    public static final boolean shooter1Inversion = false;
+    public static final int shooter2MotorID = 61;
+    public static final boolean shooter2Inversion = false;
+    public static final int intestineMotorID = 61;
+    public static final boolean intestineInversion = false;
+    public static final int pivotMotorID = 61;
+    public static final boolean pivotInversion = false;
     public static final int intakeMotorID = 62;
     public static final boolean intakeMotorInversion = false;
 
@@ -57,8 +65,13 @@ public final class Constants {
     public static final double wristConeOCubeI = 0.25;
     //
     public static final double intakePower = 0.5;
+    public static final double intestinePower = 0.5;
     public static final double elevatorPower = 0.5;
     public static final int limitSwithPort = 0;
+
+    public static final double shooterPivotP = 0.2;
+    public static final double shooterPivotI = 0.2;
+    public static final double shooterPivotD = 0.2;
   }
   
   public static class Swerve {
