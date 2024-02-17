@@ -5,7 +5,6 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -15,18 +14,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.AutonLoader;
-import frc.robot.commands.ElevatorJoystick;
-import frc.robot.commands.IntakePivotJoystick;
-import frc.robot.commands.SetLightConfig;
-import frc.robot.commands.TeleopDrive;
-import frc.robot.commands.ToggleIntake;
-import frc.robot.subsystems.DriveBase;
-import frc.robot.subsystems.Elevator;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Kinematics;
-import frc.robot.subsystems.LightsControl;
-import frc.robot.subsystems.Manipulator;
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 import edu.wpi.first.hal.HALUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
@@ -43,12 +32,12 @@ public class RobotContainer {
   public static AHRS ahrs = new AHRS(SerialPort.Port.kMXP);
   public static Kinematics kinematics = new Kinematics(ahrs);
 
+  // Robot Subsystems
   public static DriveBase driveBase = new DriveBase(kinematics, ahrs);
   public static Intake intake = new Intake();
   // public static Elevator elevator = new Elevator();
 
-  // public static Manipulator manipulator = new Manipulator();
-  // public static Elevator elevator = new Elevator();
+  // Robot Commands
   // public static AutonLoader autonLoader = new AutonLoader(driveBase, manipulator, elevator); //NEEDED SUBSYSTEMS FOR AUTON, ELEVATOR NOT USED
   public static TeleopDrive teleopDrive = new TeleopDrive(driveBase/*, manipulator, elevator*/); //ALL SUBSYSTEMS
   public static ToggleIntake intakeIn = new ToggleIntake(intake, 1);
@@ -88,8 +77,8 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    m_manipulatorController.b().whileTrue(intakeIn);
-    m_manipulatorController.a().whileTrue(intakeOut);
+    m_manipulatorController.rightTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeIn);
+    m_manipulatorController.leftTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeOut);
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     // m_driverController.povUp().onTrue(lightConfigRed);

@@ -63,16 +63,17 @@ public final class Constants {
     public static final double wristTolerance = 0.05;
     public static final double wristMax = 500.0;
     public static final double wristMin = -500.0;
+
+    // Motor SetPoints
+    public static final double wristShootingPoint = -3.9999996;
+
+    // Motor PIDs
+    public static final double[] wristPID = { 0.1, 0.0, 1.0 };
     
-    // TUNE ALL OF THESE VALUES BASED ON PID, ONE PLAYER SUBSTATION ONLY
-    public static final double wristICubeI = 0.0;
-    public static final double wristConeICubeO = 0.14;
-    public static final double wristConeOCubeI = 0.25;
-    
-    // Max Powers
-    public static final double wristMaxPower = 0.9;
+    // Motor Powers
+    public static final double wristMaxPower = 0.5;
     public static final double elevatorMaxPower = 0.5;
-    public static final double intakePower = 0.9;
+    public static final double intakePower = 0.95;
     public static final double intestinePower = 0.5;
 
     public static final int intakeLimitSwithPort = 0;
@@ -83,7 +84,7 @@ public final class Constants {
   }
   
   public static class Swerve {
-    public static final Double angularPercentage = 1.0;
+    public static final Double angularPercentage = -1.0;
     public static final Double XPercentage = -1.0;
     public static final Double YPercentage = - 1.0;
 

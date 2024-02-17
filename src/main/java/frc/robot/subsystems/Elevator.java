@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
-  CANSparkMax elevator = new CANSparkMax(Constants.MotorConstants.elevatorMotorID,MotorType.kBrushless);
+  CANSparkMax elevator = new CANSparkMax(Constants.MotorConstants.elevatorMotorID, MotorType.kBrushless);
   /** Creates a new Elevator. */
   public Elevator() {
     elevator.setInverted(Constants.MotorConstants.elevatorMotorInversion);
