@@ -39,6 +39,6 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean limitSwitch() {
-    return intakeSwitch.get();
+    return false; //intakeSwitch.get();
   }
 }

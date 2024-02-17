@@ -12,13 +12,12 @@ public class IntakePivotJoystick extends Command {
   /** Creates a new ElevatorJoystick. */
   private Intake intake;
 
-  public IntakePivotJoystick(
-    Intake intake 
-  ) {
+  public IntakePivotJoystick(Intake intake) {
     this.intake = intake;
     
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake);
+    // Commented because it is constantly running - commands that always run should not stop other commands from running.
+    // addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -35,6 +34,7 @@ public class IntakePivotJoystick extends Command {
   @Override
   public void end(boolean interrupted) {
     intake.setWristPower(0);
+    System.out.println("IntakePivotJoystick ended!");
   }
 
   // Returns true when the command should end.

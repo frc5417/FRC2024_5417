@@ -49,10 +49,10 @@ public final class Constants {
     public static final boolean pivotInversion = false;
 
     // 0 indexing
-    public static final Integer[] driveMotorIDS = {10, 12, 14, 16}; 
-    public static final Integer[] angleMotorIDS = {11, 13, 15, 17};
-    public static final Integer[] CANCoderID = {3, 4, 2, 1};
-    public static final Double[] motorDegrees = {130.0, 40.0, 200.0, 40.0};
+    public static final Integer[] driveMotorIDS = {10, 12, 16, 14}; 
+    public static final Integer[] angleMotorIDS = {11, 13, 17, 15};
+    public static final Integer[] CANCoderID = {3, 4, 1, 2};
+    public static final Double[] motorDegrees = {125.13664, 25.224488, 133.49024, 58.43768};
     public static final Double[] angleOffsets = {0.0, 0.0, 0.0, 0.0};
     public static final Double[][] angleMotorPID = {
       {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}};
@@ -117,7 +117,7 @@ public final class Constants {
     public static final PIDConstants ROTATION_PID = new PIDConstants(0, 0, 0);
     public static final PIDConstants TRANSLATION_PID = new PIDConstants(0, 0, 0);
     public static final Integer wheels = 4;
-    public static final boolean[] invertedMotors = {true, true, false, true};
+    public static final boolean[] invertedMotors = {true, true, true, false};
     //TODO: tune pid constants
   }
 
