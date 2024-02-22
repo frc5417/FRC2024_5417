@@ -49,6 +49,7 @@ public class DriveBase extends SubsystemBase {
     public DriveBase(Kinematics kinematics, AHRS ahrs) {
         m_kinematics = kinematics;
         m_ahrs = ahrs;
+        m_ahrs.reset();
 
         moduleGroup = new Module[4];
         for (int i = 0; i < 4; i++) {

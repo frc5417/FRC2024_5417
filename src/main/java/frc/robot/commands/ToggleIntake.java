@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Intake;
 
 public class ToggleIntake extends Command {
@@ -21,13 +22,13 @@ public class ToggleIntake extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    intake.setIntakePower(direction);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    intake.setIntakePower(direction == -1 ? -RobotContainer.getManipulatorLeftTrigger() : RobotContainer.getManipulatorRightTrigger());
+  }
 
   // Called once the command ends or is interrupted.
   @Override

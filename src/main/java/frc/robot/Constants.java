@@ -52,7 +52,7 @@ public final class Constants {
     public static final Integer[] driveMotorIDS = {10, 12, 16, 14}; 
     public static final Integer[] angleMotorIDS = {11, 13, 17, 15};
     public static final Integer[] CANCoderID = {3, 4, 1, 2};
-    public static final Double[] motorDegrees = {125.13664, 25.224488, 133.49024, 58.43768};
+    public static final Double[] motorDegrees = {125.13664, 23.224488, 118.49024, 67.43768};
     public static final Double[] angleOffsets = {0.0, 0.0, 0.0, 0.0};
     public static final Double[][] angleMotorPID = {
       {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}};
@@ -60,20 +60,21 @@ public final class Constants {
   }
 
   public static class ManipulatorConstants {
-    public static final double wristTolerance = 0.05;
-    public static final double wristMax = 500.0;
-    public static final double wristMin = -500.0;
 
     // Motor SetPoints
-    public static final double wristShootingPoint = -3.9999996;
+    public static final double wristSetPointMaxDelta = 0.1;
+    public static final double wristShootingPoint = 2.2857;
+    public static final double wristMin = 0.17;
+    public static final double wristMax = 6.05;
 
     // Motor PIDs
-    public static final double[] wristPID = { 0.1, 0.0, 1.0 };
-    
+    public static final double[] wristPID = { 1.25, 0.005, 0.025 };
+    public static final double wristTolerance = 0.001;
+
     // Motor Powers
-    public static final double wristMaxPower = 0.5;
+    public static final double wristMaxPower = 0.4;
     public static final double elevatorMaxPower = 0.5;
-    public static final double intakePower = 0.95;
+    public static final double intakePower = 1.0;
     public static final double intestinePower = 0.5;
 
     public static final int intakeLimitSwithPort = 0;
