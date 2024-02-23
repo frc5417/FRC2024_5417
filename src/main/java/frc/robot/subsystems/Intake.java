@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
   DigitalInput intakeSwitch = new DigitalInput(Constants.ManipulatorConstants.intakeLimitSwithPort);  
   
   private double wantedWristPosition = 0.0;
-  private final double[] wPID = Constants.ManipulatorConstants.wristPID;
+  private final double[] wPID = Constants.ManipulatorConstants.intakeWristPID;
   public final PIDController wristPID = new PIDController(wPID[0], wPID[1], wPID[2]);
   // public final ArmFeedforward forwardPID = new ArmFeedforward(0, 0, 1.95);
 
@@ -37,7 +37,7 @@ public class Intake extends SubsystemBase {
     wrist.setIdleMode(IdleMode.kBrake);
 
     wrist.getEncoder().setPosition(0);
-    wristPID.setTolerance(Constants.ManipulatorConstants.wristTolerance);
+    wristPID.setTolerance(Constants.ManipulatorConstants.intakeWristTolerance);
   }
 
   @Override
@@ -56,16 +56,16 @@ public class Intake extends SubsystemBase {
   }
 
   public void setWristPower(double wristPower) {
-    wrist.set(Constants.ManipulatorConstants.wristMaxPower * wristPower);
-    SmartDashboard.putNumber("Wrist Power", Constants.ManipulatorConstants.wristMaxPower * wristPower);
+    wrist.set(Constants.ManipulatorConstants.intakeWristMaxPower * wristPower);
+    SmartDashboard.putNumber("Wrist Power", Constants.ManipulatorConstants.intakeWristMaxPower * wristPower);
   }
 
   public void incrementWristPos(double wristSetPointDelta) {
-    setWristSetPoint(wantedWristPosition + (wristSetPointDelta * Constants.ManipulatorConstants.wristSetPointMaxDelta));
+    setWristSetPoint(wantedWristPosition + (wristSetPointDelta * Constants.ManipulatorConstants.intakeWristSetPointMaxDelta));
   }
 
   public void setWristSetPoint(double wristSetPoint) {
-    wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.wristMin, Constants.ManipulatorConstants.wristMax);
+    wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.intakeWristMin, Constants.ManipulatorConstants.intakeWristMax);
     wristPID.setSetpoint(wantedWristPosition);
   }
 

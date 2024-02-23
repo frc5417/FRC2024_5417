@@ -39,13 +39,13 @@ public final class Constants {
     public static final int throughBoreEncPort = 3;
 
     // Shooter Motors
-    public static final int shooter1MotorID = 61;
+    public static final int shooter1MotorID = 33;
     public static final boolean shooter1Inversion = false;
-    public static final int shooter2MotorID = 61;
-    public static final boolean shooter2Inversion = false;
-    public static final int intestineMotorID = 61;
+    public static final int shooter2MotorID = 34;
+    public static final boolean shooter2Inversion = true;
+    public static final int intestineMotorID = 32;
     public static final boolean intestineInversion = false;
-    public static final int pivotMotorID = 61;
+    public static final int pivotMotorID = 31;
     public static final boolean pivotInversion = false;
 
     // 0 indexing
@@ -60,28 +60,32 @@ public final class Constants {
   }
 
   public static class ManipulatorConstants {
-
     // Motor SetPoints
-    public static final double wristSetPointMaxDelta = 0.1;
-    public static final double wristShootingPoint = 2.2857;
-    public static final double wristMin = 0.17;
-    public static final double wristMax = 6.05;
+    public static final double intakeWristSetPointMaxDelta = 0.1;
+    public static final double intakeWristShootingPoint = 2.2857;
+    public static final double intakeWristMin = 0.17;
+    public static final double intakeWristMax = 6.05;
+    
+    public static final double shooterWristSetPointMaxDelta = 0.1;
+    public static final double shooterWristPassOffPoint = 2.2857;
+    public static final double shooterWristMin = 0.17;
+    public static final double shooterWristMax = 6.05;
 
     // Motor PIDs
-    public static final double[] wristPID = { 1.25, 0.005, 0.025 };
-    public static final double wristTolerance = 0.001;
+    public static final double[] intakeWristPID = { 1.25, 0.005, 0.025 };
+    public static final double intakeWristTolerance = 0.001;
+    public static final double[] shooterWristPID = { 1.25, 0.005, 0.025 };
+    public static final double shooterWristTolerance = 0.001;
 
     // Motor Powers
-    public static final double wristMaxPower = 0.4;
+    public static final double intakeWristMaxPower = 0.4;
+    public static final double shooterWristMaxPower = 0.4;
     public static final double elevatorMaxPower = 0.5;
     public static final double intakePower = 1.0;
     public static final double intestinePower = 0.5;
 
     public static final int intakeLimitSwithPort = 0;
-
-    public static final double shooterPivotP = 0.2;
-    public static final double shooterPivotI = 0.2;
-    public static final double shooterPivotD = 0.2;
+    public static final int shooterLimitSwithPort = 0;
   }
   
   public static class Swerve {
