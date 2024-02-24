@@ -27,7 +27,7 @@ public class ShooterWristJoystick extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.incrementWristPos(-RobotContainer.getManipulatorRightJoyX());
+    shooter.incrementWristPos(RobotContainer.getManipulatorLeftJoyY());
   }
 
   // Called once the command ends or is interrupted.

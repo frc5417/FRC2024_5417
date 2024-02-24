@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
+import frc.robot.commands.combined.Intestine;
+import frc.robot.commands.combined.PassOffPoint;
+import frc.robot.commands.combined.Shoot;
 import frc.robot.subsystems.*;
 import edu.wpi.first.hal.HALUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -43,10 +46,14 @@ public class RobotContainer {
   public static TeleopDrive teleopDrive = new TeleopDrive(driveBase/*, manipulator, elevator*/); //ALL SUBSYSTEMS
   public static ToggleIntake intakeIn = new ToggleIntake(intake, 1);
   public static ToggleIntake intakeOut = new ToggleIntake(intake, -1);
-  public static IntakeWristSetPoint intakeShootingPoint = new IntakeWristSetPoint(intake);
+  public static IntakeWristSetPoint intakeShootingPoint = new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeWristShootingPoint);
   public static IntakeWristJoystick intakeWristtJoystick = new IntakeWristJoystick(intake);
   public static ShooterWristJoystick shooterWristJoystick = new ShooterWristJoystick(shooter);
-  public static ShooterWristSetPoint shooterPassOffPoint = new ShooterWristSetPoint(shooter);
+  public static PassOffPoint passOffPoint = new PassOffPoint(intake, shooter);
+  public static Intestine intestineForward = new Intestine(shooter);
+  public static RunIntestine intestineBackward = new RunIntestine(shooter, -1);
+  public static Shoot shoot = new Shoot(shooter, 1.0);
+  public static Shoot shootTrap = new Shoot(shooter, 0.4);
   // public static ElevatorJoystick elevatorJoystick = new ElevatorJoystick(elevator);
 
   private final static CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverPort);
@@ -81,8 +88,12 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
+    m_manipulatorController.povUp().whileTrue(intestineForward);
+    m_manipulatorController.povDown().whileTrue(intestineBackward);
+    m_manipulatorController.y().whileTrue(shoot);
+    m_manipulatorController.x().whileTrue(shootTrap);
     m_manipulatorController.a().whileTrue(intakeShootingPoint);
-    m_manipulatorController.b().whileTrue(shooterPassOffPoint);
+    m_manipulatorController.b().whileTrue(passOffPoint);
     m_manipulatorController.rightTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeIn);
     m_manipulatorController.leftTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeOut);
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

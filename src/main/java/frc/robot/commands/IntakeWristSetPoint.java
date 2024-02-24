@@ -5,21 +5,22 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
 public class IntakeWristSetPoint extends Command {
   /** Creates a new ElevatorJoystick. */
-  private Intake intake;
+  private final Intake intake;
+  private final double setPoint;
 
-  public IntakeWristSetPoint(Intake intake) {
+  public IntakeWristSetPoint(Intake intake, double setPoint) {
     this.intake = intake;
+    this.setPoint = setPoint;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.setWristSetPoint(Constants.ManipulatorConstants.intakeWristShootingPoint);
+    intake.setWristSetPoint(setPoint);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

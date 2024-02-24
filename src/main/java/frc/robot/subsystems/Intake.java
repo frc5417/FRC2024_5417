@@ -38,6 +38,7 @@ public class Intake extends SubsystemBase {
 
     wrist.getEncoder().setPosition(0);
     wristPID.setTolerance(Constants.ManipulatorConstants.intakeWristTolerance);
+    // setWristSetPoint(wantedWristPosition);
   }
 
   @Override
@@ -66,6 +67,7 @@ public class Intake extends SubsystemBase {
 
   public void setWristSetPoint(double wristSetPoint) {
     wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.intakeWristMin, Constants.ManipulatorConstants.intakeWristMax);
+    SmartDashboard.putNumber("Wrist SetPoint", wantedWristPosition);
     wristPID.setSetpoint(wantedWristPosition);
   }
 

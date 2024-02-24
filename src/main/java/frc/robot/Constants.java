@@ -40,9 +40,9 @@ public final class Constants {
 
     // Shooter Motors
     public static final int shooter1MotorID = 33;
-    public static final boolean shooter1Inversion = false;
+    public static final boolean shooter1Inversion = true;
     public static final int shooter2MotorID = 34;
-    public static final boolean shooter2Inversion = true;
+    public static final boolean shooter2Inversion = false;
     public static final int intestineMotorID = 32;
     public static final boolean intestineInversion = false;
     public static final int pivotMotorID = 31;
@@ -63,22 +63,24 @@ public final class Constants {
     // Motor SetPoints
     public static final double intakeWristSetPointMaxDelta = 0.1;
     public static final double intakeWristShootingPoint = 2.2857;
+    public static final double intakeWristPassOffPoint = 0.690476;
     public static final double intakeWristMin = 0.17;
     public static final double intakeWristMax = 6.05;
     
     public static final double shooterWristSetPointMaxDelta = 0.1;
-    public static final double shooterWristPassOffPoint = 2.2857;
-    public static final double shooterWristMin = 0.17;
-    public static final double shooterWristMax = 6.05;
+    public static final double shooterWristPassOffPoint = -1.452382;
+    public static final double shooterWristMin = -24.5;
+    public static final double shooterWristMax = -0.2;
 
     // Motor PIDs
     public static final double[] intakeWristPID = { 1.25, 0.005, 0.025 };
     public static final double intakeWristTolerance = 0.001;
-    public static final double[] shooterWristPID = { 1.25, 0.005, 0.025 };
+    public static final double[] shooterWristPID = { 1, 0.0025, 0.025 };
+    public static final double[] shooterWristPIDUp = { 0.5, 0.00125, 0.035 };
     public static final double shooterWristTolerance = 0.001;
 
     // Motor Powers
-    public static final double intakeWristMaxPower = 0.4;
+    public static final double intakeWristMaxPower = 0.8;
     public static final double shooterWristMaxPower = 0.4;
     public static final double elevatorMaxPower = 0.5;
     public static final double intakePower = 1.0;

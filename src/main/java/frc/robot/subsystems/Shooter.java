@@ -12,8 +12,8 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class Shooter extends SubsystemBase {
   CANSparkMax shooter1 = new CANSparkMax(Constants.MotorConstants.shooter1MotorID, MotorType.kBrushless);
@@ -25,6 +25,7 @@ public class Shooter extends SubsystemBase {
 
   private double wantedWristPosition = 0.0;
   private final double[] wPID = Constants.ManipulatorConstants.shooterWristPID;
+  private final double[] wPIDUp = Constants.ManipulatorConstants.shooterWristPIDUp;
   public final PIDController wristPID = new PIDController(wPID[0], wPID[1], wPID[2]);
   // public final ArmFeedforward forwardPID = new ArmFeedforward(0, 0, 1.95);
 
@@ -41,6 +42,9 @@ public class Shooter extends SubsystemBase {
     wrist.setIdleMode(IdleMode.kBrake);
 
     wristPID.setTolerance(Constants.ManipulatorConstants.shooterWristTolerance);
+    wrist.getEncoder().setPosition(0);
+
+    setWristSetPoint(-0.2);
   }
 
   @Override
@@ -55,8 +59,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setShooter(double power) {
-    shooter1.set(power);
-    shooter2.set(power);
+    shooter1.set(power == 0.4 ? 0.45 : power);
+    shooter2.set(power == 0.4 ? 0.35 : power);
   }
 
   public void setWristPower(double wristPower) {
@@ -70,11 +74,18 @@ public class Shooter extends SubsystemBase {
 
   public void setWristSetPoint(double wristSetPoint) {
     wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.shooterWristMin, Constants.ManipulatorConstants.shooterWristMax);
+
+    if (wantedWristPosition < -11.85) {
+      wristPID.setPID(wPIDUp[0], wPIDUp[1], wPIDUp[1]);
+    } else {
+      wristPID.setPID(wPID[0], wPID[1], wPID[1]);
+    }
+
     wristPID.setSetpoint(wantedWristPosition);
   }
 
-  public void runIntestine() {
-    intestine.set(Constants.ManipulatorConstants.intestinePower);
+  public void runIntestine(double direction) {
+    intestine.set(direction * Constants.ManipulatorConstants.intestinePower);
   }
 
   public void stopIntestine() {

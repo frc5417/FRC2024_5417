@@ -9,18 +9,21 @@ import frc.robot.subsystems.Shooter;
 
 public class RunIntestine extends Command {
   private final Shooter shooter;
+  private final double direction;
 
   /** Creates a new RunShooter. */
-  public RunIntestine(Shooter shooter) {
+  public RunIntestine(Shooter shooter, double direction) {
     this.shooter = shooter;
-    addRequirements(shooter);
+    this.direction = direction;
+
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.runIntestine();
+    shooter.runIntestine(direction);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
