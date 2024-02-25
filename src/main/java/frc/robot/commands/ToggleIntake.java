@@ -27,7 +27,10 @@ public class ToggleIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setIntakePower(direction == -1 ? -RobotContainer.getManipulatorLeftTrigger() : RobotContainer.getManipulatorRightTrigger());
+    intake.setIntakePower(
+      direction == -1 ? -RobotContainer.getManipulatorLeftTrigger() : 
+        direction == 1 ? RobotContainer.getManipulatorRightTrigger() :
+        direction);
   }
 
   // Called once the command ends or is interrupted.

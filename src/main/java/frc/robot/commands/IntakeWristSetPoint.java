@@ -11,10 +11,16 @@ public class IntakeWristSetPoint extends Command {
   /** Creates a new ElevatorJoystick. */
   private final Intake intake;
   private final double setPoint;
+  private final boolean waitUntil;
 
   public IntakeWristSetPoint(Intake intake, double setPoint) {
+    this(intake, setPoint, false);
+  }
+
+  public IntakeWristSetPoint(Intake intake, double setPoint, boolean waitUntil) {
     this.intake = intake;
     this.setPoint = setPoint;
+    this.waitUntil = waitUntil;
   }
 
   // Called when the command is initially scheduled.
@@ -34,6 +40,6 @@ public class IntakeWristSetPoint extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return !waitUntil || intake.atWristSetPoint();
   }
 }

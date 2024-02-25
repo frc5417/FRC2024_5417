@@ -91,4 +91,9 @@ public class Shooter extends SubsystemBase {
   public void stopIntestine() {
     intestine.set(0);
   }
+
+  public boolean atWristSetPoint() {
+    double wristPos = wrist.getEncoder().getPosition();
+    return Math.abs(wristPos - wantedWristPosition) < 0.05;
+  }
 }

@@ -10,7 +10,7 @@ import frc.robot.subsystems.Shooter;
 
 public class ShooterWristJoystick extends Command {
   /** Creates a new ElevatorJoystick. */
-  private Shooter shooter;
+  private final Shooter shooter;
 
   public ShooterWristJoystick(Shooter shooter) {
     this.shooter = shooter;

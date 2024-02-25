@@ -11,10 +11,16 @@ public class ShooterWristSetPoint extends Command {
   /** Creates a new ElevatorJoystick. */
   private final Shooter shooter;
   private final double setPoint;
+  private final boolean waitUntil;
 
   public ShooterWristSetPoint(Shooter shooter, double setPoint) {
+    this(shooter, setPoint, false);
+  }
+
+  public ShooterWristSetPoint(Shooter shooter, double setPoint, boolean waitUntil) {
     this.shooter = shooter;
     this.setPoint = setPoint;
+    this.waitUntil = waitUntil;
   }
 
   // Called when the command is initially scheduled.
@@ -34,6 +40,6 @@ public class ShooterWristSetPoint extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return !waitUntil || shooter.atWristSetPoint();
   }
 }

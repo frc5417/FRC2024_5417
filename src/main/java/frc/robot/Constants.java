@@ -52,7 +52,8 @@ public final class Constants {
     public static final Integer[] driveMotorIDS = {10, 12, 16, 14}; 
     public static final Integer[] angleMotorIDS = {11, 13, 17, 15};
     public static final Integer[] CANCoderID = {3, 4, 1, 2};
-    public static final Double[] motorDegrees = {111.73664, 22.224488, 252.72024, 161.09768};
+    public static final Double[] motorDegrees =
+     {111.73664, 22.224488, 262.72024, 341.09768};
     public static final Double[] angleOffsets = {0.0, 0.0, 0.0, 0.0};
     public static final Double[][] angleMotorPID = {
       {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}};
@@ -61,26 +62,26 @@ public final class Constants {
 
   public static class ManipulatorConstants {
     // Motor SetPoints
-    public static final double intakeWristSetPointMaxDelta = 0.1;
+    public static final double intakeWristSetPointMaxDelta = 0.15;
     public static final double intakeWristShootingPoint = 2.2857;
-    public static final double intakeWristPassOffPoint = 0.690476;
-    public static final double intakeWristMin = 0.17;
-    public static final double intakeWristMax = 6.05;
+    public static final double intakeWristPassOffPoint = 0.642857;
+    public static final double intakeWristMin = 0.60;
+    public static final double intakeWristMax = 18.05;
     
-    public static final double shooterWristSetPointMaxDelta = 0.1;
-    public static final double shooterWristPassOffPoint = -1.452382;
+    public static final double shooterWristSetPointMaxDelta = 0.15;
+    public static final double shooterWristPassOffPoint = -1.619049;
     public static final double shooterWristMin = -24.5;
-    public static final double shooterWristMax = -0.2;
+    public static final double shooterWristMax = -0.4;
 
     // Motor PIDs
-    public static final double[] intakeWristPID = { 1.25, 0.005, 0.025 };
-    public static final double intakeWristTolerance = 0.001;
+    public static final double[] intakeWristPID = { 1, 0.005, 0.025 };
+    public static final double intakeWristTolerance = 0.005;
     public static final double[] shooterWristPID = { 1, 0.0025, 0.025 };
     public static final double[] shooterWristPIDUp = { 0.5, 0.00125, 0.035 };
-    public static final double shooterWristTolerance = 0.001;
-
+    public static final double shooterWristTolerance = 0.004;
+  
     // Motor Powers
-    public static final double intakeWristMaxPower = 0.8;
+    public static final double intakeWristMaxPower = 0.4;
     public static final double shooterWristMaxPower = 0.4;
     public static final double elevatorMaxPower = 0.5;
     public static final double intakePower = 1.0;

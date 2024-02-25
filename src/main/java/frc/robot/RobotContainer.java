@@ -1,6 +1,5 @@
 package frc.robot;
 
-
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.GenericHID;
@@ -9,9 +8,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 // Copyright (c) FIRST and other WPILib contributors.
+
 // Open Source Software; you can modify and/or share it u.nder the terms of
 // the WPILib BSD license file in the root directory of this project.
-
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
@@ -23,14 +22,16 @@ import edu.wpi.first.hal.HALUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
 
   public static AHRS ahrs = new AHRS(SerialPort.Port.kMXP);
   public static Kinematics kinematics = new Kinematics(ahrs);
@@ -42,11 +43,13 @@ public class RobotContainer {
   // public static Elevator elevator = new Elevator();
 
   // Robot Commands
-  // public static AutonLoader autonLoader = new AutonLoader(driveBase, manipulator, elevator); //NEEDED SUBSYSTEMS FOR AUTON, ELEVATOR NOT USED
-  public static TeleopDrive teleopDrive = new TeleopDrive(driveBase/*, manipulator, elevator*/); //ALL SUBSYSTEMS
+  // public static AutonLoader autonLoader = new AutonLoader(driveBase,
+  // manipulator, elevator); //NEEDED SUBSYSTEMS FOR AUTON, ELEVATOR NOT USED
+  public static TeleopDrive teleopDrive = new TeleopDrive(driveBase/* , manipulator, elevator */); // ALL SUBSYSTEMS
   public static ToggleIntake intakeIn = new ToggleIntake(intake, 1);
   public static ToggleIntake intakeOut = new ToggleIntake(intake, -1);
-  public static IntakeWristSetPoint intakeShootingPoint = new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeWristShootingPoint);
+  public static IntakeWristSetPoint intakeShootingPoint = new IntakeWristSetPoint(intake,
+      Constants.ManipulatorConstants.intakeWristShootingPoint);
   public static IntakeWristJoystick intakeWristtJoystick = new IntakeWristJoystick(intake);
   public static ShooterWristJoystick shooterWristJoystick = new ShooterWristJoystick(shooter);
   public static PassOffPoint passOffPoint = new PassOffPoint(intake, shooter);
@@ -54,34 +57,49 @@ public class RobotContainer {
   public static RunIntestine intestineBackward = new RunIntestine(shooter, -1);
   public static Shoot shoot = new Shoot(shooter, 1.0);
   public static Shoot shootTrap = new Shoot(shooter, 0.4);
-  // public static ElevatorJoystick elevatorJoystick = new ElevatorJoystick(elevator);
+  // public static ElevatorJoystick elevatorJoystick = new
+  // ElevatorJoystick(elevator);
 
-  private final static CommandXboxController m_driverController = new CommandXboxController(OperatorConstants.kDriverPort);
-  private final static CommandXboxController m_manipulatorController = new CommandXboxController(OperatorConstants.kManipulatorPort);
+  private final static CommandXboxController m_driverController = new CommandXboxController(
+      OperatorConstants.kDriverPort);
+  private final static CommandXboxController m_manipulatorController = new CommandXboxController(
+      OperatorConstants.kManipulatorPort);
 
   // private static final LightsControl m_lightsControl = new LightsControl();
-  // private static final SetLightConfig lightConfigRed = new SetLightConfig(m_lightsControl, 0);
-  // private static final SetLightConfig lightConfigBlue = new SetLightConfig(m_lightsControl, 4);
-  // private static final SetLightConfig lightConfigColor1 = new SetLightConfig(m_lightsControl, 1);
-  // private static final SetLightConfig lightConfigColor2 = new SetLightConfig(m_lightsControl, 2);
+  // private static final SetLightConfig lightConfigRed = new
+  // SetLightConfig(m_lightsControl, 0);
+  // private static final SetLightConfig lightConfigBlue = new
+  // SetLightConfig(m_lightsControl, 4);
+  // private static final SetLightConfig lightConfigColor1 = new
+  // SetLightConfig(m_lightsControl, 1);
+  // private static final SetLightConfig lightConfigColor2 = new
+  // SetLightConfig(m_lightsControl, 2);
 
-  // public static final PhotonSubsystem m_photonsubsystem = new PhotonSubsystem();
+  // public static final PhotonSubsystem m_photonsubsystem = new
+  // PhotonSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
   }
 
   /**
-   * Use this method to define your trigger->command mappings. Triggers can be created via the
-   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with an arbitrary
+   * Use this method to define your trigger->command mappings. Triggers can be
+   * created via the
+   * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
+   * an arbitrary
    * predicate, or via the named factories in {@link
-   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for {@link
-   * CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-   * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
+   * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
+   * {@link
+   * CommandXboxController
+   * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
+   * PS4} controllers or
+   * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
    * joysticks}.
    */
 
@@ -96,7 +114,8 @@ public class RobotContainer {
     m_manipulatorController.b().whileTrue(passOffPoint);
     m_manipulatorController.rightTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeIn);
     m_manipulatorController.leftTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeOut);
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is
+    // pressed,
     // cancelling on release.
     // m_driverController.povUp().onTrue(lightConfigRed);
     // m_driverController.povDown().onTrue(lightConfigBlue);
@@ -108,29 +127,32 @@ public class RobotContainer {
     m_driverController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, rumbleVal);
   }
 
-    public static double getLeftJoyX() {
-        if (Math.abs(m_driverController.getLeftX()) > Constants.OperatorConstants.joystickDeadband) {
-          return -1 * m_driverController.getLeftX();
-        } else {
-          return 0;
-        }
-      }
-      public static double getLeftJoyY() {
-        if (Math.abs(m_driverController.getLeftY()) > Constants.OperatorConstants.joystickDeadband) {
-          return m_driverController.getLeftY();
-        } else {
-          return 0;
-        }
-      }
-      public static double getRightJoyX() {
-        if (Math.abs(m_driverController.getRightX()) > Constants.OperatorConstants.joystickDeadband) {
-          return m_driverController.getRightX();
-        } else {
-          return 0;
-        }
-      }
+  public static double getLeftJoyX() {
+    if (Math.abs(m_driverController.getLeftX()) > Constants.OperatorConstants.joystickDeadband) {
+      return -1 * m_driverController.getLeftX();
+    } else {
+      return 0;
+    }
+  }
+
+  public static double getLeftJoyY() {
+    if (Math.abs(m_driverController.getLeftY()) > Constants.OperatorConstants.joystickDeadband) {
+      return m_driverController.getLeftY();
+    } else {
+      return 0;
+    }
+  }
+
+  public static double getRightJoyX() {
+    if (Math.abs(m_driverController.getRightX()) > Constants.OperatorConstants.joystickDeadband) {
+      return m_driverController.getRightX() * 0.5;
+    } else {
+      return 0;
+    }
+  }
   // public static void setManipulatorRumble(double rumbleVal) {
-  //   m_manipulatorController.getHID().setRumble(GenericHID.RumbleType.kBothRumble, rumbleVal);
+  // m_manipulatorController.getHID().setRumble(GenericHID.RumbleType.kBothRumble,
+  // rumbleVal);
   // }
 
   public static double getDriverLeftJoyX() {
@@ -143,7 +165,7 @@ public class RobotContainer {
 
   public static double getDriverLeftJoyY() {
     if (Math.abs(m_driverController.getLeftY()) > Constants.OperatorConstants.joystickDeadband) {
-      return -m_driverController.getLeftY();
+      return -m_driverController.getLeftY() * 0.5;
     } else {
       return 0;
     }
@@ -164,6 +186,7 @@ public class RobotContainer {
       return 0;
     }
   }
+
   // =========================================================
   public static double getManipulatorLeftJoyY() {
     if (Math.abs(m_manipulatorController.getLeftY()) > Constants.OperatorConstants.joystickDeadband) {
@@ -214,27 +237,27 @@ public class RobotContainer {
   }
 
   // public static Boolean getManipulatorBBool() {
-  //   return m_manipulatorController.b().getAsBoolean();
+  // return m_manipulatorController.b().getAsBoolean();
   // }
 
   // public static Boolean getManipulatorABool() {
-  //   return m_manipulatorController.a().getAsBoolean();
+  // return m_manipulatorController.a().getAsBoolean();
   // }
 
   // public static Boolean getManipulatorXBool() {
-  //   return m_manipulatorController.x().getAsBoolean();
+  // return m_manipulatorController.x().getAsBoolean();
   // }
 
   // public static Boolean getManipulatorYBool() {
-  //   return m_manipulatorController.y().getAsBoolean();
+  // return m_manipulatorController.y().getAsBoolean();
   // }
 
   // public static Boolean getManipulatorLeftBumperBool() {
-  //   return m_manipulatorController.leftBumper().getAsBoolean();
+  // return m_manipulatorController.leftBumper().getAsBoolean();
   // }
 
   // public static Boolean getManipulatorRightBumperBool() {
-  //   return m_manipulatorController.rightBumper().getAsBoolean();
+  // return m_manipulatorController.rightBumper().getAsBoolean();
   // }
 
   public static long getFPGATime() {
@@ -247,7 +270,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   // public Command getAutonomousCommand() {
-  //   return autonLoader.getAuton();
+  // return autonLoader.getAuton();
   // }
 
   public void runTeleopCommand() {
@@ -266,19 +289,20 @@ public class RobotContainer {
   }
 
   // public static void setLEDsOff() {
-  //   m_lightsControl.setLightConfig(3);
+  // m_lightsControl.setLightConfig(3);
   // }
 
   // public static void setLEDsOn() {
-  //   m_lightsControl.setLightConfig(0);
+  // m_lightsControl.setLightConfig(0);
   // }
 
   public static double findClockTime(double seconds) {
-    double clocktime = (seconds/0.02);
+    double clocktime = (seconds / 0.02);
     return clocktime;
   }
 
   public static ChassisSpeeds getSaturatedSpeeds(double xVel, double yVel, double omega) {
-    return new ChassisSpeeds(xVel*Constants.Swerve.XPercentage, yVel*Constants.Swerve.YPercentage, omega*Constants.Swerve.angularPercentage);
+    return new ChassisSpeeds(xVel * Constants.Swerve.XPercentage, yVel * Constants.Swerve.YPercentage,
+        omega * Constants.Swerve.angularPercentage);
   }
 }
