@@ -25,7 +25,6 @@ public class Shooter extends SubsystemBase {
 
   private double wantedWristPosition = 0.0;
   private final double[] wPID = Constants.ManipulatorConstants.shooterWristPID;
-  private final double[] wPIDUp = Constants.ManipulatorConstants.shooterWristPIDUp;
   public final PIDController wristPID = new PIDController(wPID[0], wPID[1], wPID[2]);
   // public final ArmFeedforward forwardPID = new ArmFeedforward(0, 0, 1.95);
 
@@ -75,11 +74,14 @@ public class Shooter extends SubsystemBase {
   public void setWristSetPoint(double wristSetPoint) {
     wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.shooterWristMin, Constants.ManipulatorConstants.shooterWristMax);
 
-    if (wantedWristPosition < -11.85) {
-      wristPID.setPID(wPIDUp[0], wPIDUp[1], wPIDUp[1]);
+    /*if (wantedWristPosition < -11.85) {
+      wristPID.setPID(wPID[0], wPID[1], wPID[1]);
     } else {
       wristPID.setPID(wPID[0], wPID[1], wPID[1]);
     }
+    // old pid for wrist (up/normal)*/
+
+    wristPID.setPID(wPID[0], wPID[1], wPID[2]);
 
     wristPID.setSetpoint(wantedWristPosition);
   }
@@ -94,6 +96,6 @@ public class Shooter extends SubsystemBase {
 
   public boolean atWristSetPoint() {
     double wristPos = wrist.getEncoder().getPosition();
-    return Math.abs(wristPos - wantedWristPosition) < 0.05;
+    return Math.abs(wristPos - wantedWristPosition) < 0.5;
   }
 }

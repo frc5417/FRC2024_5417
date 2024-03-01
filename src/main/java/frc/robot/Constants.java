@@ -27,6 +27,9 @@ public final class Constants {
 
   public static class MotorConstants {
 
+    //Wrist overcurrent safety
+    public static final int maxWristPowerCycles = 500; //Each second is 10 cycles
+
     // Intake Motors
     public static final int wristMotorID = 22;
     public static final boolean wristMotorInversion = false;
@@ -62,26 +65,26 @@ public final class Constants {
 
   public static class ManipulatorConstants {
     // Motor SetPoints
-    public static final double intakeWristSetPointMaxDelta = 0.15;
+    public static final double intakeWristSetPointMaxDelta = 0.3;
     public static final double intakeWristShootingPoint = 2.2857;
-    public static final double intakeWristPassOffPoint = 0.642857;
+    public static final double intakeWristPassOffPoint = 1.78574;
     public static final double intakeWristMin = 0.60;
-    public static final double intakeWristMax = 18.05;
+    public static final double intakeWristMax = 27.85;
     
     public static final double shooterWristSetPointMaxDelta = 0.15;
-    public static final double shooterWristPassOffPoint = -1.619049;
+    public static final double shooterWristPassOffPoint = -1.928572;
     public static final double shooterWristMin = -24.5;
     public static final double shooterWristMax = -0.4;
 
     // Motor PIDs
-    public static final double[] intakeWristPID = { 1, 0.005, 0.025 };
+    public static final double[] intakeWristPID = { .6, 0.007, 0.015 };
     public static final double intakeWristTolerance = 0.005;
-    public static final double[] shooterWristPID = { 1, 0.0025, 0.025 };
-    public static final double[] shooterWristPIDUp = { 0.5, 0.00125, 0.035 };
+    public static final double[] shooterWristPID = {  0.5, 0.00125, 0.00125  };
+    //public static final double[] shooterWristPIDUp = { 0.5, 0.00125, 0.035 };
     public static final double shooterWristTolerance = 0.004;
   
     // Motor Powers
-    public static final double intakeWristMaxPower = 0.4;
+    public static final double intakeWristMaxPower = 0.3;
     public static final double shooterWristMaxPower = 0.4;
     public static final double elevatorMaxPower = 0.5;
     public static final double intakePower = 1.0;

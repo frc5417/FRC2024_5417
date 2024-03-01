@@ -16,13 +16,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 public class Intake extends SubsystemBase {
   CANSparkMax wrist = new CANSparkMax(Constants.MotorConstants.wristMotorID, MotorType.kBrushless);
   CANSparkMax intake = new CANSparkMax(Constants.MotorConstants.intakeMotorID, MotorType.kBrushless);
   
   DigitalInput intakeSwitch = new DigitalInput(Constants.ManipulatorConstants.intakeLimitSwithPort);  
-  
+  private int cyclesElapsed = 0;
   private double wantedWristPosition = 0.0;
   private final double[] wPID = Constants.ManipulatorConstants.intakeWristPID;
   public final PIDController wristPID = new PIDController(wPID[0], wPID[1], wPID[2]);
@@ -49,7 +50,22 @@ public class Intake extends SubsystemBase {
 
     double power = wristPID.calculate(wristPos);
     SmartDashboard.putNumber("Wrist PID", power);
+    
+    if (!atWristSetPoint() && Robot.INSTANCE != null && Robot.INSTANCE.isEnabled()){
+      cyclesElapsed ++;
+    } else {
+      cyclesElapsed = 0;
+    }
+
+    if (cyclesElapsed >= frc.robot.Constants.MotorConstants.maxWristPowerCycles){
+      power = 0;
+      if (cyclesElapsed % 10 == 0){ 
+         System.out.println("WARNING: Intake pivot motor detected invalid setpoint. Disabling intake pivot.");
+      }
+    }
+
     setWristPower(MathUtil.clamp(power, -1, 1));
+
   }
 
   public void setIntakePower(double intakePower) {
@@ -73,7 +89,7 @@ public class Intake extends SubsystemBase {
 
   public boolean atWristSetPoint() {
     double wristPos = wrist.getEncoder().getPosition();
-    return Math.abs(wristPos - wantedWristPosition) < 0.05;
+    return Math.abs(wristPos - wantedWristPosition) < 1;
   }
 
   public boolean limitSwitch() {

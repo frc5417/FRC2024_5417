@@ -4,28 +4,31 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
-  CANSparkMax elevator = new CANSparkMax(Constants.MotorConstants.elevatorMotorID, MotorType.kBrushless);
+  TalonSRX elevator = new TalonSRX(Constants.MotorConstants.elevatorMotorID);
   /** Creates a new Elevator. */
   public Elevator() {
     elevator.setInverted(Constants.MotorConstants.elevatorMotorInversion);
 
-    elevator.setIdleMode(IdleMode.kBrake);
+    // elevator.setIdleMode(IdleMode.kBrake);
   }
-
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   public void setElevatorPower(double elevatorPower) {
-    elevator.set(Constants.ManipulatorConstants.elevatorMaxPower*elevatorPower);
+    SmartDashboard.putNumber("Elevator Power",  Constants.ManipulatorConstants.elevatorMaxPower * elevatorPower);
+
+    elevator.set(TalonSRXControlMode.PercentOutput, Constants.ManipulatorConstants.elevatorMaxPower * elevatorPower);
   }
 }

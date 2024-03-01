@@ -4,6 +4,8 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -16,7 +18,6 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.combined.Intestine;
 import frc.robot.commands.combined.PassOffPoint;
-import frc.robot.commands.combined.Shoot;
 import frc.robot.subsystems.*;
 import edu.wpi.first.hal.HALUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -40,14 +41,14 @@ public class RobotContainer {
   public static DriveBase driveBase = new DriveBase(kinematics, ahrs);
   public static Intake intake = new Intake();
   public static Shooter shooter = new Shooter();
-  // public static Elevator elevator = new Elevator();
+  public static Elevator elevator = new Elevator();
 
   // Robot Commands
   // public static AutonLoader autonLoader = new AutonLoader(driveBase,
   // manipulator, elevator); //NEEDED SUBSYSTEMS FOR AUTON, ELEVATOR NOT USED
   public static TeleopDrive teleopDrive = new TeleopDrive(driveBase/* , manipulator, elevator */); // ALL SUBSYSTEMS
-  public static ToggleIntake intakeIn = new ToggleIntake(intake, 1);
-  public static ToggleIntake intakeOut = new ToggleIntake(intake, -1);
+  public static ToggleIntake intakeOut = new ToggleIntake(intake, 1);
+  public static ToggleIntake intakeIn = new ToggleIntake(intake, -1);
   public static IntakeWristSetPoint intakeShootingPoint = new IntakeWristSetPoint(intake,
       Constants.ManipulatorConstants.intakeWristShootingPoint);
   public static IntakeWristJoystick intakeWristtJoystick = new IntakeWristJoystick(intake);
@@ -55,10 +56,7 @@ public class RobotContainer {
   public static PassOffPoint passOffPoint = new PassOffPoint(intake, shooter);
   public static Intestine intestineForward = new Intestine(shooter);
   public static RunIntestine intestineBackward = new RunIntestine(shooter, -1);
-  public static Shoot shoot = new Shoot(shooter, 1.0);
-  public static Shoot shootTrap = new Shoot(shooter, 0.4);
-  // public static ElevatorJoystick elevatorJoystick = new
-  // ElevatorJoystick(elevator);
+  public static ElevatorJoystick elevatorJoystick = new ElevatorJoystick(elevator);
 
   private final static CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverPort);
@@ -106,14 +104,41 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    m_manipulatorController.povUp().whileTrue(intestineForward);
+    m_manipulatorController.povUp().whileTrue(intestineForward).whileTrue(intakeOut);
     m_manipulatorController.povDown().whileTrue(intestineBackward);
-    m_manipulatorController.y().whileTrue(shoot);
-    m_manipulatorController.x().whileTrue(shootTrap);
+    m_manipulatorController.y().whileTrue(
+      Commands.race(
+        new RunIntestine(shooter, -0.2),
+        new CustomWaitCommand(.1)
+      ).andThen(
+        Commands.parallel(
+          new RunShooter(shooter, 1),
+          Commands.race(
+            new ShooterWristSetPoint(shooter, -4.428567, true),
+            new CustomWaitCommand(1.5)
+          ).andThen(
+            new WaitCommand(0.25).andThen(
+              new RunIntestine(shooter, 1)
+            )
+          )
+        )
+      )
+    );
+    m_manipulatorController.x().whileTrue(
+      Commands.parallel(
+        new RunShooter(shooter, 0.4),
+        Commands.race(
+          new RunIntestine(shooter, -0.2),
+          new WaitCommand(.1)
+        ).andThen(
+          new RunIntestine(shooter, 1)
+        )
+      )
+    );
     m_manipulatorController.a().whileTrue(intakeShootingPoint);
     m_manipulatorController.b().whileTrue(passOffPoint);
-    m_manipulatorController.rightTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeIn);
-    m_manipulatorController.leftTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeOut);
+    m_manipulatorController.rightTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeOut);
+    m_manipulatorController.leftTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeIn);
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.
@@ -165,7 +190,7 @@ public class RobotContainer {
 
   public static double getDriverLeftJoyY() {
     if (Math.abs(m_driverController.getLeftY()) > Constants.OperatorConstants.joystickDeadband) {
-      return -m_driverController.getLeftY() * 0.5;
+      return -m_driverController.getLeftY();
     } else {
       return 0;
     }
@@ -252,13 +277,17 @@ public class RobotContainer {
   // return m_manipulatorController.y().getAsBoolean();
   // }
 
-  // public static Boolean getManipulatorLeftBumperBool() {
-  // return m_manipulatorController.leftBumper().getAsBoolean();
-  // }
+  public static Boolean getManipulatorLeftBumperBool() {
+  return m_manipulatorController.leftBumper().getAsBoolean();
+  }
 
-  // public static Boolean getManipulatorRightBumperBool() {
-  // return m_manipulatorController.rightBumper().getAsBoolean();
-  // }
+  public static Boolean getManipulatorRightBumperBool() {
+  return m_manipulatorController.rightBumper().getAsBoolean();
+  }
+
+  public static Boolean getDPadUp() {
+  return m_manipulatorController.povUp().getAsBoolean();
+  }
 
   public static long getFPGATime() {
     return HALUtil.getFPGATime();
@@ -275,7 +304,7 @@ public class RobotContainer {
 
   public void runTeleopCommand() {
     teleopDrive.schedule();
-    // elevatorJoystick.schedule();
+    elevatorJoystick.schedule();
     intakeWristtJoystick.schedule();
     shooterWristJoystick.schedule();
 
@@ -283,7 +312,7 @@ public class RobotContainer {
 
   public void stopTeleopCommand() {
     teleopDrive.cancel();
-    // elevatorJoystick.cancel();
+    elevatorJoystick.cancel();
     intakeWristtJoystick.cancel();
     shooterWristJoystick.cancel();
   }

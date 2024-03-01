@@ -5,19 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
-import frc.robot.subsystems.Intake;
 
-public class ToggleIntake extends Command {
-  private final Intake intake;
-  private final double direction;
-  /** Creates a new ToggleIntake. */
-  public ToggleIntake(Intake intake, double direction) {
-    this.intake = intake;
-    this.direction = direction;
-    
+public class CustomWaitCommand extends Command {
+  private int runsLeft = 0;
+
+  /** Creates a new CustomWaitCommand. */
+  public CustomWaitCommand(double seconds) {
+    runsLeft = (int) (seconds * (1000.0 / 20.0));
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -27,25 +22,18 @@ public class ToggleIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(RobotContainer.getDPadUp()){
-      intake.setIntakePower(0.45);
-    }else{
-      intake.setIntakePower(
-        direction == -1 ? -RobotContainer.getManipulatorLeftTrigger() : 
-          direction == 1 ? RobotContainer.getManipulatorRightTrigger() :
-          direction);
-    }
+    runsLeft -= 1;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setIntakePower(0);
+    runsLeft = 0;
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.limitSwitch();
+    return runsLeft <= 0;
   }
 }
