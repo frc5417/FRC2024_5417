@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.Constants.LimelightConstants;
 
 public class Shooter extends SubsystemBase {
   CANSparkMax shooter1 = new CANSparkMax(Constants.MotorConstants.shooter1MotorID, MotorType.kBrushless);
@@ -72,18 +73,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setWristSetPoint(double wristSetPoint) {
-    wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.shooterWristMin, Constants.ManipulatorConstants.shooterWristMax);
-
-    /*if (wantedWristPosition < -11.85) {
-      wristPID.setPID(wPID[0], wPID[1], wPID[1]);
-    } else {
-      wristPID.setPID(wPID[0], wPID[1], wPID[1]);
-    }
-    // old pid for wrist (up/normal)*/
-
-    wristPID.setPID(wPID[0], wPID[1], wPID[2]);
-
-    wristPID.setSetpoint(wantedWristPosition);
+    wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.shooterWristMin, Constants.ManipulatorConstants.shooterWristMax);    wristPID.setSetpoint(wantedWristPosition);
   }
 
   public void runIntestine(double direction) {
@@ -92,6 +82,12 @@ public class Shooter extends SubsystemBase {
 
   public void stopIntestine() {
     intestine.set(0);
+  }
+
+  public void goToDegrees(double degrees) {
+    double wantedDegrees = Vision.getTargetShooterAngle();
+    double wantedPosition = (wantedDegrees - LimelightConstants.startingShooterDegrees) / LimelightConstants.shooterDegreeRatio;
+    setWristSetPoint(wantedPosition);
   }
 
   public boolean atWristSetPoint() {

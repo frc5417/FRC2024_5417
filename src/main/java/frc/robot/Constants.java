@@ -124,8 +124,9 @@ public final class Constants {
   }
 
   public static class DriveTrainConstants {
-    public static final double DRIVETRAIN_WIDTH = 0.6604; // in meters
-  
+    public static final double driveTrainWidth = 0.6604; // in meters
+    public static final double driveBaseRadius = 0.3502406; // in meters
+
     public static final PIDConstants ROTATION_PID = new PIDConstants(0, 0, 0);
     public static final PIDConstants TRANSLATION_PID = new PIDConstants(0, 0, 0);
     public static final Integer wheels = 4;
@@ -137,24 +138,12 @@ public final class Constants {
     public static final String[] paths = {"rotateInPlace, moveForward, PathPlannerTest"};
   }
 
-  // public static class VisionConstants {
-  //   public static final Transform3d robotToCam =
-  //           new Transform3d(
-  //                  new Translation3d(0.5, 0.0, 0.5),
-  //                   new Rotation3d(
-  //                           0, 0,
-  //                           0)); 
-
-  //   // Cam mounted facing forward, half a meter forward of center, half a meter up from center.
-  //   public static final String cameraName = "OV5647";
-  //   public static final double maxDistanceAway = 2.0;
-  //   public static final double forwardKP = 0.1;
-  //   public static final double forwardToAngleRatio = 0.5;
-    
-  //   public static final double CAMERA_HEIGHT_METERS = 0.72;
-  //   public static final double TARGET_HEIGHT_METERS = 0;
-  //   public static final double CAMERA_PITCH_RADIANS = 0;
-  // }
+  public static class LimelightConstants {
+    public static final double limelightToShooterX = 0.01; // in meters
+    public static final double limelightToShooterY = 0.25; // in meters
+    public static final double startingShooterDegrees = 5;
+    public static final double shooterDegreeRatio = 360 / 45; // 45 : 1
+  }
 
   public static class FieldConstants {
     public static final double length = Units.feetToMeters(54);

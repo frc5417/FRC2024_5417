@@ -1,9 +1,11 @@
 package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -44,8 +46,7 @@ public class RobotContainer {
   public static Elevator elevator = new Elevator();
 
   // Robot Commands
-  // public static AutonLoader autonLoader = new AutonLoader(driveBase,
-  // manipulator, elevator); //NEEDED SUBSYSTEMS FOR AUTON, ELEVATOR NOT USED
+  public static AutonLoader autonLoader = new AutonLoader(driveBase);
   public static TeleopDrive teleopDrive = new TeleopDrive(driveBase/* , manipulator, elevator */); // ALL SUBSYSTEMS
   public static ToggleIntake intakeOut = new ToggleIntake(intake, 1);
   public static ToggleIntake intakeIn = new ToggleIntake(intake, -1);
@@ -57,6 +58,22 @@ public class RobotContainer {
   public static Intestine intestineForward = new Intestine(shooter);
   public static RunIntestine intestineBackward = new RunIntestine(shooter, -1);
   public static ElevatorJoystick elevatorJoystick = new ElevatorJoystick(elevator);
+  public static Command shoot = Commands.race(
+      new RunIntestine(shooter, -0.2),
+      new CustomWaitCommand(.1)
+    ).andThen(
+      Commands.parallel(
+        new RunShooter(shooter, 1),
+        Commands.race(
+          new ShooterWristSetPoint(shooter, -4.428567, true),
+          new CustomWaitCommand(1.5)
+        ).andThen(
+          new WaitCommand(0.25).andThen(
+            new RunIntestine(shooter, 1)
+          )
+        )
+      )
+    );
 
   private final static CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverPort);
@@ -81,7 +98,10 @@ public class RobotContainer {
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  public RobotContainer() {
+  public RobotContainer() {  
+    // Register Named Commands
+    NamedCommands.registerCommand("Shoot", shoot);
+
     // Configure the trigger bindings
     configureBindings();
   }
@@ -106,24 +126,7 @@ public class RobotContainer {
 
     m_manipulatorController.povUp().whileTrue(intestineForward).whileTrue(intakeOut);
     m_manipulatorController.povDown().whileTrue(intestineBackward);
-    m_manipulatorController.y().whileTrue(
-      Commands.race(
-        new RunIntestine(shooter, -0.2),
-        new CustomWaitCommand(.1)
-      ).andThen(
-        Commands.parallel(
-          new RunShooter(shooter, 1),
-          Commands.race(
-            new ShooterWristSetPoint(shooter, -4.428567, true),
-            new CustomWaitCommand(1.5)
-          ).andThen(
-            new WaitCommand(0.25).andThen(
-              new RunIntestine(shooter, 1)
-            )
-          )
-        )
-      )
-    );
+    m_manipulatorController.y().whileTrue(shoot);
     m_manipulatorController.x().whileTrue(
       Commands.parallel(
         new RunShooter(shooter, 0.4),
@@ -298,9 +301,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  // return autonLoader.getAuton();
-  // }
+  public Command getAutonomousCommand() {
+    return autonLoader.getAuton();
+  }
 
   public void runTeleopCommand() {
     teleopDrive.schedule();
