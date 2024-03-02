@@ -58,22 +58,25 @@ public class RobotContainer {
   public static Intestine intestineForward = new Intestine(shooter);
   public static RunIntestine intestineBackward = new RunIntestine(shooter, -1);
   public static ElevatorJoystick elevatorJoystick = new ElevatorJoystick(elevator);
-  public static Command shoot = Commands.race(
+  public static AutoAlign autoAlign = new AutoAlign(driveBase, shooter);
+  public static Command shoot = autoAlign.andThen(
+    Commands.race(
       new RunIntestine(shooter, -0.2),
-      new CustomWaitCommand(.1)
+      new WaitCommand(.1)
     ).andThen(
       Commands.parallel(
         new RunShooter(shooter, 1),
         Commands.race(
           new ShooterWristSetPoint(shooter, -4.428567, true),
-          new CustomWaitCommand(1.5)
+          new WaitCommand(1.5)
         ).andThen(
           new WaitCommand(0.25).andThen(
             new RunIntestine(shooter, 1)
           )
         )
       )
-    );
+    )
+  );
 
   private final static CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverPort);
@@ -98,7 +101,7 @@ public class RobotContainer {
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
-  public RobotContainer() {  
+  public RobotContainer() {
     // Register Named Commands
     NamedCommands.registerCommand("Shoot", shoot);
 

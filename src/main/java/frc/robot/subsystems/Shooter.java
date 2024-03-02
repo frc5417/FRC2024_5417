@@ -84,7 +84,7 @@ public class Shooter extends SubsystemBase {
     intestine.set(0);
   }
 
-  public void goToDegrees(double degrees) {
+  public void goToTarget() {
     double wantedDegrees = Vision.getTargetShooterAngle();
     double wantedPosition = (wantedDegrees - LimelightConstants.startingShooterDegrees) / LimelightConstants.shooterDegreeRatio;
     setWristSetPoint(wantedPosition);

@@ -14,7 +14,9 @@ import frc.robot.Constants.LimelightConstants;
 
 public class Vision extends SubsystemBase {
   private static final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-  private static final NetworkTableEntry targetPose = table.getEntry("targetpose_cameraspace");
+  private static final NetworkTableEntry tidEntry = table.getEntry("tid");
+  private static final NetworkTableEntry txEntry = table.getEntry("tx");
+  private static final NetworkTableEntry targetPoseEntry = table.getEntry("targetpose_cameraspace");
   // private static final NetworkTableEntry priorityid = table.getEntry("priorityid");
 
   /** Creates a new Vision. */
@@ -26,8 +28,17 @@ public class Vision extends SubsystemBase {
   }
 
   public static Pose3d getTargetPose() {
-    double[] pose = targetPose.getDoubleArray(new double[6]);
-    return new Pose3d(pose[0], pose[1], pose[2], new Rotation3d(pose[3], pose[4], pose[5]));
+    double[] pose = targetPoseEntry.getDoubleArray(new double[6]);
+    return new Pose3d(pose[0], pose[1], pose[2],
+      new Rotation3d(Math.toRadians(pose[3]), Math.toRadians(pose[4]), Math.toRadians(pose[5])));
+  }
+
+  public static double getTID() {
+    return tidEntry.getDouble(-1);
+  }
+
+  public static double getTX() {
+    return txEntry.getDouble(0.0);
   }
 
   public static double getTargetX() {
