@@ -59,8 +59,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setShooter(double power) {
-    shooter1.set(power == 0.4 ? 0.45 : power);
-    shooter2.set(power == 0.4 ? 0.35 : power);
+    shooter1.set(power);
+    shooter2.set(power == 0 ? 0 : power - 0.05);
   }
 
   public void setWristPower(double wristPower) {
@@ -85,8 +85,12 @@ public class Shooter extends SubsystemBase {
   }
 
   public void goToTarget() {
-    double wantedDegrees = Vision.getTargetShooterAngle();
+    double wantedDegrees = (Vision.getTargetShooterAngle() - LimelightConstants.limelightAngle);
     double wantedPosition = (wantedDegrees - LimelightConstants.startingShooterDegrees) / LimelightConstants.shooterDegreeRatio;
+    
+    SmartDashboard.putNumber("visionWantedDegrees", wantedDegrees);
+    SmartDashboard.putNumber("visionWantedPos", wantedPosition);
+    
     setWristSetPoint(wantedPosition);
   }
 

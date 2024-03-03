@@ -67,12 +67,12 @@ public final class Constants {
     // Motor SetPoints
     public static final double intakeWristSetPointMaxDelta = 0.3;
     public static final double intakeWristShootingPoint = 2.2857;
-    public static final double intakeWristPassOffPoint = 1.78574;
+    public static final double intakeWristPassOffPoint = 1.68574;
     public static final double intakeWristMin = 0.60;
     public static final double intakeWristMax = 27.85;
     
     public static final double shooterWristSetPointMaxDelta = 0.15;
-    public static final double shooterWristPassOffPoint = -1.928572;
+    public static final double shooterWristPassOffPoint = -1.958572;
     public static final double shooterWristMin = -24.5;
     public static final double shooterWristMax = -0.4;
 
@@ -127,7 +127,7 @@ public final class Constants {
     public static final double driveTrainWidth = 0.6604; // in meters
     public static final double driveBaseRadius = 0.3502406; // in meters
 
-    public static final PIDConstants ROTATION_PID = new PIDConstants(0.25, 0, 0);
+    public static final PIDConstants ROTATION_PID = new PIDConstants(0.25, 0.01, 0);
     public static final PIDConstants TRANSLATION_PID = new PIDConstants(0, 0, 0);
     public static final Integer wheels = 4;
     public static final boolean[] invertedMotors = {true, true, true, false};
@@ -139,8 +139,10 @@ public final class Constants {
   }
 
   public static class LimelightConstants {
+    public static final double limelightAngle = 20.0; // in degrees
     public static final double limelightToShooterX = 0.01; // in meters
-    public static final double limelightToShooterY = 0.25; // in meters
+    public static final double limelightToShooterY = 0.3429; // in meters
+    public static final double aprilTagToTarget = -0.30595; // in meters
     public static final double startingShooterDegrees = 5;
     public static final double shooterDegreeRatio = 360 / 45; // 45 : 1
   }

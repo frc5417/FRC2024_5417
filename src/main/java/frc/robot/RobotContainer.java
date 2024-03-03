@@ -46,7 +46,7 @@ public class RobotContainer {
   public static Elevator elevator = new Elevator();
 
   // Robot Commands
-  public static AutonLoader autonLoader = new AutonLoader(driveBase);
+  public static AutonLoader autonLoader;
   public static TeleopDrive teleopDrive = new TeleopDrive(driveBase/* , manipulator, elevator */); // ALL SUBSYSTEMS
   public static ToggleIntake intakeOut = new ToggleIntake(intake, 1);
   public static ToggleIntake intakeIn = new ToggleIntake(intake, -1);
@@ -59,44 +59,32 @@ public class RobotContainer {
   public static RunIntestine intestineBackward = new RunIntestine(shooter, -1);
   public static ElevatorJoystick elevatorJoystick = new ElevatorJoystick(elevator);
   public static AutoAlign autoAlign = new AutoAlign(driveBase, shooter);
-  public static Command shoot = autoAlign.andThen(
-    Commands.race(
-      new RunIntestine(shooter, -0.2),
-      new WaitCommand(.1)
+  public static Command shoot = Commands.race(
+    autoAlign,
+    new WaitCommand(0.5)
     ).andThen(
-      Commands.parallel(
-        new RunShooter(shooter, 1),
-        Commands.race(
-          new ShooterWristSetPoint(shooter, -4.428567, true),
-          new WaitCommand(1.5)
-        ).andThen(
-          new WaitCommand(0.25).andThen(
-            new RunIntestine(shooter, 1)
+      Commands.race(
+        new RunIntestine(shooter, -0.2),
+        new WaitCommand(.1)
+      ).andThen(
+        Commands.parallel(
+          new RunShooter(shooter, 1),
+          Commands.race(
+            // new ShooterWristSetPoint(shooter, -4.428567, true),
+            new WaitCommand(0.25)
+          ).andThen(
+            new WaitCommand(0.25).andThen(
+              new RunIntestine(shooter, 1)
+            )
           )
         )
       )
-    )
-  );
+    );
 
   private final static CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverPort);
   private final static CommandXboxController m_manipulatorController = new CommandXboxController(
       OperatorConstants.kManipulatorPort);
-
-  // private static final LightsControl m_lightsControl = new LightsControl();
-  // private static final SetLightConfig lightConfigRed = new
-  // SetLightConfig(m_lightsControl, 0);
-  // private static final SetLightConfig lightConfigBlue = new
-  // SetLightConfig(m_lightsControl, 4);
-  // private static final SetLightConfig lightConfigColor1 = new
-  // SetLightConfig(m_lightsControl, 1);
-  // private static final SetLightConfig lightConfigColor2 = new
-  // SetLightConfig(m_lightsControl, 2);
-
-  // public static final PhotonSubsystem m_photonsubsystem = new
-  // PhotonSubsystem();
-
-  // Replace with CommandPS4Controller or CommandJoystick if needed
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -104,6 +92,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Register Named Commands
     NamedCommands.registerCommand("Shoot", shoot);
+
+    autonLoader = new AutonLoader(driveBase, shooter);
 
     // Configure the trigger bindings
     configureBindings();
@@ -127,6 +117,8 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
+
+    m_driverController.b().whileTrue(new RunShooter(shooter, -.15));
     m_manipulatorController.povUp().whileTrue(intestineForward).whileTrue(intakeOut);
     m_manipulatorController.povDown().whileTrue(intestineBackward);
     m_manipulatorController.y().whileTrue(shoot);

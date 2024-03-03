@@ -17,7 +17,7 @@ public class Vision extends SubsystemBase {
   private static final NetworkTableEntry tidEntry = table.getEntry("tid");
   private static final NetworkTableEntry txEntry = table.getEntry("tx");
   private static final NetworkTableEntry targetPoseEntry = table.getEntry("targetpose_cameraspace");
-  // private static final NetworkTableEntry priorityid = table.getEntry("priorityid");
+  private static final NetworkTableEntry priorityid = table.getEntry("priorityid");
 
   /** Creates a new Vision. */
   public Vision() {}
@@ -25,6 +25,7 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    priorityid.setNumberArray
   }
 
   public static Pose3d getTargetPose() {
@@ -56,11 +57,19 @@ public class Vision extends SubsystemBase {
   public static double getTargetShooterAngle() {
     Pose3d pose = getTargetPose();
 
+    if (Math.sqrt(Math.pow(pose.getX(), 2)+Math.pow(pose.getZ(), 2)) > 2.2) return Math.toDegrees(
+      Math.atan(
+        ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
+        /
+        Math.sqrt(Math.pow(pose.getX()/1.67, 2) + Math.pow(pose.getZ()/1.67 - LimelightConstants.limelightToShooterX, 2))
+      )
+    );
+
     return Math.toDegrees(
       Math.atan(
-        (pose.getY() - LimelightConstants.limelightToShooterY)
+        ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
         /
-        Math.sqrt(Math.pow(pose.getX(), 2) + Math.pow(pose.getZ() - LimelightConstants.limelightToShooterX, 2))
+        Math.sqrt(Math.pow(pose.getX()/1.17, 2) + Math.pow(pose.getZ()/1.17 - LimelightConstants.limelightToShooterX, 2))
       )
     );
   }

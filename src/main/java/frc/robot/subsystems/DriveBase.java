@@ -72,7 +72,6 @@ public class DriveBase extends SubsystemBase {
                 new SwerveModulePosition(odomDeltas[0], new Rotation2d(odomAngles[0]))
             }, new Pose2d (0.0, 0.0, new Rotation2d())
         );
-
     } 
 
     // public Pose2d getCurrentPose() {
@@ -80,7 +79,8 @@ public class DriveBase extends SubsystemBase {
     // }
 
     public Pose2d getCurrentPose() {
-        return new Pose2d(globalPose.getX(), globalPose.getY(), new Rotation2d(globalPose.getRotation().getRadians()+Math.PI/2));
+        // Pose2d pose = m_sdkOdom.getPoseMeters().times(-1);
+        return m_sdkOdom.getPoseMeters();
     }
 
     public ChassisSpeeds getRobotRelativeChassisSpeeds() {
@@ -126,9 +126,9 @@ public class DriveBase extends SubsystemBase {
     }
 
     public void setAutoSpeed(ChassisSpeeds chassisSpeeds) {
-        autoSetSpeed = chassisSpeeds;
-        ChassisSpeeds computed = new ChassisSpeeds(chassisSpeeds.vxMetersPerSecond/Constants.Swerve.maxVelocity, chassisSpeeds.vyMetersPerSecond/Constants.Swerve.maxVelocity, 0.0); //chassisSpeeds.omegaRadiansPerSecond/Constants.Swerve.maxAngularVelocity
-        targetModuleStates = m_kinematics.getComputedModuleStates(computed);
+        ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(chassisSpeeds, 0.02);
+        autoSetSpeed = targetSpeeds;
+        targetModuleStates = m_kinematics.getComputedModuleStates(targetSpeeds);
     }
 
     public void resetDrive() {

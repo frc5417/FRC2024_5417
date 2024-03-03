@@ -93,7 +93,7 @@ public class Module {
     while (fixedAngle > (2*Math.PI)) { 
       fixedAngle -= (2*Math.PI); 
     }
-    while (fixedAngle < 0.0 ) { 
+    while (fixedAngle < 0.0) { 
       fixedAngle += (2*Math.PI); 
     }
     return fixedAngle;

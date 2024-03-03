@@ -8,6 +8,7 @@ import com.pathplanner.lib.util.PIDConstants;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -16,6 +17,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 
 public class AutoAlign extends Command {
+  private int cantFindCount = 0;
   private final DriveBase driveBase;
   private final Shooter shooter;
 
@@ -27,21 +29,32 @@ public class AutoAlign extends Command {
     this.driveBase = driveBase;
     this.shooter = shooter;
 
-    drivePID.setTolerance(0.2);
+    drivePID.setTolerance(0.15);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    cantFindCount = 0;
+
+    System.out.println("AutoAligned started.");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Vision.getTID() <= 0) return;
+    if (Vision.getTID() <= 0) {
+      cantFindCount += 1;
+      return;
+    }
 
     double currentAngle = driveBase.getCurrentPose().getRotation().getRadians();
-    double wantedAngle = Math.toRadians(Vision.getTX());
+    double wantedAngle = currentAngle + Math.toRadians(Vision.getTX());
+
+    SmartDashboard.putNumber("currentAngleAuto", currentAngle);
+    SmartDashboard.putNumber("wantedAngleAuto", wantedAngle);
+
     drivePID.setSetpoint(wantedAngle);
     double omega = MathUtil.clamp(drivePID.calculate(currentAngle), -1, 1);
 
@@ -52,11 +65,14 @@ public class AutoAlign extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    System.out.println("AutoAligned ended.");
+    cantFindCount = 0;
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return shooter.atWristSetPoint() && drivePID.atSetpoint();
+    return cantFindCount >= 40 || (shooter.atWristSetPoint() && drivePID.atSetpoint());
   }
 }
