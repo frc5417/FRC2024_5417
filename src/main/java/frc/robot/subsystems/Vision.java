@@ -9,7 +9,10 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.LimelightConstants;
 
 public class Vision extends SubsystemBase {
@@ -26,6 +29,15 @@ public class Vision extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     // priorityid.set priorityid
+    if(Robot.INSTANCE.isDisabled()){
+      double botpose[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
+      if(botpose != null && botpose[0] != 0.0){
+        RobotContainer.driveBase.makeOdom(botpose[0], botpose[2], botpose[5]);
+        SmartDashboard.putString("Limelight Status:", "I see april tag no cap");
+      }else{
+        SmartDashboard.putString("Limelight Status:", "I dont see apriltag not finna lie");
+      }
+    }
   }
 
   public static Pose3d getTargetPose() {

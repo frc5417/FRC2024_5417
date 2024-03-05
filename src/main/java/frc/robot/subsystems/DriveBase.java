@@ -7,6 +7,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // import edu.wpi.first.wpilibj.PowerDistribution;
 import frc.robot.Constants;
@@ -64,15 +66,20 @@ public class DriveBase extends SubsystemBase {
         for (int i = 0; i < 4; i++)
             targetModuleStates[i] = new Module.ModuleState(0, Constants.MotorConstants.motorDegrees[i] * (Math.PI/180));
 
+        makeOdom(0, 0, 0);
+    }
+
+    public void makeOdom(double x, double y, double yaw){
+        SmartDashboard.putString("Making odom", x + " " + y + " " + yaw);
         m_sdkOdom = new SwerveDriveOdometry(
             m_skdKine, m_ahrs.getRotation2d(), new SwerveModulePosition[] {
                 new SwerveModulePosition(odomDeltas[3], new Rotation2d(odomAngles[3])),
                 new SwerveModulePosition(odomDeltas[2], new Rotation2d(odomAngles[2])),
                 new SwerveModulePosition(odomDeltas[1], new Rotation2d(odomAngles[1])),
                 new SwerveModulePosition(odomDeltas[0], new Rotation2d(odomAngles[0]))
-            }, new Pose2d (0.0, 0.0, new Rotation2d())
+            }, new Pose2d (x, y, new Rotation2d(yaw))
         );
-    } 
+    }
 
     // public Pose2d getCurrentPose() {
     //     return globalPose;
