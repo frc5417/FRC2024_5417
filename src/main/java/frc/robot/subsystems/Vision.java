@@ -25,7 +25,7 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    priorityid.setNumberArray
+    // priorityid.set priorityid
   }
 
   public static Pose3d getTargetPose() {

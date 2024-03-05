@@ -150,8 +150,8 @@ public class DriveBase extends SubsystemBase {
         // RobotContainer.m_photonsubsystem.updatePose();
         for (int i = 0; i < 4; i++) {
             moduleGroup[i].setSpeedAndAngle(targetModuleStates[i]);
-            odomDeltas[i] = (((moduleGroup[i].integratedDriveEncoder.getPosition() - encoderDriveOffset[i])/6.12) * (0.102*Math.PI));// - odomPrevDeltas[i];
-            odomAngles[i] = smallestAngle(moduleGroup[i].getAngleInRadians());//smallestAngle(moduleGroup[i].getAngleInRadians()*(180.0/Math.PI)) * (Math.PI/180.0);
+            odomDeltas[i] = moduleGroup[i].integratedDriveEncoder.getPosition();
+            odomAngles[i] = smallestAngle(moduleGroup[i].getAngleInRadians());
             SmartDashboard.putNumber("Module" + i + "_Angle", moduleGroup[i].getAngle());
         }
         

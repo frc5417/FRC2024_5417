@@ -107,7 +107,7 @@ public final class Constants {
     public static final double maxAngularAcceleration = (Double) 0.1; //rad/sec^2
     public static final double maxModuleSpeed = (Double) 0.5;
     public static final double driveBaseRadius = (Double) 0.51 * Math.sqrt(2); 
-    public static final boolean shouldFlipAuto = true;
+    public static final boolean shouldFlipAuto = false;
 
     //velocity PID tuning for overall swerve
     public static final double velocitykP = 1.0; // 0.0001
@@ -121,6 +121,10 @@ public final class Constants {
 
     // public static final PathConstraints AUTON_CONSTRAINTS = new PathConstraints(maxVelocity, maxAcceleration, maxAngularVelocity, maxAngularAcceleration); // max velocity and acceleration during auton
     public static final long CommandDuration = 1000;
+
+    public static final double kWheelCircumference = Units.inchesToMeters(4) * Math.PI;
+    public static final double kDistanceConversionFactor = kWheelCircumference * (1 / 6.12);
+    public static final double kVelocityConversionFactor = kWheelCircumference * (1/60.0) * (1 / 6.12); // rpm to m/s??
   }
 
   public static class DriveTrainConstants {
