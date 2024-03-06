@@ -44,6 +44,7 @@ public class RobotContainer {
   public static Intake intake = new Intake();
   public static Shooter shooter = new Shooter();
   public static Elevator elevator = new Elevator();
+  public static Vision vision = new Vision();
 
   // Robot Commands
   public static AutonLoader autonLoader;

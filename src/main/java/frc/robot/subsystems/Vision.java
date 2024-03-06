@@ -9,6 +9,8 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
@@ -22,19 +24,34 @@ public class Vision extends SubsystemBase {
   private static final NetworkTableEntry targetPoseEntry = table.getEntry("targetpose_cameraspace");
   private static final NetworkTableEntry priorityid = table.getEntry("priorityid");
 
+  private boolean setID = false;
+
   /** Creates a new Vision. */
   public Vision() {}
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // priorityid.set priorityid
+
+    if (DriverStation.getAlliance().isPresent()) {
+      if (!setID) {
+        setID = true;
+        if (DriverStation.getAlliance().get() == Alliance.Blue) {
+          priorityid.setNumber(8);
+        } else if ((DriverStation.getAlliance().get() == Alliance.Red)) {
+          priorityid.setNumber(4);
+        }
+      }
+    } else {
+      priorityid.setNumber(null);
+    }
+    
     if(Robot.INSTANCE.isDisabled()){
-      double botpose[] = NetworkTableInstance.getDefault().getTable("limelight").getEntry("botpose").getDoubleArray(new double[6]);
+      double botpose[] = table.getEntry("botpose").getDoubleArray(new double[6]);
       if(botpose != null && botpose[0] != 0.0){
         RobotContainer.driveBase.makeOdom(botpose[0], botpose[2], botpose[5]);
         SmartDashboard.putString("Limelight Status:", "I see april tag no cap");
-      }else{
+      } else {
         SmartDashboard.putString("Limelight Status:", "I dont see apriltag not finna lie");
       }
     }
