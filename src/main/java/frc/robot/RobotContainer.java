@@ -60,23 +60,47 @@ public class RobotContainer {
   public static RunIntestine intestineBackward = new RunIntestine(shooter, -1);
   public static ElevatorJoystick elevatorJoystick = new ElevatorJoystick(elevator);
   public static AutoAlign autoAlign = new AutoAlign(driveBase, shooter);
-  public static Command shoot = Commands.race(
-    autoAlign,
-    new WaitCommand(0.5)
-    ).andThen(
-      Commands.race(
-        new RunIntestine(shooter, -0.2),
-        new WaitCommand(.1)
+  public static ShooterWristSetPoint shooterTrap = new ShooterWristSetPoint(shooter, Constants.ManipulatorConstants.shooterWristTrapPoint);
+  public static Command shoot = Commands.sequence(
+    Commands.race(
+      new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeVertical, true),
+      new WaitCommand(0.5)
+    ),
+    Commands.race(
+      autoAlign,
+      new WaitCommand(0.5)
       ).andThen(
-        Commands.parallel(
-          new RunShooter(shooter, 1),
-          Commands.race(
-            // new ShooterWristSetPoint(shooter, -4.428567, true),
-            new WaitCommand(0.25)
-          ).andThen(
-            new WaitCommand(0.25).andThen(
-              new RunIntestine(shooter, 1)
+        Commands.race(
+          new RunIntestine(shooter, -0.2),
+          new WaitCommand(.1)
+        ).andThen(
+          Commands.parallel(
+            new RunShooter(shooter, 1),
+            Commands.race(
+              // new ShooterWristSetPoint(shooter, -4.428567, true),
+              new WaitCommand(0.25)
+            ).andThen(
+              new WaitCommand(0.25).andThen(
+                new RunIntestine(shooter, 1)
+              )
             )
+          )
+        )
+      )
+    );
+
+    public static Command shootManual = Commands.race(
+      new RunIntestine(shooter, -0.2),
+      new WaitCommand(.1)
+    ).andThen(
+      Commands.parallel(
+        new RunShooter(shooter, 1),
+        Commands.race(
+          // new ShooterWristSetPoint(shooter, -4.428567, true),
+          new WaitCommand(0.25)
+        ).andThen(
+          new WaitCommand(0.25).andThen(
+            new RunIntestine(shooter, 1)
           )
         )
       )
@@ -105,7 +129,7 @@ public class RobotContainer {
             Commands.parallel(
               new RunShooter(shooter, 1),
               new WaitCommand(0.35).andThen(
-                new WaitCommand(0.25).andThen(
+                new WaitCommand(0.55).andThen(
                   new RunIntestine(shooter, 1)
                 )
               )
@@ -142,6 +166,7 @@ public class RobotContainer {
     m_driverController.b().whileTrue(new RunShooter(shooter, -.15));
     m_manipulatorController.povUp().whileTrue(intestineForward).whileTrue(intakeOut);
     m_manipulatorController.povDown().whileTrue(intestineBackward);
+    m_manipulatorController.povRight().whileTrue(shootManual);
     m_manipulatorController.y().whileTrue(shoot);
     m_manipulatorController.x().whileTrue(
       Commands.parallel(
@@ -158,6 +183,7 @@ public class RobotContainer {
     m_manipulatorController.b().whileTrue(passOffPoint);
     m_manipulatorController.rightTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeOut);
     m_manipulatorController.leftTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeIn);
+    m_manipulatorController.povLeft().whileTrue(shooterTrap);
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is
     // pressed,
     // cancelling on release.

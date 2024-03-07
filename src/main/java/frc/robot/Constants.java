@@ -67,12 +67,14 @@ public final class Constants {
     // Motor SetPoints
     public static final double intakeWristSetPointMaxDelta = 0.3;
     public static final double intakeWristShootingPoint = 2.2857;
-    public static final double intakeWristPassOffPoint = 1.68574;
+    public static final double intakeWristPassOffPoint = 1.84574; // TODO: uh oh
     public static final double intakeWristMin = 0.60;
     public static final double intakeWristMax = 27.85;
+    public static final double intakeVertical = 10.0;
     
     public static final double shooterWristSetPointMaxDelta = 0.15;
     public static final double shooterWristPassOffPoint = -1.958572;
+    public static final double shooterWristTrapPoint = -6.4762;
     public static final double shooterWristMin = -24.5;
     public static final double shooterWristMax = -0.4;
 
@@ -146,7 +148,7 @@ public final class Constants {
     public static final double limelightAngle = 20.0; // in degrees
     public static final double limelightToShooterZ = 0.01; // in meters
     public static final double limelightToShooterY = 0.3429 - 0.0508; // in meters
-    public static final double limelightToShooterX = -0.1524; // in meters, TODO: change
+    public static final double limelightToShooterX = -0.38; // in meters, TODO: change
     public static final double aprilTagToTarget = -0.30595; // in meters
     public static final double startingShooterDegrees = 5;
     public static final double shooterDegreeRatio = 360 / 45; // 45 : 1

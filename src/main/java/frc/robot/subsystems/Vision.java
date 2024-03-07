@@ -44,7 +44,7 @@ public class Vision extends SubsystemBase {
         }
       }
     } else {
-      priorityid.setValue(null);
+      priorityid.setNumber(0);
     }
     
     if(Robot.INSTANCE.isAutonomous() || Robot.INSTANCE.isDisabled()) {
@@ -91,7 +91,7 @@ public class Vision extends SubsystemBase {
       Math.atan(
         ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
         /
-        Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.67, 2) + Math.pow(pose.getZ()/1.67 - LimelightConstants.limelightToShooterZ, 2))
+        Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.41, 2) + Math.pow(pose.getZ()/1.41 - LimelightConstants.limelightToShooterZ, 2))
       )
     );
 
@@ -99,7 +99,7 @@ public class Vision extends SubsystemBase {
       Math.atan(
         ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
         /
-        Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.17, 2) + Math.pow(pose.getZ()/1.17 - LimelightConstants.limelightToShooterZ, 2))
+        Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.27, 2) + Math.pow(pose.getZ()/1.27 - LimelightConstants.limelightToShooterZ, 2))
       )
     );
   }
