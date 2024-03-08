@@ -62,12 +62,11 @@ public class Module {
     
      /* Drive Motor Config */
      driveMotor = new CANSparkMax(Constants.MotorConstants.driveMotorIDS[this.moduleNum], MotorType.kBrushless);
-     configDriveMotor();
 
      integratedDriveEncoder = driveMotor.getEncoder();
+     configDriveMotor();
      driveMotor.getPIDController();
      integratedDriveEncoder.setPosition(0);
-     
 
     pid.enableContinuousInput(0, Math.PI * 2);
     pid.setTolerance(0.0);
@@ -189,7 +188,7 @@ public class Module {
     // CANSparkMaxUtil.setCANSparkMaxBusUsage(driveMotor, Usage.kVelocityOnly);
     // driveMotor.setSmartCurrentLimit(Constants.Swerve.driveContinuousCurrentLimit);
     // driveMotor.setInverted(Constants.Swerve.driveInvert);
-    
+
     driveMotor.setIdleMode(Constants.Swerve.driveNeutralMode);
     integratedDriveEncoder.setPositionConversionFactor(Constants.Swerve.kDistanceConversionFactor);
     integratedDriveEncoder.setVelocityConversionFactor(Constants.Swerve.kVelocityConversionFactor);

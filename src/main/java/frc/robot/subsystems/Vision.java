@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.LimelightConstants;
@@ -43,13 +44,13 @@ public class Vision extends SubsystemBase {
         }
       }
     } else {
-      priorityid.setNumber(null);
+      priorityid.setValue(null);
     }
     
-    if(Robot.INSTANCE.isDisabled()){
-      double botpose[] = table.getEntry("botpose").getDoubleArray(new double[6]);
-      if(botpose != null && botpose[0] != 0.0){
-        RobotContainer.driveBase.makeOdom(botpose[0], botpose[2], botpose[5]);
+    if(Robot.INSTANCE.isAutonomous() || Robot.INSTANCE.isDisabled()) {
+      double botpose[] = table.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
+      if(botpose != null && botpose.length > 5 && botpose[0] != 0.0){
+        RobotContainer.driveBase.makeOdom(botpose[0], botpose[1], botpose[5]);
         SmartDashboard.putString("Limelight Status:", "I see april tag no cap");
       } else {
         SmartDashboard.putString("Limelight Status:", "I dont see apriltag not finna lie");
@@ -90,7 +91,7 @@ public class Vision extends SubsystemBase {
       Math.atan(
         ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
         /
-        Math.sqrt(Math.pow(pose.getX()/1.67, 2) + Math.pow(pose.getZ()/1.67 - LimelightConstants.limelightToShooterX, 2))
+        Math.sqrt(Math.pow(pose.getX()/1.67, 2) + Math.pow(pose.getZ()/1.67 - LimelightConstants.limelightToShooterZ, 2))
       )
     );
 
@@ -98,8 +99,14 @@ public class Vision extends SubsystemBase {
       Math.atan(
         ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
         /
-        Math.sqrt(Math.pow(pose.getX()/1.17, 2) + Math.pow(pose.getZ()/1.17 - LimelightConstants.limelightToShooterX, 2))
+        Math.sqrt(Math.pow(pose.getX()/1.17, 2) + Math.pow(pose.getZ()/1.17 - LimelightConstants.limelightToShooterZ, 2))
       )
     );
+  }
+
+  public static double getAdjustedHorizontalAngle(){
+    Pose3d pose = getTargetPose();
+    double distanceToTarget = Math.sqrt(pose.getX() * pose.getX() + pose.getZ() + pose.getZ());
+    return Math.toRadians(getTX()) + Math.asin(LimelightConstants.limelightToShooterX / distanceToTarget);
   }
 }

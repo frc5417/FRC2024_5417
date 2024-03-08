@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -17,8 +18,7 @@ public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
   public Elevator() {
     elevator.setInverted(Constants.MotorConstants.elevatorMotorInversion);
-
-    // elevator.setIdleMode(IdleMode.kBrake);
+    elevator.setNeutralMode(NeutralMode.Brake);
   }
 
   @Override

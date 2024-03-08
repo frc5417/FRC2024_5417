@@ -92,7 +92,27 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Register Named Commands
-    NamedCommands.registerCommand("Shoot", shoot);
+    NamedCommands.registerCommand("Shoot", 
+    Commands.race(
+      Commands.race(
+        new AutoAlign(driveBase, shooter),
+        new WaitCommand(0.5)
+        ).andThen(
+          Commands.race(
+            new RunIntestine(shooter, -0.2),
+            new WaitCommand(.1)
+          ).andThen(
+            Commands.parallel(
+              new RunShooter(shooter, 1),
+              new WaitCommand(0.35).andThen(
+                new WaitCommand(0.25).andThen(
+                  new RunIntestine(shooter, 1)
+                )
+              )
+            )
+          )
+        ), new WaitCommand(5.0)
+  ));
 
     autonLoader = new AutonLoader(driveBase, shooter);
 

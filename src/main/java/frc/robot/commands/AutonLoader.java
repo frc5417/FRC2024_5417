@@ -21,7 +21,7 @@ public class AutonLoader {
     private final Shooter m_shooter;
 
     private final HolonomicPathFollowerConfig holonomic_config = new HolonomicPathFollowerConfig(
-        new PIDConstants(1, 0, 0.01), new PIDConstants(5, 0.0, 0.0),
+        new PIDConstants(1, 0.01, 0.01), new PIDConstants(0.5, 0.01, 0.0),
         Constants.Swerve.maxModuleSpeed, Constants.DriveTrainConstants.driveBaseRadius,
         new ReplanningConfig()
     );

@@ -144,8 +144,9 @@ public final class Constants {
 
   public static class LimelightConstants {
     public static final double limelightAngle = 20.0; // in degrees
-    public static final double limelightToShooterX = 0.01; // in meters
-    public static final double limelightToShooterY = 0.3429; // in meters
+    public static final double limelightToShooterZ = 0.01; // in meters
+    public static final double limelightToShooterY = 0.3429 - 0.0508; // in meters
+    public static final double limelightToShooterX = -0.1524; // in meters, TODO: change
     public static final double aprilTagToTarget = -0.30595; // in meters
     public static final double startingShooterDegrees = 5;
     public static final double shooterDegreeRatio = 360 / 45; // 45 : 1

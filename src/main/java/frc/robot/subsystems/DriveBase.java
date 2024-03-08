@@ -191,8 +191,8 @@ public class DriveBase extends SubsystemBase {
         SmartDashboard.putNumber("Mod3_theta", -Math.abs(Math.toDegrees(odomAngles[2]))-90);
         SmartDashboard.putNumber("Mod4_theta", -Math.abs(Math.toDegrees(odomAngles[3]))-90);
         
-        SmartDashboard.putNumber("GLOBAL POSE X: ", -globalPose.getX());
-        SmartDashboard.putNumber("GLOBAL POSE Y: ", -globalPose.getY());
+        SmartDashboard.putNumber("GLOBAL POSE X: ", globalPose.getX());
+        SmartDashboard.putNumber("GLOBAL POSE Y: ", globalPose.getY());
 
         SmartDashboard.putNumber("Distance Travelled", Math.sqrt((globalPose.getX()*globalPose.getX())+(globalPose.getY()*globalPose.getY())));
         SmartDashboard.updateValues();
