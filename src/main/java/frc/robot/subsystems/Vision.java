@@ -89,9 +89,9 @@ public class Vision extends SubsystemBase {
 
     if (Math.sqrt(Math.pow(pose.getX() - LimelightConstants.limelightToShooterX, 2)+Math.pow(pose.getZ(), 2)) > 2.2) return Math.toDegrees(
       Math.atan(
-        ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
+        ((-pose.getY() + LimelightConstants.aprilTagToTarget + LimelightConstants.aprilTagtoLowerTarget) - LimelightConstants.limelightToShooterY)
         /
-        Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.41, 2) + Math.pow(pose.getZ()/1.41 - LimelightConstants.limelightToShooterZ, 2))
+        Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.41, 2) + Math.pow((pose.getZ() + LimelightConstants.aprilTagToTargetZ)/1.41 - LimelightConstants.limelightToShooterZ, 2))
       )
     );
 

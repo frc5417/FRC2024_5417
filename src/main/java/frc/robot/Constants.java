@@ -150,8 +150,10 @@ public final class Constants {
     public static final double limelightToShooterY = 0.3429 - 0.0508; // in meters
     public static final double limelightToShooterX = -0.38; // in meters, TODO: change
     public static final double aprilTagToTarget = -0.30595; // in meters
+    public static final double aprilTagtoLowerTarget = 0.3; // in meters, TODO: change
     public static final double startingShooterDegrees = 5;
     public static final double shooterDegreeRatio = 360 / 45; // 45 : 1
+    public static final double aprilTagToTargetZ = 1; // in meters TODO: change
   }
 
   public static class FieldConstants {
