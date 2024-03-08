@@ -29,9 +29,9 @@ public class Module {
 
   private final int moduleNum; // ZERO INDEXED
 
-  private static final double kP = 0.4;
+  private static final double kP = 0.52;
   private static final double kI = 0.0;
-  private static final double kD = 0.005;
+  private static final double kD = 0.008;
 
   public final PIDController pid = new PIDController(kP, kI, kD);
 

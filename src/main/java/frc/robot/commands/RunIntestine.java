@@ -17,7 +17,8 @@ public class RunIntestine extends Command {
     this.direction = direction;
 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooter);
+    // addRequirements(shooter);
+    addRequirements();
   }
 
   // Called when the command is initially scheduled.

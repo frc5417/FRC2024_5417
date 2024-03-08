@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -22,6 +23,7 @@ public class Vision extends SubsystemBase {
   private static final NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   private static final NetworkTableEntry tidEntry = table.getEntry("tid");
   private static final NetworkTableEntry txEntry = table.getEntry("tx");
+  private static final NetworkTableEntry tyEntry = table.getEntry("ty");
   private static final NetworkTableEntry targetPoseEntry = table.getEntry("targetpose_cameraspace");
   private static final NetworkTableEntry priorityid = table.getEntry("priorityid");
 
@@ -72,6 +74,10 @@ public class Vision extends SubsystemBase {
     return txEntry.getDouble(0.0);
   }
 
+  public static double getTY() {
+    return tyEntry.getDouble(0.0);
+  }
+
   public static double getTargetX() {
     return getTargetPose().getX();
   }
@@ -87,19 +93,19 @@ public class Vision extends SubsystemBase {
   public static double getTargetShooterAngle() {
     Pose3d pose = getTargetPose();
 
-    if (Math.sqrt(Math.pow(pose.getX() - LimelightConstants.limelightToShooterX, 2)+Math.pow(pose.getZ(), 2)) > 2.2) return Math.toDegrees(
-      Math.atan(
-        ((-pose.getY() + LimelightConstants.aprilTagToTarget + LimelightConstants.aprilTagtoLowerTarget) - LimelightConstants.limelightToShooterY)
-        /
-        Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.41, 2) + Math.pow((pose.getZ() + LimelightConstants.aprilTagToTargetZ)/1.41 - LimelightConstants.limelightToShooterZ, 2))
-      )
-    );
+    // if (Math.sqrt(Math.pow(pose.getX() - LimelightConstants.limelightToShooterX, 2)+Math.pow(pose.getZ(), 2)) > 2.2) return Math.toDegrees(
+    //   Math.atan(
+    //     ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
+    //     /
+    //     Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.3, 2) + Math.pow((pose.getZ())/1.3 - LimelightConstants.limelightToShooterZ, 2))
+    //   )
+    // );
 
     return Math.toDegrees(
       Math.atan(
         ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
         /
-        Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.27, 2) + Math.pow(pose.getZ()/1.27 - LimelightConstants.limelightToShooterZ, 2))
+        Math.sqrt(Math.pow((pose.getX() + Units.inchesToMeters(6))/0.75, 2) + Math.pow((pose.getZ() - LimelightConstants.limelightToShooterZ)/0.75, 2))
       )
     );
   }

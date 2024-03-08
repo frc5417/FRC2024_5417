@@ -39,28 +39,6 @@ public class AutonLoader {
 
         autoChooser = AutoBuilder.buildAutoChooser();
 
-        autoChooser.addOption("Just Score",
-            Commands.race(
-                Commands.race(
-                  new AutoAlign(m_driveBase, m_shooter),
-                  new WaitCommand(0.5)
-                  ).andThen(
-                    Commands.race(
-                      new RunIntestine(m_shooter, -0.2),
-                      new WaitCommand(.1)
-                    ).andThen(
-                      Commands.parallel(
-                        new RunShooter(m_shooter, 1),
-                        new WaitCommand(0.35).andThen(
-                          new WaitCommand(0.25).andThen(
-                            new RunIntestine(m_shooter, 1)
-                          )
-                        )
-                      )
-                    )
-                  ), new WaitCommand(5.0)
-            ));
-
         SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
