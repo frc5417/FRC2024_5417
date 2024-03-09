@@ -27,10 +27,12 @@ public class ElevatorJoystick extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.setElevatorPower(
-      RobotContainer.getManipulatorLeftBumperBool() ? 1 :
-      RobotContainer.getManipulatorRightBumperBool() ? -1 : 0
-    );
+    /*
+      elevator.setElevatorPower(
+        RobotContainer.getManipulatorLeftBumperBool() ? 1 :
+        RobotContainer.getManipulatorRightBumperBool() ? -1 : 0
+      );
+    */
   }
 
   // Called once the command ends or is interrupted.

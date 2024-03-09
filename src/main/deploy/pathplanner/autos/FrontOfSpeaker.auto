@@ -32,6 +32,12 @@
         {
           "type": "named",
           "data": {
+            "name": "AutoAlignX"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "DriveBack"
           }
         },

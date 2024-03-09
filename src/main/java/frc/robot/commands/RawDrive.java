@@ -4,8 +4,15 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveBase;
+import frc.robot.subsystems.Vision;
+
+import com.pathplanner.lib.util.PIDConstants;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
@@ -13,6 +20,9 @@ public class RawDrive extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
 
   private final DriveBase m_driveBase;
+
+  private final PIDConstants rotationPID = Constants.DriveTrainConstants.ROTATION_PID;
+  private final PIDController drivePID = new PIDController(rotationPID.kP, rotationPID.kI, rotationPID.kD);
 
   double x = 0;
   double y = 0;
@@ -41,6 +51,14 @@ public class RawDrive extends Command {
     double xVel = (x) + (prev_xVel * 0.55); 
     double yVel = (y * 0.45) + (prev_yVel * 0.55); 
     double omega = (omeg * 0.225) + (prev_omega * 0.55);
+
+    if (omeg == 0) {
+      double currentAngle = m_driveBase.getCurrentPose().getRotation().getRadians();
+      double wantedAngle = currentAngle - Vision.getAdjustedHorizontalAngle();
+
+      drivePID.setSetpoint(wantedAngle);
+      omega = MathUtil.clamp(drivePID.calculate(currentAngle), -1, 1);
+    }
 
     prev_xVel = xVel;
     prev_yVel = yVel;
