@@ -35,7 +35,7 @@ public class TeleopDrive extends Command {
   public void execute() {
     double xVel = (RobotContainer.getDriverLeftJoyX() * 0.45) + (prev_xVel * 0.55); 
     double yVel = (RobotContainer.getDriverLeftJoyY() * 0.45) + (prev_yVel * 0.55); 
-    double omega = (RobotContainer.getDriverRightJoyX() * 0.225) + (prev_omega * 0.55);
+    double omega = (RobotContainer.getDriverRightJoyX() * 0.175) + (prev_omega * 0.55);
 
     prev_xVel = xVel;
     prev_yVel = yVel;

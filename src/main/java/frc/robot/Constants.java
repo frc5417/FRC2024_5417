@@ -56,7 +56,7 @@ public final class Constants {
     public static final Integer[] angleMotorIDS = {11, 13, 17, 15};
     public static final Integer[] CANCoderID = {3, 4, 1, 2};
     public static final Double[] motorDegrees =
-     {255.49812, 25.75188, 311.976, 288.54504};
+     {243.4572, 26.1036, 292.23648, 283.09572};
     public static final Double[] angleOffsets = {0.0, 0.0, 0.0, 0.0};
     public static final Double[][] angleMotorPID = {
       {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}};
@@ -73,7 +73,7 @@ public final class Constants {
     public static final double intakeVertical = 10.0;
     
     public static final double shooterWristSetPointMaxDelta = 0.15;
-    public static final double shooterWristPassOffPoint = -1.918572;
+    public static final double shooterWristPassOffPoint = -1.958572;
     public static final double shooterWristTrapPoint = -6.4762;
     public static final double shooterWristMin = -24.5;
     public static final double shooterWristMax = -0.4;
@@ -88,7 +88,7 @@ public final class Constants {
     // Motor Powers
     public static final double intakeWristMaxPower = 0.3;
     public static final double shooterWristMaxPower = 0.4;
-    public static final double elevatorMaxPower = 0.5;
+    public static final double elevatorMaxPower = 0.9;
     public static final double intakePower = 1.0;
     public static final double intestinePower = 0.5;
 
