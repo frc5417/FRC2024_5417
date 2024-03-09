@@ -93,23 +93,24 @@ public class Vision extends SubsystemBase {
   public static double getTargetShooterAngle() {
     Pose3d pose = getTargetPose();
 
-    // if (Math.sqrt(Math.pow(pose.getX() - LimelightConstants.limelightToShooterX, 2)+Math.pow(pose.getZ(), 2)) > 2.2) return Math.toDegrees(
-    //   Math.atan(
-    //     ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
-    //     /
-    //     Math.sqrt(Math.pow((pose.getX() - LimelightConstants.limelightToShooterX)/1.3, 2) + Math.pow((pose.getZ())/1.3 - LimelightConstants.limelightToShooterZ, 2))
-    //   )
-    // );
-
+    if (Math.sqrt(Math.pow((pose.getX() - Units.inchesToMeters(6)), 2)+Math.pow((pose.getZ() + LimelightConstants.limelightToShooterZ), 2)) > 2.2) return Math.toDegrees(
+      Math.atan(
+        ((-pose.getY() + LimelightConstants.aprilTagToLowerTarget) - LimelightConstants.limelightToShooterY)
+        /
+        Math.sqrt(Math.pow((pose.getX() - Units.inchesToMeters(6)), 2) + Math.pow((pose.getZ() + LimelightConstants.limelightToShooterZ), 2))
+      )
+    );
+    //adjust 2.2
+    //divided by 1.3 originally
     return Math.toDegrees(
       Math.atan(
         ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
         /
-        Math.sqrt(Math.pow((pose.getX() + Units.inchesToMeters(6))/0.75, 2) + Math.pow((pose.getZ() - LimelightConstants.limelightToShooterZ)/0.75, 2))
+        Math.sqrt(Math.pow((pose.getX() - Units.inchesToMeters(6)), 2) + Math.pow((pose.getZ() + LimelightConstants.limelightToShooterZ), 2))
       )
     );
   }
-
+  //adjust 0.75
   public static double getAdjustedHorizontalAngle(){
     Pose3d pose = getTargetPose();
     double distanceToTarget = Math.sqrt(pose.getX() * pose.getX() + pose.getZ() * pose.getZ());
