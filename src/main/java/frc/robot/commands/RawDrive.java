@@ -52,12 +52,12 @@ public class RawDrive extends Command {
     double yVel = (y * 0.45) + (prev_yVel * 0.55); 
     double omega = (omeg * 0.225) + (prev_omega * 0.55);
 
-    if (omeg == 0) {
-      double currentAngle = m_driveBase.getCurrentPose().getRotation().getRadians();
-      double wantedAngle = currentAngle - Vision.getAdjustedHorizontalAngle();
+    if (omeg == 0 && Vision.getTID() > 0) {
+      // double currentAngle = m_driveBase.getCurrentPose().getRotation().getRadians();
+      // double wantedAngle = currentAngle - Vision.getAdjustedHorizontalAngle();
 
-      drivePID.setSetpoint(wantedAngle);
-      omega = MathUtil.clamp(drivePID.calculate(currentAngle), -1, 1);
+      // drivePID.setSetpoint(wantedAngle);
+      // omega = MathUtil.clamp(drivePID.calculate(currentAngle), -1, 1);
     }
 
     prev_xVel = xVel;

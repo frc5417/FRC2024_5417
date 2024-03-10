@@ -92,7 +92,7 @@ public class RobotContainer {
           new WaitCommand(0.25)),
       Commands.race(
           Commands.parallel(
-              new RunIntestine(shooter, -0.2),
+              new RunIntestine(shooter, -0.15),
               new ShooterWristSetPoint(shooter, -3.516188)),
           new WaitCommand(.3)).andThen(
               Commands.parallel(
