@@ -149,8 +149,8 @@ public final class Constants {
     public static final double limelightToShooterZ = 0.0508; // in meters
     public static final double limelightToShooterY = 0.244475; // in meters
     public static final double limelightToShooterX = -0.38; // in meters, TODO: change
-    public static final double aprilTagToTarget = 0.66675; // in meters (changed from -0.30595 to 2.086)
-    public static final double aprilTagToLowerTarget = 0.62865; // in meters, TODO: change
+    public static final double aprilTagToTarget = -0.66675; // in meters (changed from -0.30595 to 2.086)
+    public static final double aprilTagToLowerTarget = -0.62865; // in meters, TODO: change
     public static final double startingShooterDegrees = 5;
     public static final double shooterDegreeRatio = 360 / 45; // 45 : 1
     public static final double aprilTagToTargetZ = 0.01; // in meters TODO: change
