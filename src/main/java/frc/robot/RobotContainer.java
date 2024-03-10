@@ -144,7 +144,7 @@ public class RobotContainer {
             new WaitCommand(0.5)
           ),
           Commands.parallel(
-            new RawDrive(driveBase, 0, 0.5, 0, 50),
+            new RawDrive(driveBase, 0, 0.5, 0, 20),
             Commands.race(
               new ToggleIntake(intake, -0.4),
               new WaitCommand(1.6)
