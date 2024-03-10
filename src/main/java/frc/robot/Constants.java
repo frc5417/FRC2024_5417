@@ -56,7 +56,7 @@ public final class Constants {
     public static final Integer[] angleMotorIDS = {11, 13, 17, 15};
     public static final Integer[] CANCoderID = {3, 4, 1, 2};
     public static final Double[] motorDegrees =
-     {238.54, 22.14828, 299.88, 285.11712};
+     {238.54, 22.14828, 322.910, 285.11712};
     public static final Double[] angleOffsets = {0.0, 0.0, 0.0, 0.0};
     public static final Double[][] angleMotorPID = {
       {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}};
@@ -149,8 +149,8 @@ public final class Constants {
     public static final double limelightToShooterZ = 0.0508; // in meters
     public static final double limelightToShooterY = 0.244475; // in meters
     public static final double limelightToShooterX = -0.38; // in meters, TODO: change
-    public static final double aprilTagToTarget = 0.66675; // in meters (changed from -0.30595 to 2.086)
-    public static final double aprilTagToLowerTarget = 0.62865; // in meters, TODO: change
+    public static final double aprilTagToTarget = 0.61595; // in meters (changed from -0.30595 to 2.086)
+    public static final double aprilTagToLowerTarget = 0.57785; // in meters, TODO: change
     public static final double startingShooterDegrees = 5;
     public static final double shooterDegreeRatio = 360 / 45; // 45 : 1
     public static final double aprilTagToTargetZ = 0.01; // in meters TODO: change

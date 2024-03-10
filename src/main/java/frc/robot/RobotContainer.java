@@ -88,12 +88,12 @@ public class RobotContainer {
 
   public static Command alignAndShoot = Commands.sequence(
       Commands.race(
-          new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeVertical, true),
+          new IntakeWristSetPoint(intake, 0, true),
           new WaitCommand(0.25)),
       Commands.race(
           Commands.parallel(
               new RunIntestine(shooter, -0.15),
-              new ShooterWristSetPoint(shooter, -3.516188)),
+              new ShooterWristSetPoint(shooter, -5.002851)),
           new WaitCommand(.3)).andThen(
               Commands.parallel(
                   Commands.race(
@@ -118,12 +118,12 @@ public class RobotContainer {
     Commands.race(
       Commands.sequence(
         Commands.race(
-            new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeVertical, true),
+            new IntakeWristSetPoint(intake, 0, true),
             new WaitCommand(0.25)),
         Commands.race(
             Commands.parallel(
                 new RunIntestine(shooter, -0.2),
-                new ShooterWristSetPoint(shooter, -3.516188)),
+                new ShooterWristSetPoint(shooter, -5.002851)),
             new WaitCommand(.3)).andThen(
                 Commands.parallel(
                     Commands.race(
