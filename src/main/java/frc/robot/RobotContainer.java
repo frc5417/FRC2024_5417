@@ -144,7 +144,7 @@ public class RobotContainer {
             new WaitCommand(0.5)
           ),
           Commands.parallel(
-            new RawDrive(driveBase, 0, 0.5, 0, 20),
+            new RawDrive(driveBase, 0, 0.5, 0, 60),
             Commands.race(
               new ToggleIntake(intake, -0.4),
               new WaitCommand(1.6)
@@ -163,6 +163,24 @@ public class RobotContainer {
           ),
           Commands.parallel(
             new RawDrive(driveBase, -0.5, 0.5, 0, 20),
+            Commands.race(
+              new ToggleIntake(intake, -0.4),
+              new WaitCommand(1.6)
+            )
+          )
+        ),
+        new WaitCommand(7.0)
+    ));
+
+    NamedCommands.registerCommand("DriveFR",
+      Commands.race(
+        Commands.sequence(
+          Commands.race(
+            new IntakeWristSetPoint(intake, 27.8, true),
+            new WaitCommand(0.5)
+          ),
+          Commands.parallel(
+            new RawDrive(driveBase, 0.5, 0.5, 0, 20),
             Commands.race(
               new ToggleIntake(intake, -0.4),
               new WaitCommand(1.6)
