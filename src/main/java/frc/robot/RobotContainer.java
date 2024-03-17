@@ -66,11 +66,15 @@ public class RobotContainer {
       Commands.race(
           new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeVertical, true),
           new WaitCommand(0.25)),
-      Commands.race(
-          autoAlign,
+      Commands.parallel(
           Commands.race(
-              new RunIntestine(shooter, -0.2),
-              new WaitCommand(0.5)).andThen(
+            autoAlign,
+            new WaitCommand(0.5)
+          ),
+          Commands.race(
+              new RunIntestine(shooter, -0.15),
+              new WaitCommand(0.4)
+              ).andThen(
                   Commands.parallel(
                       new RunShooter(shooter, 1),
                       Commands.race(

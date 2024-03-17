@@ -56,7 +56,7 @@ public final class Constants {
     public static final Integer[] angleMotorIDS = {11, 13, 17, 15};
     public static final Integer[] CANCoderID = {3, 4, 1, 2};
     public static final Double[] motorDegrees =
-     {59.23836, 22.14828, 338.11524, 285.11712};
+     {239.41404, 22.76352, 64.07244, 290.03904};
     public static final Double[] angleOffsets = {0.0, 0.0, 0.0, 0.0};
     public static final Double[][] angleMotorPID = {
       {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}};
@@ -136,7 +136,7 @@ public final class Constants {
     public static final PIDConstants ROTATION_PID = new PIDConstants(0.25, 0.01, 0);
     public static final PIDConstants TRANSLATION_PID = new PIDConstants(0, 0, 0);
     public static final Integer wheels = 4;
-    public static final boolean[] invertedMotors = {false, true, true, false};
+    public static final boolean[] invertedMotors = {true, true, true, false};
     //TODO: tune pid constants
   }
 
@@ -148,7 +148,7 @@ public final class Constants {
     public static final double limelightAngle = 20.0; // in degrees
     public static final double limelightToShooterZ = 0.0508; // in meters
     public static final double limelightToShooterY = 0.244475; // in meters
-    public static final double limelightToShooterX = -0.38; // in meters, TODO: change
+    public static final double limelightToShooterX = -Units.inchesToMeters(6); // in meters, TODO: change
     public static final double aprilTagToTarget = -0.66675; // in meters (changed from -0.30595 to 2.086)
     public static final double aprilTagToLowerTarget = -0.62865; // in meters, TODO: change
     public static final double startingShooterDegrees = 5;
@@ -156,11 +156,11 @@ public final class Constants {
     public static final double aprilTagToTargetZ = 0.01; // in meters TODO: change
 
     public static final double[] distanceDataX = {
-      1.28, 1.62, 2.02, 2.73
+      1.28, 1.62, 1.99, 2.10, 2.28, 2.43, 2.71
     };
 
     public static final double[] shooterAngleY = {
-      -4.3, -5.14, -5.45, -5.52
+      -4.3, -5.14, -5.76,-5.97, -5.99, -6.09, -5.76
     };
   }
 
