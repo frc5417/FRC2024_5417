@@ -56,7 +56,7 @@ public final class Constants {
     public static final Integer[] angleMotorIDS = {11, 13, 17, 15};
     public static final Integer[] CANCoderID = {3, 4, 1, 2};
     public static final Double[] motorDegrees =
-     {238.54, 22.14828, 302.710, 285.11712};
+     {59.23836, 22.14828, 338.11524, 285.11712};
     public static final Double[] angleOffsets = {0.0, 0.0, 0.0, 0.0};
     public static final Double[][] angleMotorPID = {
       {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}, {0.01, 0.0, 0.005}};
@@ -87,7 +87,7 @@ public final class Constants {
   
     // Motor Powers
     public static final double intakeWristMaxPower = 0.3;
-    public static final double shooterWristMaxPower = 0.4;
+    public static final double shooterWristMaxPower = 0.5;
     public static final double elevatorMaxPower = 0.9;
     public static final double intakePower = 1.0;
     public static final double intestinePower = 0.5;
@@ -136,7 +136,7 @@ public final class Constants {
     public static final PIDConstants ROTATION_PID = new PIDConstants(0.25, 0.01, 0);
     public static final PIDConstants TRANSLATION_PID = new PIDConstants(0, 0, 0);
     public static final Integer wheels = 4;
-    public static final boolean[] invertedMotors = {true, true, true, false};
+    public static final boolean[] invertedMotors = {false, true, true, false};
     //TODO: tune pid constants
   }
 
@@ -154,6 +154,14 @@ public final class Constants {
     public static final double startingShooterDegrees = 5;
     public static final double shooterDegreeRatio = 360 / 45; // 45 : 1
     public static final double aprilTagToTargetZ = 0.01; // in meters TODO: change
+
+    public static final double[] distanceDataX = {
+      1.28, 1.62, 2.02, 2.73
+    };
+
+    public static final double[] shooterAngleY = {
+      -4.3, -5.14, -5.45, -5.52
+    };
   }
 
   public static class FieldConstants {

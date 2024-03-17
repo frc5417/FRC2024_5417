@@ -158,7 +158,7 @@ public class DriveBase extends SubsystemBase {
             moduleGroup[i].setSpeedAndAngle(targetModuleStates[i]);
             odomDeltas[i] = moduleGroup[i].integratedDriveEncoder.getPosition();
             odomAngles[i] = smallestAngle(moduleGroup[i].getAngleInRadians());
-            SmartDashboard.putNumber("Module" + i + "_Angle", moduleGroup[i].getAngle());
+            // SmartDashboard.putNumber("Module" + i + "_Angle", moduleGroup[i].getAngle());
         }
         
 

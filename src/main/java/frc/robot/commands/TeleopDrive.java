@@ -41,9 +41,9 @@ public class TeleopDrive extends Command {
     prev_yVel = yVel;
     prev_omega = omega;
 
-    SmartDashboard.putNumber("X-Vel Input", xVel);
-    SmartDashboard.putNumber("Y-Vel Input", yVel);
-    SmartDashboard.putNumber("Omega Vel Input", omega);
+    // SmartDashboard.putNumber("X-Vel Input", xVel);
+    // SmartDashboard.putNumber("Y-Vel Input", yVel);
+    // SmartDashboard.putNumber("Omega Vel Input", omega);
     
     m_driveBase.setDriveSpeed(RobotContainer.getSaturatedSpeeds(xVel, yVel, omega));
   }

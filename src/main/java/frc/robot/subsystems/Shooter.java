@@ -85,10 +85,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void goToTarget() {
-    double wantedDegrees = (Vision.getTargetShooterAngle() - LimelightConstants.limelightAngle);
-    double wantedPosition = (wantedDegrees - LimelightConstants.startingShooterDegrees) / LimelightConstants.shooterDegreeRatio;
+    double wantedPosition = Vision.getTargetShooterPosition();
     
-    SmartDashboard.putNumber("visionWantedDegrees", wantedDegrees);
     SmartDashboard.putNumber("visionWantedPos", wantedPosition);
     
     setWristSetPoint(wantedPosition);

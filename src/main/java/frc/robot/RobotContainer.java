@@ -70,7 +70,7 @@ public class RobotContainer {
           autoAlign,
           Commands.race(
               new RunIntestine(shooter, -0.2),
-              new WaitCommand(0.15)).andThen(
+              new WaitCommand(0.5)).andThen(
                   Commands.parallel(
                       new RunShooter(shooter, 1),
                       Commands.race(
@@ -237,6 +237,7 @@ public class RobotContainer {
     m_manipulatorController.povUp().whileTrue(intestineForward).whileTrue(intakeOut);
     m_manipulatorController.povDown().whileTrue(intestineBackward);
     m_manipulatorController.povLeft().whileTrue(shooterTrap);
+    m_manipulatorController.povRight().whileTrue(shootManual);
     m_manipulatorController.y().whileTrue(shoot);
     m_manipulatorController.x().whileTrue(
         Commands.parallel(

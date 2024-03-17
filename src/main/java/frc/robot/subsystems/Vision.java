@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import org.apache.commons.math3.analysis.polynomials.PolynomialFunction;
+
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.util.Units;
@@ -14,7 +16,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import frc.robot.Regression;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.LimelightConstants;
@@ -35,6 +37,14 @@ public class Vision extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    if (getTID() > 0) {
+      Pose3d pose = getTargetPose();
+      double distance = Math.sqrt(Math.pow((pose.getX() - Units.inchesToMeters(6)), 2)+Math.pow((pose.getZ() + LimelightConstants.limelightToShooterZ), 2));
+      SmartDashboard.putNumber("DistanceToTarget", distance);
+    } else {
+      SmartDashboard.putNumber("DistanceToTarget", -1.0d);
+    }
 
     if (DriverStation.getAlliance().isPresent()) {
       if (!setID) {
@@ -90,26 +100,15 @@ public class Vision extends SubsystemBase {
     return getTargetPose().getZ();
   }
 
-  public static double getTargetShooterAngle() {
-    Pose3d pose = getTargetPose();
+  public static double[] coeffs = Regression.quadRegression(LimelightConstants.distanceDataX, LimelightConstants.shooterAngleY);
 
-    if (Math.sqrt(Math.pow((pose.getX() - Units.inchesToMeters(6)), 2)+Math.pow((pose.getZ() + LimelightConstants.limelightToShooterZ), 2)) > 2.2) return Math.toDegrees(
-      Math.atan(
-        ((-pose.getY() + LimelightConstants.aprilTagToLowerTarget) - LimelightConstants.limelightToShooterY)
-        /
-        Math.sqrt(Math.pow((pose.getX() - Units.inchesToMeters(6)), 2) + Math.pow((pose.getZ() + LimelightConstants.limelightToShooterZ), 2))
-      )
-    );
-    //adjust 2.2
-    //divided by 1.3 originally
-    return Math.toDegrees(
-      Math.atan(
-        ((-pose.getY() + LimelightConstants.aprilTagToTarget) - LimelightConstants.limelightToShooterY)
-        /
-        Math.sqrt(Math.pow((pose.getX() - Units.inchesToMeters(6)), 2) + Math.pow((pose.getZ() + LimelightConstants.limelightToShooterZ), 2))
-      )
-    );
+  public static double getTargetShooterPosition() {
+    Pose3d pose = getTargetPose();
+    double x = Math.sqrt(Math.pow((pose.getX() - Units.inchesToMeters(6)), 2)+Math.pow((pose.getZ() + LimelightConstants.limelightToShooterZ), 2));
+    double result = new PolynomialFunction(coeffs).value(x);
+    return result;
   }
+
   //adjust 0.75
   public static double getAdjustedHorizontalAngle(){
     Pose3d pose = getTargetPose();

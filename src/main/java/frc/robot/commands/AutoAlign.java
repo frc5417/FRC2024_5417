@@ -58,7 +58,7 @@ public class AutoAlign extends Command {
     drivePID.setSetpoint(wantedAngle);
     double omega = MathUtil.clamp(drivePID.calculate(currentAngle), -1, 1);
 
-    driveBase.setDriveSpeed(RobotContainer.getSaturatedSpeeds(0, 0, omega));
+    // driveBase.setDriveSpeed(RobotContainer.getSaturatedSpeeds(0, 0, omega));
 
     shooter.goToTarget();
   }
