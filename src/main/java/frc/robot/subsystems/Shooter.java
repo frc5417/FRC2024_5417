@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
-import frc.robot.Constants.LimelightConstants;
 
 public class Shooter extends SubsystemBase {
   CANSparkMax shooter1 = new CANSparkMax(Constants.MotorConstants.shooter1MotorID, MotorType.kBrushless);

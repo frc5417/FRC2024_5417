@@ -26,7 +26,25 @@
         {
           "type": "named",
           "data": {
-            "name": "DriveForward"
+            "name": "DriveForwardShort"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "DriveBackwardShort"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "DriveBL"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         }
       ]

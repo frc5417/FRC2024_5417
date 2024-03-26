@@ -7,11 +7,12 @@ package frc.robot.commands;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveBase;
-import frc.robot.subsystems.Vision;
 
 import com.pathplanner.lib.util.PIDConstants;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
@@ -26,6 +27,8 @@ public class RawDrive extends Command {
   double x = 0;
   double y = 0;
   double omeg = 0;
+  double startingAngle = 0;
+  int startingCount = 0;
   int count = 0;
 
   double prev_omega = 0;
@@ -38,26 +41,38 @@ public class RawDrive extends Command {
     this.x = x;
     this.y = y;
     this.omeg = omega;
+    this.startingCount = count;
     this.count = count;
+
+    drivePID.setTolerance(0.15);
+    if (omega == 0) {
+      drivePID.setSetpoint(startingAngle);
+    }
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    count = startingCount;
+    this.startingAngle = m_driveBase.getCurrentPose().getRotation().getRadians();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xVel = (x) + (prev_xVel * 0.55); 
-    double yVel = (y * 0.45) + (prev_yVel * 0.55); 
+    double xVel = (x * 0.125) + (prev_xVel * 0.875); 
+    double yVel = (y * 0.125) + (prev_yVel * 0.875); 
     double omega = (omeg * 0.225) + (prev_omega * 0.55);
 
-    if (omeg == 0 && Vision.getTID() > 0) {
-      // double currentAngle = m_driveBase.getCurrentPose().getRotation().getRadians();
-      // double wantedAngle = currentAngle - Vision.getAdjustedHorizontalAngle();
+    // if (omeg == 0) {
+    //   double currentAngle = m_driveBase.getCurrentPose().getRotation().getRadians();
+    //   drivePID.setSetpoint(startingAngle);
 
-      // drivePID.setSetpoint(wantedAngle);
-      // omega = MathUtil.clamp(drivePID.calculate(currentAngle), -1, 1);
-    }
+    //   SmartDashboard.putNumber("currentAngleAuto", currentAngle);
+    //   SmartDashboard.putNumber("wantedAngleAuto", startingAngle);
+
+    //   omega = MathUtil.clamp(drivePID.calculate(currentAngle), -1, 1);
+    //   omega *= 0.5;
+    // }
 
     prev_xVel = xVel;
     prev_yVel = yVel;

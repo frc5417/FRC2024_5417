@@ -161,7 +161,6 @@ public class DriveBase extends SubsystemBase {
             // SmartDashboard.putNumber("Module" + i + "_Angle", moduleGroup[i].getAngle());
         }
         
-
         globalPose = m_sdkOdom.update(m_ahrs.getRotation2d(), new SwerveModulePosition[] {
             new SwerveModulePosition(Math.abs(odomDeltas[3]), new Rotation2d(odomAngles[3])),
             new SwerveModulePosition(Math.abs(odomDeltas[2]), new Rotation2d(odomAngles[2])),

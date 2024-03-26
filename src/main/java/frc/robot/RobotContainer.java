@@ -65,15 +65,16 @@ public class RobotContainer {
   public static Command shoot = Commands.sequence(
       Commands.race(
           new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeVertical, true),
-          new WaitCommand(0.25)),
+          new RunIntestine(shooter, -0.15),
+          new WaitCommand(0.15)),
       Commands.parallel(
           Commands.race(
             autoAlign,
             new WaitCommand(0.5)
           ),
           Commands.race(
-              new RunIntestine(shooter, -0.15),
-              new WaitCommand(0.4)
+              new RunIntestine(shooter, -0.1),
+              new WaitCommand(0.15)
               ).andThen(
                   Commands.parallel(
                       new RunShooter(shooter, 1),
@@ -96,18 +97,18 @@ public class RobotContainer {
           new WaitCommand(0.25)),
       Commands.race(
           Commands.parallel(
-              new RunIntestine(shooter, -0.15),
-              new ShooterWristSetPoint(shooter, -4.002851)),
+              new RunIntestine(shooter, -0.1),
+              new ShooterWristSetPoint(shooter, -3.872851)),
           new WaitCommand(.3)).andThen(
               Commands.parallel(
                   Commands.race(
-                      new RunIntestine(shooter, -0.2),
-                      new WaitCommand(.15)),
+                      new RunIntestine(shooter, -0.1),
+                      new WaitCommand(.1)),
                   new RunShooter(shooter, 1),
                   new WaitCommand(0.35).andThen(
                       new WaitCommand(0.25).andThen(
                           new RunIntestine(shooter, 1))))));
-
+  
   private final static CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverPort);
   private final static CommandXboxController m_manipulatorController = new CommandXboxController(
@@ -126,8 +127,8 @@ public class RobotContainer {
             new WaitCommand(0.25)),
         Commands.race(
             Commands.parallel(
-                new RunIntestine(shooter, -0.2),
-                new ShooterWristSetPoint(shooter, -4.002851)),
+                new RunIntestine(shooter, -0.15),
+                new ShooterWristSetPoint(shooter, -3.872851)),
             new WaitCommand(.3)).andThen(
                 Commands.parallel(
                     Commands.race(
@@ -140,6 +141,26 @@ public class RobotContainer {
       new WaitCommand(2.25)
     ));
 
+    NamedCommands.registerCommand("SmartShoot", Commands.sequence(
+      Commands.race(
+          new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeVertical, true),
+          new RunIntestine(shooter, -0.15),
+          new WaitCommand(0.20)),
+      Commands.parallel(
+          Commands.race(
+            new AutoAlign(driveBase, shooter),
+            new WaitCommand(0.5)
+          ),
+          Commands.race(
+              new RunIntestine(shooter, -0.15),
+              new WaitCommand(0.25)
+              ).andThen(
+                  Commands.parallel(
+                      new RunShooter(shooter, 1),
+                      Commands.race(
+                          new WaitCommand(0.35).andThen(
+                              new RunIntestine(shooter, 1))))))));
+
     NamedCommands.registerCommand("DriveForward",
       Commands.race(
         Commands.sequence(
@@ -148,10 +169,46 @@ public class RobotContainer {
             new WaitCommand(0.5)
           ),
           Commands.parallel(
-            new RawDrive(driveBase, 0, 0.5, 0, 60),
+            new RawDrive(driveBase, 0, 0.5, 0, 170),
             Commands.race(
-              new ToggleIntake(intake, -0.4),
-              new WaitCommand(1.6)
+              new ToggleIntake(intake, -0.665),
+              new WaitCommand(3.6)
+            )
+          )
+        ),
+        new WaitCommand(7.0)
+    ));
+
+    NamedCommands.registerCommand("DriveForwardShort",
+      Commands.race(
+        Commands.sequence(
+          Commands.race(
+            new IntakeWristSetPoint(intake, 27.8, true),
+            new WaitCommand(0.5)
+          ),
+          Commands.parallel(
+            new RawDrive(driveBase, 0, 0.5, 0, 50),
+            Commands.race(
+              new ToggleIntake(intake, -0.65),
+              new WaitCommand(2.6)
+            )
+          )
+        ),
+        new WaitCommand(7.0)
+    ));
+
+    NamedCommands.registerCommand("DriveBackwardsShort",
+      Commands.race(
+        Commands.sequence(
+          Commands.race(
+            new IntakeWristSetPoint(intake, 27.8, true),
+            new WaitCommand(0.5)
+          ),
+          Commands.parallel(
+            new RawDrive(driveBase, 0, 0.5, 0, 50),
+            Commands.race(
+              new ToggleIntake(intake, -1),
+              new WaitCommand(2.6)
             )
           )
         ),
@@ -166,10 +223,28 @@ public class RobotContainer {
             new WaitCommand(0.5)
           ),
           Commands.parallel(
-            new RawDrive(driveBase, -0.5, 0.5, 0, 20),
+            new RawDrive(driveBase, -0.5, 0.5, 0, 60),
             Commands.race(
               new ToggleIntake(intake, -0.4),
-              new WaitCommand(1.6)
+              new WaitCommand(2.6)
+            )
+          )
+        ),
+        new WaitCommand(7.0)
+    ));
+
+    NamedCommands.registerCommand("DriveBR",
+      Commands.race(
+        Commands.sequence(
+          Commands.race(
+            new IntakeWristSetPoint(intake, 27.8, true),
+            new WaitCommand(0.5)
+          ),
+          Commands.parallel(
+            new RawDrive(driveBase, 0.5, -0.5, 0, 60),
+            Commands.race(
+              new ToggleIntake(intake, -0.4),
+              new WaitCommand(2.6)
             )
           )
         ),
@@ -184,10 +259,28 @@ public class RobotContainer {
             new WaitCommand(0.5)
           ),
           Commands.parallel(
-            new RawDrive(driveBase, 0.5, 0.5, 0, 20),
+            new RawDrive(driveBase, 0.5, 0.5, 0, 60),
             Commands.race(
               new ToggleIntake(intake, -0.4),
-              new WaitCommand(1.6)
+              new WaitCommand(2.6)
+            )
+          )
+        ),
+        new WaitCommand(7.0)
+    ));
+
+    NamedCommands.registerCommand("DriveBL",
+      Commands.race(
+        Commands.sequence(
+          Commands.race(
+            new IntakeWristSetPoint(intake, 27.8, true),
+            new WaitCommand(0.5)
+          ),
+          Commands.parallel(
+            new RawDrive(driveBase, -0.5, -0.5, 0, 60),
+            Commands.race(
+              new ToggleIntake(intake, -0.4),
+              new WaitCommand(2.6)
             )
           )
         ),
@@ -207,9 +300,9 @@ public class RobotContainer {
     ));
 
 
-    NamedCommands.registerCommand("DriveBack", 
+    NamedCommands.registerCommand("DriveBackward", 
     Commands.race(
-      new RawDrive(driveBase, 0, -0.5, 0, 47),
+      new RawDrive(driveBase, 0, -0.5, 0, 135),
       new WaitCommand(6.0)
     ));
 

@@ -17,6 +17,7 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 public class Module {
   /** Creates a new Module. */
@@ -105,6 +106,10 @@ public class Module {
     }
 
     double x = speed * invertMultiplier;
+    if (Robot.INSTANCE.isAutonomousEnabled()) {
+      x = MathUtil.clamp(x, -1, 1);
+      x *= 0.25;
+    }
     
     driveMotor.set(x);
     return x;

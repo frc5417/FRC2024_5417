@@ -47,7 +47,7 @@ public class AutoAlignX extends Command {
     }
 
     double currentAngle = driveBase.getCurrentPose().getRotation().getRadians();
-    double wantedAngle = currentAngle - Vision.getAdjustedHorizontalAngle();
+    double wantedAngle = currentAngle + Vision.getAdjustedHorizontalAngle();
 
     SmartDashboard.putNumber("currentAngleAuto", currentAngle);
     SmartDashboard.putNumber("wantedAngleAuto", wantedAngle);

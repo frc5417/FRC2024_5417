@@ -31,8 +31,8 @@ public class ToggleIntake extends Command {
       intake.setIntakePower(0.45);
     }else{
       intake.setIntakePower(
-        direction == -1 ? -RobotContainer.getManipulatorLeftTrigger() : 
-          direction == 1 ? RobotContainer.getManipulatorRightTrigger() :
+        // direction == -1 ? -1 : 
+        //   direction == 1 ? 1 :
           direction);
     }
   }

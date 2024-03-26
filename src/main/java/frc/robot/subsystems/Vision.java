@@ -111,8 +111,10 @@ public class Vision extends SubsystemBase {
 
   //adjust 0.75
   public static double getAdjustedHorizontalAngle(){
-    Pose3d pose = getTargetPose();
-    double distanceToTarget = Math.sqrt(pose.getX() * pose.getX() + pose.getZ() * pose.getZ());
-    return Math.toRadians(getTX()) + Math.asin(LimelightConstants.limelightToShooterX / distanceToTarget);
+    return Math.toRadians(getTX());
+
+    // Pose3d pose = getTargetPose();
+    // double distanceToTarget = Math.sqrt(pose.getX() * pose.getX() + pose.getZ() * pose.getZ());
+    // return Math.toRadians(getTX()) + Math.asin(LimelightConstants.limelightToShooterX / distanceToTarget);
   }
 }

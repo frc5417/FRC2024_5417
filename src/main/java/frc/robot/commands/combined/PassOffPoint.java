@@ -27,12 +27,12 @@ public class PassOffPoint extends SequentialCommandGroup {
           new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeWristPassOffPoint, true),
           new ShooterWristSetPoint(shooter, Constants.ManipulatorConstants.shooterWristPassOffPoint, true)
         ),
-        new ToggleIntake(intake, -.2)
+        new ToggleIntake(intake, -0.2)
       ),
-      new WaitCommand(0.2512345),
+      new WaitCommand(0.3),
       new ParallelCommandGroup(
         new Intestine(shooter),
-        new ToggleIntake(intake, 0.25)
+        new ToggleIntake(intake, 0.8)
       )
     );
   }
