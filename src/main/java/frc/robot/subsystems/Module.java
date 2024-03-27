@@ -176,7 +176,7 @@ public class Module {
   private void configAngleMotor() {
     angleMotor.restoreFactoryDefaults();
     // CANSparkMaxUtil.setCANSparkMaxBusUsage(angleMotor, Usage.kPositionOnly);
-    // angleMotor.setSmartCurrentLimit(Constants.Swerve.angleContinuousCurrentLimit);
+    angleMotor.setSmartCurrentLimit(Constants.Swerve.angleAmpLimit);
     // angleMotor.setInverted(Constants.Swerve.angleInvert);
     angleMotor.setIdleMode(Constants.Swerve.angleNeutralMode);
     // integratedAngleEncoder.setPositionConversionFactor(Constants.Swerve.angleConversionFactor);
@@ -191,7 +191,7 @@ public class Module {
   private void configDriveMotor() {
     driveMotor.restoreFactoryDefaults();
     // CANSparkMaxUtil.setCANSparkMaxBusUsage(driveMotor, Usage.kVelocityOnly);
-    // driveMotor.setSmartCurrentLimit(Constants.Swerve.driveContinuousCurrentLimit);
+    driveMotor.setSmartCurrentLimit(Constants.Swerve.driveAmpLimit);
     // driveMotor.setInverted(Constants.Swerve.driveInvert);
 
     driveMotor.setIdleMode(Constants.Swerve.driveNeutralMode);

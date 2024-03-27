@@ -101,6 +101,9 @@ public final class Constants {
     public static final Double XPercentage = -1.0;
     public static final Double YPercentage = - 1.0;
 
+    public static final int driveAmpLimit = 45;
+    public static final int angleAmpLimit = 35;
+
     public static final IdleMode angleNeutralMode = IdleMode.kBrake;
     public static final IdleMode driveNeutralMode = IdleMode.kBrake;
     public static final double maxVelocity = 0.5; // m/s
