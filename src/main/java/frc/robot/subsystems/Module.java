@@ -79,8 +79,8 @@ public class Module {
   }
 
   public void setSpeedAndAngle(ModuleState targetState) {
-    double x = setAngle(targetState.getDir());
-    double y = setDriveSpeed(targetState.getVel());
+    // double x = setAngle(targetState.getDir());
+    // double y = setDriveSpeed(targetState.getVel());
 
     // if (++cnt % 50 == 0) {
     //   System.out.printf("Set module %d angle to %f, speed to %f\n", this.moduleNum, x, y);
@@ -174,7 +174,7 @@ public class Module {
   }
 
   private void configAngleMotor() {
-    angleMotor.restoreFactoryDefaults();
+    // angleMotor.restoreFactoryDefaults();
     // CANSparkMaxUtil.setCANSparkMaxBusUsage(angleMotor, Usage.kPositionOnly);
     angleMotor.setSmartCurrentLimit(Constants.Swerve.angleAmpLimit);
     // angleMotor.setInverted(Constants.Swerve.angleInvert);
@@ -189,7 +189,7 @@ public class Module {
   }
 
   private void configDriveMotor() {
-    driveMotor.restoreFactoryDefaults();
+    // driveMotor.restoreFactoryDefaults();
     // CANSparkMaxUtil.setCANSparkMaxBusUsage(driveMotor, Usage.kVelocityOnly);
     driveMotor.setSmartCurrentLimit(Constants.Swerve.driveAmpLimit);
     // driveMotor.setInverted(Constants.Swerve.driveInvert);

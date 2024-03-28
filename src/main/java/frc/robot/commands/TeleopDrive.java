@@ -7,6 +7,7 @@ package frc.robot.commands;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveBase;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /** An example command that uses an example subsystem. */
@@ -46,6 +47,9 @@ public class TeleopDrive extends Command {
     // SmartDashboard.putNumber("Omega Vel Input", omega);
     
     m_driveBase.setDriveSpeed(RobotContainer.getSaturatedSpeeds(xVel, yVel, omega));
+    // m_driveBase.setDriveSpeed(new ChassisSpeeds(1, 0, 0));
+    // SmartDashboard.putNumber("X Vel", xVel);
+    // SmartDashboard.updateValues();
   }
 
   // Called once the command ends or is interrupted.

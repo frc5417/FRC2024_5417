@@ -30,10 +30,7 @@ public class ToggleIntake extends Command {
     if(RobotContainer.getDPadUp()){
       intake.setIntakePower(0.45);
     }else{
-      intake.setIntakePower(
-        // direction == -1 ? -1 : 
-        //   direction == 1 ? 1 :
-          direction);
+      intake.setIntakePower(direction);
     }
   }
 

@@ -10,18 +10,21 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-  CANSparkMax shooter1 = new CANSparkMax(Constants.MotorConstants.shooter1MotorID, MotorType.kBrushless);
-  CANSparkMax shooter2 = new CANSparkMax(Constants.MotorConstants.shooter2MotorID, MotorType.kBrushless);
+  private final CANSparkMax shooter1 = new CANSparkMax(Constants.MotorConstants.shooter1MotorID, MotorType.kBrushless);
+  private final CANSparkMax shooter2 = new CANSparkMax(Constants.MotorConstants.shooter2MotorID, MotorType.kBrushless);
 
-  CANSparkMax intestine = new CANSparkMax(Constants.MotorConstants.intestineMotorID, MotorType.kBrushless);
+  private final CANSparkMax intestine = new CANSparkMax(Constants.MotorConstants.intestineMotorID, MotorType.kBrushless);
 
-  CANSparkMax wrist = new CANSparkMax(Constants.MotorConstants.pivotMotorID, MotorType.kBrushless);
+  private final CANSparkMax wrist = new CANSparkMax(Constants.MotorConstants.pivotMotorID, MotorType.kBrushless);
+
+  private final static DutyCycleEncoder enc = new DutyCycleEncoder(Constants.ManipulatorConstants.shooterEncoderPort);
 
   private double wantedWristPosition = 0.0;
   private final double[] wPID = Constants.ManipulatorConstants.shooterWristPID;
@@ -42,6 +45,8 @@ public class Shooter extends SubsystemBase {
 
     wristPID.setTolerance(Constants.ManipulatorConstants.shooterWristTolerance);
     wrist.getEncoder().setPosition(0);
+
+    enc.setDistancePerRotation(1/3);
 
     setWristSetPoint(-0.2);
   }
@@ -72,7 +77,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setWristSetPoint(double wristSetPoint) {
-    wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.shooterWristMin, Constants.ManipulatorConstants.shooterWristMax);    wristPID.setSetpoint(wantedWristPosition);
+    wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.shooterWristMin, Constants.ManipulatorConstants.shooterWristMax);
+    wristPID.setSetpoint(wantedWristPosition);
   }
 
   public void runIntestine(double direction) {
@@ -93,6 +99,6 @@ public class Shooter extends SubsystemBase {
 
   public boolean atWristSetPoint() {
     double wristPos = wrist.getEncoder().getPosition();
-    return Math.abs(wristPos - wantedWristPosition) < 0.5;
+    return Math.abs(wristPos - wantedWristPosition) < Constants.ManipulatorConstants.shooterWristTolerance * 2;
   }
 }

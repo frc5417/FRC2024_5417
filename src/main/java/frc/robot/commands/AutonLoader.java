@@ -5,6 +5,7 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,6 +32,17 @@ public class AutonLoader {
     public AutonLoader(DriveBase driveBase, Shooter shooter) {
         m_driveBase = driveBase;
         m_shooter = shooter;
+
+        // Configure AutoBuilder last
+        // AutoBuilder.configureHolonomic(
+        //     m_driveBase::getCurrentPose, // Robot pose supplier
+        //     m_driveBase::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
+        //     m_driveBase::getRobotRelativeChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+        //     m_driveBase::setAutoSpeed, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+        //     holonomic_config,
+        //     m_driveBase::shouldFlipPath,
+        //     m_driveBase // Reference to this subsystem to set requirements
+        // );
 
         AutoBuilder.configureHolonomic(
             m_driveBase::getCurrentPose, m_driveBase::resetOdometry,
