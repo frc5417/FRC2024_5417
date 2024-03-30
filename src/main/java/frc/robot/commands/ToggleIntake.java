@@ -33,7 +33,6 @@ public class ToggleIntake extends Command {
       intake.setIntakePower(direction);
     }
   }
-
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
@@ -43,6 +42,19 @@ public class ToggleIntake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.limitSwitch();
+    int counter = 0;
+    double seconds = 0.5;
+    if (intake.limitSwitch()){
+      counter++;
+      if (counter < 50*seconds){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return false;
+    }
   }
 }
