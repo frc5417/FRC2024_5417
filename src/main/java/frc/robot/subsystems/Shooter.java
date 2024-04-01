@@ -99,6 +99,7 @@ public class Shooter extends SubsystemBase {
 
   public boolean atWristSetPoint() {
     double wristPos = wrist.getEncoder().getPosition();
-    return Math.abs(wristPos - wantedWristPosition) < Constants.ManipulatorConstants.shooterWristTolerance * 2;
+    // System.out.println(wristPos - wantedWristPosition);
+    return (Math.abs(wristPos - wantedWristPosition) < (Constants.ManipulatorConstants.shooterWristTolerance * 10));
   }
 }

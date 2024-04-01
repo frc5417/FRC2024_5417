@@ -62,7 +62,7 @@ public class Vision extends SubsystemBase {
     if(Robot.INSTANCE.isAutonomous() || Robot.INSTANCE.isDisabled()) {
       double botpose[] = table.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);
       if(botpose != null && botpose.length > 5 && botpose[0] != 0.0){
-        RobotContainer.driveBase.makeOdom(botpose[0], botpose[1], botpose[5]);
+        // RobotContainer.driveBase.makeOdom(botpose[0], botpose[1], botpose[5]);
         SmartDashboard.putString("Limelight Status:", "I see april tag no cap");
       } else {
         SmartDashboard.putString("Limelight Status:", "I dont see apriltag not finna lie");

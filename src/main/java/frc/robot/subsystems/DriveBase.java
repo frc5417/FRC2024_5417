@@ -121,6 +121,14 @@ public class DriveBase extends SubsystemBase {
 
     public void resetOdometry(Pose2d pose) {
         globalPose = pose;
+        m_sdkOdom = new SwerveDriveOdometry(
+            m_skdKine, m_ahrs.getRotation2d(), new SwerveModulePosition[] {
+                new SwerveModulePosition(odomDeltas[3], new Rotation2d(odomAngles[3])),
+                new SwerveModulePosition(odomDeltas[2], new Rotation2d(odomAngles[2])),
+                new SwerveModulePosition(odomDeltas[1], new Rotation2d(odomAngles[1])),
+                new SwerveModulePosition(odomDeltas[0], new Rotation2d(odomAngles[0]))
+            }, pose
+        );
     }
 
     public void setHardStates(Module.ModuleState[] targetState) {

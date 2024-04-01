@@ -12,8 +12,8 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.MathUtil;
-// import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -69,6 +69,11 @@ public class Intake extends SubsystemBase {
 
     setWristPower(MathUtil.clamp(power, -1, 1));
 
+    if (Robot.INSTANCE.isAutonomousEnabled()) {
+      if (!limitSwitch()) {
+        setIntakePower(0);
+      }
+    }
   }
 
   public void setIntakePower(double intakePower) {
@@ -96,6 +101,6 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean limitSwitch() {
-    return false; // intakeSwitch.get();
+    return intakeSwitch.get();
   }
 }

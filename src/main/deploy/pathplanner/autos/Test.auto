@@ -1,0 +1,61 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7713800042984719,
+      "y": 5.53
+    },
+    "rotation": 91.15633555330135
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "IntakeIn"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Forward"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Backward"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "PassOff"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "SmartShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "PickUpFirst"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

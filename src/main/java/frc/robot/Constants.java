@@ -73,7 +73,7 @@ public final class Constants {
     public static final double intakeVertical = 10.0;
     
     public static final double shooterWristSetPointMaxDelta = 0.15;
-    public static final double shooterWristPassOffPoint = -1.958572;
+    public static final double shooterWristPassOffPoint = -2.506572;
     public static final double shooterWristTrapPoint = -6.4762;
     public static final double shooterWristMin = -24.5;
     public static final double shooterWristMax = -0.4;
@@ -93,8 +93,8 @@ public final class Constants {
     public static final double intestinePower = 0.5;
 
     public static final int intakeLimitSwithPort = 0;
-    public static final int shooterLimitSwithPort = 0;
-    public static final int shooterEncoderPort = 1;
+    public static final int shooterLimitSwithPort = 9;
+    public static final int shooterEncoderPort = 10;
   }
   
   public static class Swerve {
