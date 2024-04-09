@@ -4,9 +4,9 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.util.PIDConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -137,8 +137,8 @@ public final class Constants {
     public static final double driveTrainWidth = 0.6604; // in meters
     public static final double driveBaseRadius = 0.3502406; // in meters
 
-    public static final PIDConstants ROTATION_PID = new PIDConstants(0.25, 0.01, 0);
-    public static final PIDConstants TRANSLATION_PID = new PIDConstants(0, 0, 0);
+    public static final double[] ROTATION_PID =  { 0.25, 0.01, 0 };
+    public static final double[] TRANSLATION_PID = { 0, 0, 0 };
     public static final Integer wheels = 4;
     public static final boolean[] invertedMotors = {true, true, true, false};
     //TODO: tune pid constants
@@ -146,6 +146,21 @@ public final class Constants {
 
   public static class Auton {
     public static final String[] paths = {"rotateInPlace, moveForward, PathPlannerTest"};
+
+    public static final PIDController X_Pos = new PIDController(1.3, 0, 0);
+    public static final PIDController Y_Pos = new PIDController(1.3, 0, 0);
+    public static final PIDController Theta_Pos = new PIDController(0.01, 0.0, 0.0); //0.5 p 0.15 0.035
+    public static final double speedClamp = 0.4;
+    public static final double speedRotClamp = 0.3;
+    public static final double poseTolerance = 0.1;
+    public static final double thetaTolerance = 3; // rotations
+
+    public static final Double[] robot_size = {0.66, 0.66};
+    public static final Double[] field_size = {8.2, 16.0};
+    public static final Double[] BlueObstacle_TopLeft = {2.5, 6.0};
+    public static final Double[] BlueObstacle_BottomRight = {6.0,2.5};
+    public static final Double[] RedObstacle_TopLeft = {2.5, 13.5};
+    public static final Double[] RedObstacle_BottomRight = {6.0, 10.0};
   }
 
   public static class LimelightConstants {

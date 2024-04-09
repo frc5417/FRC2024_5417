@@ -4,8 +4,6 @@
 
 package frc.robot.commands;
 
-import com.pathplanner.lib.util.PIDConstants;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,9 +16,9 @@ import frc.robot.subsystems.Vision;
 public class AutoAlignX extends Command {
   private int cantFindCount = 0;
   private final DriveBase driveBase;
-
-  private final PIDConstants rotationPID = Constants.DriveTrainConstants.ROTATION_PID;
-  private final PIDController drivePID = new PIDController(rotationPID.kP, rotationPID.kI, rotationPID.kD);
+  
+  private final double[] rotationPID = Constants.DriveTrainConstants.ROTATION_PID;
+  private final PIDController drivePID = new PIDController(rotationPID[0], rotationPID[1], rotationPID[2]);
 
   /** Creates a new AutoAlign. */
   public AutoAlignX(DriveBase driveBase) {

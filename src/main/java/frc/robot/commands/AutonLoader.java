@@ -1,60 +1,38 @@
 package frc.robot.commands;
 
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PIDConstants;
-import com.pathplanner.lib.util.ReplanningConfig;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.Constants;
-
+import frc.robot.RobotContainer;
+import frc.robot.commands.Autos.ShootForward;
 import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.A_Star.A_Star;
 
 public class AutonLoader {
     private final DriveBase m_driveBase;
     private final Shooter m_shooter;
 
-    private final HolonomicPathFollowerConfig holonomic_config = new HolonomicPathFollowerConfig(
-        new PIDConstants(1, 0.01, 0.01), new PIDConstants(0.5, 0.01, 0.0),
-        Constants.Swerve.maxModuleSpeed, Constants.DriveTrainConstants.driveBaseRadius,
-        new ReplanningConfig()
-    );
-
-    private final SendableChooser<Command> autoChooser;
+    private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
     public AutonLoader(DriveBase driveBase, Shooter shooter) {
         m_driveBase = driveBase;
         m_shooter = shooter;
 
-        // Configure AutoBuilder last
-        // AutoBuilder.configureHolonomic(
-        //     m_driveBase::getCurrentPose, // Robot pose supplier
-        //     m_driveBase::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
-        //     m_driveBase::getRobotRelativeChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-        //     m_driveBase::setAutoSpeed, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
-        //     holonomic_config,
-        //     m_driveBase::shouldFlipPath,
-        //     m_driveBase // Reference to this subsystem to set requirements
-        // );
+        A_Star.rectangularObstacle(Constants.Auton.BlueObstacle_TopLeft, Constants.Auton.BlueObstacle_BottomRight);
+        A_Star.rectangularObstacle(Constants.Auton.RedObstacle_TopLeft, Constants.Auton.RedObstacle_BottomRight);
 
-        AutoBuilder.configureHolonomic(
-            m_driveBase::getCurrentPose, m_driveBase::resetOdometry,
-            m_driveBase::getRobotRelativeChassisSpeeds, m_driveBase::setAutoSpeed,
-            holonomic_config, m_driveBase::shouldFlipPath, m_driveBase);
+        RobotContainer.registerNamedCommands();
 
-        autoChooser = AutoBuilder.buildAutoChooser();
+        autoChooser.addOption("ShootThenForward", new ShootForward(m_driveBase));
 
-        SmartDashboard.putData("Auto Chooser", autoChooser);
+        SmartDashboard.putData(autoChooser);
+        SmartDashboard.updateValues();
     }
 
     public Command getAuton() {
         return autoChooser.getSelected();
-        
-        // m_driveBase.resetOdometry(new Pose2d(7.0, 4.0, new Rotation2d(0.0)));
-        // return new PathPlannerAuto("test");
     }    
 }

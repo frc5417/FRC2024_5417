@@ -8,8 +8,6 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveBase;
 
-import com.pathplanner.lib.util.PIDConstants;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,8 +19,8 @@ public class RawDrive extends Command {
 
   private final DriveBase m_driveBase;
 
-  private final PIDConstants rotationPID = Constants.DriveTrainConstants.ROTATION_PID;
-  private final PIDController drivePID = new PIDController(rotationPID.kP, rotationPID.kI, rotationPID.kD);
+  private final double[] rotationPID = Constants.DriveTrainConstants.ROTATION_PID;
+  private final PIDController drivePID = new PIDController(rotationPID[0], rotationPID[1], rotationPID[2]);
 
   double x = 0;
   double y = 0;

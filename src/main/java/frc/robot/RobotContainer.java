@@ -1,12 +1,13 @@
 package frc.robot;
 
 import com.kauailabs.navx.frc.AHRS;
-import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -23,6 +24,7 @@ import frc.robot.commands.combined.Intestine;
 import frc.robot.commands.combined.PassOffPoint;
 import frc.robot.subsystems.*;
 import edu.wpi.first.hal.HALUtil;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 
 /**
@@ -46,6 +48,7 @@ public class RobotContainer {
   public static Shooter shooter = new Shooter();
   public static Elevator elevator = new Elevator();
   public static Vision vision = new Vision();
+  public static Bezier bezier = new Bezier();
 
   // Robot Commands
   public static AutonLoader autonLoader;
@@ -118,7 +121,15 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // Register Named Commands
-    NamedCommands.registerCommand("Shoot",
+
+    autonLoader = new AutonLoader(driveBase, shooter);
+
+    // Configure the trigger bindings
+    configureBindings();
+  }
+
+  public static void registerNamedCommands() {
+    CustomNamedCommands.registerCommand("Shoot",
         Commands.race(
             Commands.sequence(
                 Commands.race(
@@ -139,7 +150,7 @@ public class RobotContainer {
                                     new RunIntestine(shooter, 1)))))),
             new WaitCommand(2.4)));
 
-    NamedCommands.registerCommand("SmartShoot",
+    CustomNamedCommands.registerCommand("SmartShoot",
         Commands.race(
             Commands.sequence(
                 Commands.race(
@@ -160,7 +171,7 @@ public class RobotContainer {
                                         new RunIntestine(shooter, 1))))))),
             new WaitCommand(2.5)));
 
-    NamedCommands.registerCommand("DriveForward",
+    CustomNamedCommands.registerCommand("DriveForward",
         Commands.race(
             Commands.sequence(
                 Commands.race(
@@ -173,7 +184,7 @@ public class RobotContainer {
                         new WaitCommand(3.6)))),
             new WaitCommand(7.0)));
 
-    NamedCommands.registerCommand("DriveForwardShort",
+    CustomNamedCommands.registerCommand("DriveForwardShort",
         Commands.race(
             Commands.sequence(
                 Commands.race(
@@ -186,7 +197,7 @@ public class RobotContainer {
                         new WaitCommand(2.6)))),
             new WaitCommand(7.0)));
 
-    NamedCommands.registerCommand("DriveBackwardsShort",
+    CustomNamedCommands.registerCommand("DriveBackwardsShort",
         Commands.race(
             Commands.sequence(
                 Commands.race(
@@ -199,7 +210,7 @@ public class RobotContainer {
                         new WaitCommand(2.6)))),
             new WaitCommand(7.0)));
 
-    NamedCommands.registerCommand("DriveFL",
+    CustomNamedCommands.registerCommand("DriveFL",
         Commands.race(
             Commands.sequence(
                 Commands.race(
@@ -212,7 +223,7 @@ public class RobotContainer {
                         new WaitCommand(2.6)))),
             new WaitCommand(7.0)));
 
-    NamedCommands.registerCommand("DriveBR",
+    CustomNamedCommands.registerCommand("DriveBR",
         Commands.race(
             Commands.sequence(
                 Commands.race(
@@ -225,7 +236,7 @@ public class RobotContainer {
                         new WaitCommand(2.6)))),
             new WaitCommand(7.0)));
 
-    NamedCommands.registerCommand("DriveFR",
+    CustomNamedCommands.registerCommand("DriveFR",
         Commands.race(
             Commands.sequence(
                 Commands.race(
@@ -238,7 +249,7 @@ public class RobotContainer {
                         new WaitCommand(2.6)))),
             new WaitCommand(7.0)));
 
-    NamedCommands.registerCommand("DriveBL",
+    CustomNamedCommands.registerCommand("DriveBL",
         Commands.race(
             Commands.sequence(
                 Commands.race(
@@ -251,27 +262,22 @@ public class RobotContainer {
                         new WaitCommand(2.6)))),
             new WaitCommand(7.0)));
 
-    NamedCommands.registerCommand("PassOff",
+    CustomNamedCommands.registerCommand("PassOff",
         Commands.race(
             new PassOffPoint(intake, shooter),
             new WaitCommand(3.0)));
 
-    NamedCommands.registerCommand("AutoAlignX",
+    CustomNamedCommands.registerCommand("AutoAlignX",
         Commands.race(
             new AutoAlignX(driveBase),
             new WaitCommand(0.8)));
 
-    NamedCommands.registerCommand("DriveBackward",
+    CustomNamedCommands.registerCommand("DriveBackward",
         Commands.race(
             new RawDrive(driveBase, 0, -0.5, 0, 135),
             new WaitCommand(6.0)));
 
-    NamedCommands.registerCommand("IntakeIn", new InputOn(intake));
-
-    autonLoader = new AutonLoader(driveBase, shooter);
-
-    // Configure the trigger bindings
-    configureBindings();
+    CustomNamedCommands.registerCommand("IntakeIn", new InputOn(intake));
   }
 
   /**
@@ -481,5 +487,22 @@ public class RobotContainer {
   public static ChassisSpeeds getSaturatedSpeeds(double xVel, double yVel, double omega) {
     return new ChassisSpeeds(xVel * Constants.Swerve.XPercentage, yVel * Constants.Swerve.YPercentage,
         omega * Constants.Swerve.angularPercentage);
+  }
+
+  public static Command wrappedEventCommand(Command eventCommand) {
+    return new FunctionalCommand(
+        eventCommand::initialize,
+        eventCommand::execute,
+        eventCommand::end,
+        eventCommand::isFinished,
+        eventCommand.getRequirements().toArray(Subsystem[]::new));
+  }
+
+  public static Pose2d WPI_to_Custom(Pose2d pose) {
+    return new Pose2d(Constants.Auton.field_size[0]-pose.getY(), pose.getX(), pose.getRotation());
+  }
+
+  public static Pose2d Custom_to_WPI(Pose2d pose) {
+    return new Pose2d(pose.getY(), Constants.Auton.field_size[0]-pose.getX(), pose.getRotation());
   }
 }
