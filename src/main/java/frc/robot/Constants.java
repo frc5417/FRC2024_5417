@@ -34,7 +34,7 @@ public final class Constants {
     public static final int wristMotorID = 22;
     public static final boolean wristMotorInversion = false;
     public static final int intakeMotorID = 24;
-    public static final boolean intakeMotorInversion = false;
+    public static final boolean intakeMotorInversion = true;
 
     // Elevator Electronics
     public static final Integer elevatorMotorID = 50;
@@ -106,7 +106,7 @@ public final class Constants {
     public static final int angleAmpLimit = 35;
 
     public static final IdleMode angleNeutralMode = IdleMode.kBrake;
-    public static final IdleMode driveNeutralMode = IdleMode.kBrake;
+    public static final IdleMode driveNeutralMode = IdleMode.kCoast;
     public static final double maxVelocity = 0.5; // m/s
     public static final double maxAcceleration = (Double) 0.025; //m/s^2
     public static final double maxAngularVelocity = 1; //rad/sec

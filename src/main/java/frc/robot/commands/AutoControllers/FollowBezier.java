@@ -23,6 +23,8 @@ public class FollowBezier extends Command {
   double steps;
   Pose2d finalPose;
   boolean terminate = false;
+  boolean resetInit;
+  Pose2d[] path;
 
   PIDController x_pid = Constants.Auton.X_Pos;
   PIDController y_pid = Constants.Auton.Y_Pos;
@@ -33,9 +35,9 @@ public class FollowBezier extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     omega_pid.enableContinuousInput(-180, 180);
     m_driveBase = driveBase;
-    if (resetInit) {
-      m_driveBase.resetOdometry(path[0]);
-    }
+    this.resetInit = resetInit;
+    this.path = path;
+    
     finalPose = m_driveBase.getCurrentPose();
     setPath(path, steps);
     
@@ -44,6 +46,9 @@ public class FollowBezier extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if (resetInit) {
+      m_driveBase.resetOdometry(path[0]);
+    }
     m_driveBase.setDriveSpeed(new ChassisSpeeds());
   }
 
