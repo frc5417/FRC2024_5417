@@ -30,7 +30,7 @@ public class AutonLoader {
         autoChooser.addOption("ShootThenForward", new ShootForward(m_driveBase));
         autoChooser.addOption("ShootCurve", new ShootCurve(m_driveBase));
 
-        SmartDashboard.putData(autoChooser);
+        SmartDashboard.putData("Auto Chooser", autoChooser);
         SmartDashboard.updateValues();
     }
 

@@ -27,6 +27,8 @@ public class Shooter extends SubsystemBase {
   private final static DutyCycleEncoder enc = new DutyCycleEncoder(Constants.ManipulatorConstants.shooterEncoderPort);
 
   private double wantedWristPosition = 0.0;
+  private boolean setInitialPosition = false;
+
   private final double[] wPID = Constants.ManipulatorConstants.shooterWristPID;
   public final PIDController wristPID = new PIDController(wPID[0], wPID[1], wPID[2]);
   // public final ArmFeedforward forwardPID = new ArmFeedforward(0, 0, 1.95);
@@ -45,16 +47,17 @@ public class Shooter extends SubsystemBase {
 
     wristPID.setTolerance(Constants.ManipulatorConstants.shooterWristTolerance);
     wrist.getEncoder().setPosition(0);
-
-    enc.setDistancePerRotation(1/3);
-
-    setWristSetPoint(-0.2);
   }
 
   @Override
   public void periodic() {
+    if (!setInitialPosition && enc.getAbsolutePosition() != 0.0) {
+      setInitialPosition = true;
+      wantedWristPosition = enc.getAbsolutePosition();
+    }
+
     // This method will be called once per scheduler run
-    double wristPos = wrist.getEncoder().getPosition();
+    double wristPos = enc.getAbsolutePosition();
     SmartDashboard.putNumber("Shooter Wrist Encoder", wristPos);
 
     double power = wristPID.calculate(wristPos);

@@ -46,18 +46,18 @@ public class Vision extends SubsystemBase {
       SmartDashboard.putNumber("DistanceToTarget", -1.0d);
     }
 
-    if (DriverStation.getAlliance().isPresent()) {
-      if (!setID) {
-        setID = true;
-        if (DriverStation.getAlliance().get() == Alliance.Blue) {
-          priorityid.setNumber(8);
-        } else if ((DriverStation.getAlliance().get() == Alliance.Red)) {
-          priorityid.setNumber(4);
-        }
-      }
-    } else {
-      priorityid.setNumber(0);
-    }
+    // if (DriverStation.getAlliance().isPresent()) {
+    //   if (!setID) {
+    //     setID = true;
+    //     if (DriverStation.getAlliance().get() == Alliance.Blue) {
+    //       priorityid.setNumber(8);
+    //     } else if ((DriverStation.getAlliance().get() == Alliance.Red)) {
+    //       priorityid.setNumber(4);
+    //     }
+    //   }
+    // } else {
+    //   priorityid.setNumber(0);
+    // }
     
     if(Robot.INSTANCE.isAutonomous() || Robot.INSTANCE.isDisabled()) {
       double botpose[] = table.getEntry("botpose_wpiblue").getDoubleArray(new double[6]);

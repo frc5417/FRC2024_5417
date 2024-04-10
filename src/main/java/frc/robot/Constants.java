@@ -72,7 +72,7 @@ public final class Constants {
     public static final double intakeWristMax = 28.95;
     public static final double intakeVertical = 10.0;
     
-    public static final double shooterWristSetPointMaxDelta = 0.15;
+    public static final double shooterWristSetPointMaxDelta = 0.015;
     public static final double shooterWristPassOffPoint = -2.506572;
     public static final double shooterWristTrapPoint = -6.4762;
     public static final double shooterWristMin = -24.5;
@@ -81,9 +81,9 @@ public final class Constants {
     // Motor PIDs
     public static final double[] intakeWristPID = { .6, 0.007, 0.015 };
     public static final double intakeWristTolerance = 0.005;
-    public static final double[] shooterWristPID = {  0.5, 0.00125, 0.00125  };
-    //public static final double[] shooterWristPIDUp = { 0.5, 0.00125, 0.035 };
-    public static final double shooterWristTolerance = 0.004;
+    
+    public static final double[] shooterWristPID = {  0.5/24.0, 0.000125, 0.000125  };
+    public static final double shooterWristTolerance = 0.003;
   
     // Motor Powers
     public static final double intakeWristMaxPower = 0.3;
@@ -94,7 +94,7 @@ public final class Constants {
 
     public static final int intakeLimitSwithPort = 0;
     public static final int shooterLimitSwithPort = 9;
-    public static final int shooterEncoderPort = 10;
+    public static final int shooterEncoderPort = 1;
   }
   
   public static class Swerve {
