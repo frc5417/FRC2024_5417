@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.commands.Autos.ShootCurve;
 import frc.robot.commands.Autos.ShootForward;
 import frc.robot.subsystems.DriveBase;
 import frc.robot.subsystems.Shooter;
@@ -27,6 +28,7 @@ public class AutonLoader {
         RobotContainer.registerNamedCommands();
 
         autoChooser.addOption("ShootThenForward", new ShootForward(m_driveBase));
+        autoChooser.addOption("ShootCurve", new ShootCurve(m_driveBase));
 
         SmartDashboard.putData(autoChooser);
         SmartDashboard.updateValues();

@@ -461,7 +461,6 @@ public class RobotContainer {
     elevatorJoystick.schedule();
     intakeWristtJoystick.schedule();
     shooterWristJoystick.schedule();
-
   }
 
   public void stopTeleopCommand() {
