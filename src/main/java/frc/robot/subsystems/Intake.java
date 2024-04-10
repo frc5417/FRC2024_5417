@@ -23,7 +23,7 @@ import frc.robot.Robot;
 
 public class Intake extends SubsystemBase {
   CANSparkMax wrist = new CANSparkMax(Constants.MotorConstants.wristMotorID, MotorType.kBrushless);
-  TalonSRX intake = new TalonSRX(Constants.MotorConstants.intakeMotorID);
+  CANSparkMax intake = new CANSparkMax(Constants.MotorConstants.intakeMotorID, MotorType.kBrushless);
   
   DigitalInput intakeSwitch = new DigitalInput(Constants.ManipulatorConstants.intakeLimitSwithPort);  
   private int cyclesElapsed = 0;
@@ -37,7 +37,7 @@ public class Intake extends SubsystemBase {
     intake.setInverted(Constants.MotorConstants.intakeMotorInversion);
     wrist.setInverted(Constants.MotorConstants.wristMotorInversion);
 
-    intake.setNeutralMode(NeutralMode.Brake);
+    intake.setIdleMode(IdleMode.kBrake);
     wrist.setIdleMode(IdleMode.kBrake);
 
     wrist.getEncoder().setPosition(0);
@@ -77,7 +77,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setIntakePower(double intakePower) {
-    intake.set(TalonSRXControlMode.PercentOutput, Constants.ManipulatorConstants.intakePower * intakePower);
+    intake.set(Constants.ManipulatorConstants.intakePower * intakePower);
   }
 
   public void setWristPower(double wristPower) {
