@@ -64,11 +64,9 @@ public class RobotContainer {
   public static RunIntestine intestineBackward = new RunIntestine(shooter, -1);
   public static ElevatorJoystick elevatorJoystick = new ElevatorJoystick(elevator);
   public static AutoAlign autoAlign = new AutoAlign(driveBase, shooter);
-  public static ShooterWristSetPoint shooterTrap = new ShooterWristSetPoint(shooter,
-      Constants.ManipulatorConstants.shooterWristTrapPoint);
   public static Command shoot = Commands.sequence(
       Commands.race(
-          new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeVertical, true),
+          new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeRest, true),
           new RunIntestine(shooter, -0.15),
           new WaitCommand(0.15)),
       Commands.parallel(
@@ -77,12 +75,12 @@ public class RobotContainer {
               new WaitCommand(0.5)),
           Commands.race(
               new RunIntestine(shooter, -0.1),
-              new WaitCommand(0.15)).andThen(
-                  Commands.parallel(
-                      new RunShooter(shooter, 1),
-                      Commands.race(
-                          new WaitCommand(0.3).andThen(
-                              new RunIntestine(shooter, 1)))))));
+              new WaitCommand(0.15))),
+      Commands.parallel(
+          new RunShooter(shooter, 1),
+          Commands.race(
+              new WaitCommand(0.3).andThen(
+                  new RunIntestine(shooter, 1)))));
 
   public static Command shootManual = Commands.race(
       new RunIntestine(shooter, -0.2),
@@ -95,21 +93,21 @@ public class RobotContainer {
 
   public static Command alignAndShoot = Commands.sequence(
       Commands.race(
-          new IntakeWristSetPoint(intake, 0, true),
-          new WaitCommand(0.25)),
-      Commands.race(
-          Commands.parallel(
+          new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeRest, true),
+          new RunIntestine(shooter, -0.15),
+          new WaitCommand(0.15)),
+      Commands.parallel(
+          Commands.race(
+              new ShooterWristSetPoint(shooter, 0.645),
+              new WaitCommand(0.5)),
+          Commands.race(
               new RunIntestine(shooter, -0.1),
-              new ShooterWristSetPoint(shooter, -3.872851)),
-          new WaitCommand(.3)).andThen(
-              Commands.parallel(
-                  Commands.race(
-                      new RunIntestine(shooter, -0.1),
-                      new WaitCommand(.1)),
-                  new RunShooter(shooter, 1),
-                  new WaitCommand(0.35).andThen(
-                      new WaitCommand(0.25).andThen(
-                          new RunIntestine(shooter, 1))))));
+              new WaitCommand(0.15))),
+      Commands.parallel(
+          new RunShooter(shooter, 1),
+          Commands.race(
+              new WaitCommand(0.3).andThen(
+                  new RunIntestine(shooter, 1)))));
 
   private final static CommandXboxController m_driverController = new CommandXboxController(
       OperatorConstants.kDriverPort);
@@ -138,7 +136,7 @@ public class RobotContainer {
                 Commands.race(
                     Commands.parallel(
                         new RunIntestine(shooter, -0.15),
-                        new ShooterWristSetPoint(shooter, -3.872851)),
+                        new ShooterWristSetPoint(shooter, 0.645)),
                     new WaitCommand(.3)).andThen(
                         Commands.parallel(
                             Commands.race(
@@ -154,7 +152,7 @@ public class RobotContainer {
         Commands.race(
             Commands.sequence(
                 Commands.race(
-                    new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeVertical, true),
+                    new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeRest, true),
                     new RunIntestine(shooter, -0.15),
                     new WaitCommand(0.20)),
                 Commands.parallel(
@@ -169,113 +167,12 @@ public class RobotContainer {
                                 Commands.race(
                                     new WaitCommand(0.35).andThen(
                                         new RunIntestine(shooter, 1))))))),
-            new WaitCommand(2.5)));
-
-    CustomNamedCommands.registerCommand("DriveForward",
-        Commands.race(
-            Commands.sequence(
-                Commands.race(
-                    new IntakeWristSetPoint(intake, 27.8, true),
-                    new WaitCommand(0.5)),
-                Commands.parallel(
-                    new RawDrive(driveBase, 0, 0.5, 0, 170),
-                    Commands.race(
-                        new ToggleIntake(intake, -0.665),
-                        new WaitCommand(3.6)))),
-            new WaitCommand(7.0)));
-
-    CustomNamedCommands.registerCommand("DriveForwardShort",
-        Commands.race(
-            Commands.sequence(
-                Commands.race(
-                    new IntakeWristSetPoint(intake, 27.8, true),
-                    new WaitCommand(0.5)),
-                Commands.parallel(
-                    new RawDrive(driveBase, 0, 0.5, 0, 50),
-                    Commands.race(
-                        new ToggleIntake(intake, -0.65),
-                        new WaitCommand(2.6)))),
-            new WaitCommand(7.0)));
-
-    CustomNamedCommands.registerCommand("DriveBackwardsShort",
-        Commands.race(
-            Commands.sequence(
-                Commands.race(
-                    new IntakeWristSetPoint(intake, 27.8, true),
-                    new WaitCommand(0.5)),
-                Commands.parallel(
-                    new RawDrive(driveBase, 0, 0.5, 0, 50),
-                    Commands.race(
-                        new ToggleIntake(intake, -1),
-                        new WaitCommand(2.6)))),
-            new WaitCommand(7.0)));
-
-    CustomNamedCommands.registerCommand("DriveFL",
-        Commands.race(
-            Commands.sequence(
-                Commands.race(
-                    new IntakeWristSetPoint(intake, 27.8, true),
-                    new WaitCommand(0.5)),
-                Commands.parallel(
-                    new RawDrive(driveBase, -0.5, 0.5, 0, 60),
-                    Commands.race(
-                        new ToggleIntake(intake, -0.4),
-                        new WaitCommand(2.6)))),
-            new WaitCommand(7.0)));
-
-    CustomNamedCommands.registerCommand("DriveBR",
-        Commands.race(
-            Commands.sequence(
-                Commands.race(
-                    new IntakeWristSetPoint(intake, 27.8, true),
-                    new WaitCommand(0.5)),
-                Commands.parallel(
-                    new RawDrive(driveBase, 0.5, -0.5, 0, 60),
-                    Commands.race(
-                        new ToggleIntake(intake, -0.4),
-                        new WaitCommand(2.6)))),
-            new WaitCommand(7.0)));
-
-    CustomNamedCommands.registerCommand("DriveFR",
-        Commands.race(
-            Commands.sequence(
-                Commands.race(
-                    new IntakeWristSetPoint(intake, 27.8, true),
-                    new WaitCommand(0.5)),
-                Commands.parallel(
-                    new RawDrive(driveBase, 0.5, 0.5, 0, 60),
-                    Commands.race(
-                        new ToggleIntake(intake, -0.4),
-                        new WaitCommand(2.6)))),
-            new WaitCommand(7.0)));
-
-    CustomNamedCommands.registerCommand("DriveBL",
-        Commands.race(
-            Commands.sequence(
-                Commands.race(
-                    new IntakeWristSetPoint(intake, 27.8, true),
-                    new WaitCommand(0.5)),
-                Commands.parallel(
-                    new RawDrive(driveBase, -0.5, -0.5, 0, 60),
-                    Commands.race(
-                        new ToggleIntake(intake, -0.4),
-                        new WaitCommand(2.6)))),
-            new WaitCommand(7.0)));
+            new WaitCommand(2.3)));
 
     CustomNamedCommands.registerCommand("PassOff",
         Commands.race(
             new PassOffPoint(intake, shooter),
             new WaitCommand(3.0)));
-
-    CustomNamedCommands.registerCommand("AutoAlignX",
-        Commands.race(
-            new AutoAlignX(driveBase),
-            new WaitCommand(0.8)));
-
-    CustomNamedCommands.registerCommand("DriveBackward",
-        Commands.race(
-            new RawDrive(driveBase, 0, -0.5, 0, 135),
-            new WaitCommand(6.0)));
 
     CustomNamedCommands.registerCommand("IntakeIn", new InputOn(intake));
   }
@@ -299,10 +196,12 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     m_driverController.b().whileTrue(new RunShooter(shooter, -.15));
+
     m_manipulatorController.povUp().whileTrue(intestineForward).whileTrue(intakeOut);
     m_manipulatorController.povDown().whileTrue(intestineBackward);
-    m_manipulatorController.povLeft().whileTrue(shooterTrap);
+    m_manipulatorController.povLeft().whileTrue(intestineForward).whileTrue(intakeIn);
     m_manipulatorController.povRight().whileTrue(shootManual);
+
     m_manipulatorController.y().whileTrue(shoot);
     m_manipulatorController.x().whileTrue(
         Commands.parallel(
@@ -498,10 +397,10 @@ public class RobotContainer {
   }
 
   public static Pose2d WPI_to_Custom(Pose2d pose) {
-    return new Pose2d(Constants.Auton.field_size[0]-pose.getY(), pose.getX(), pose.getRotation());
+    return new Pose2d(Constants.Auton.field_size[0] - pose.getY(), pose.getX(), pose.getRotation());
   }
 
   public static Pose2d Custom_to_WPI(Pose2d pose) {
-    return new Pose2d(pose.getY(), Constants.Auton.field_size[0]-pose.getX(), pose.getRotation());
+    return new Pose2d(pose.getY(), Constants.Auton.field_size[0] - pose.getX(), pose.getRotation());
   }
 }

@@ -70,26 +70,26 @@ public final class Constants {
     public static final double intakeWristPassOffPoint = 1.40574; // TODO: uh oh
     public static final double intakeWristMin = 0.60;
     public static final double intakeWristMax = 28.95;
-    public static final double intakeVertical = 10.0;
+    public static final double intakeRest = 1.0;
     
-    public static final double shooterWristSetPointMaxDelta = 0.015;
-    public static final double shooterWristPassOffPoint = -2.506572;
-    public static final double shooterWristTrapPoint = -6.4762;
-    public static final double shooterWristMin = -24.5;
-    public static final double shooterWristMax = -0.4;
+    public static final double shooterWristSetPointMaxDelta = 0.01;
+    public static final double shooterWristPassOffPoint = 0.7;
+    public static final double shooterWristTrapPoint = 0.71;
+    public static final double shooterWristMin = 0.26;
+    public static final double shooterWristMax = 0.715;
 
     // Motor PIDs
     public static final double[] intakeWristPID = { .6, 0.007, 0.015 };
     public static final double intakeWristTolerance = 0.005;
     
-    public static final double[] shooterWristPID = {  0.5/24.0, 0.000125, 0.000125  };
+    public static final double[] shooterWristPID = { 6.0, 0.0025, 0.00025  };
     public static final double shooterWristTolerance = 0.003;
   
     // Motor Powers
     public static final double intakeWristMaxPower = 0.3;
     public static final double shooterWristMaxPower = 0.5;
     public static final double elevatorMaxPower = 0.9;
-    public static final double intakePower = 1.0;
+    public static final double intakePower = 0.8;
     public static final double intestinePower = 0.5;
 
     public static final int intakeLimitSwithPort = 0;
@@ -150,7 +150,7 @@ public final class Constants {
     public static final PIDController X_Pos = new PIDController(1.3, 0, 0);
     public static final PIDController Y_Pos = new PIDController(1.3, 0, 0);
     public static final PIDController Theta_Pos = new PIDController(0.01, 0.0, 0.0); //0.5 p 0.15 0.035
-    public static final double speedClamp = 0.4;
+    public static final double speedClamp = 0.7;
     public static final double speedRotClamp = 0.3;
     public static final double poseTolerance = 0.1;
     public static final double thetaTolerance = 3; // rotations
@@ -175,11 +175,11 @@ public final class Constants {
     public static final double aprilTagToTargetZ = 0.01; // in meters TODO: change
 
     public static final double[] distanceDataX = {
-      1.28, 1.62, 1.99, 2.10, 2.28, 2.43, 2.71
+      1.25, 1.69, 2.04, 2.6
     };
 
     public static final double[] shooterAngleY = {
-      -4.3, -5.16, -5.68,-5.84, -5.86, -5.96, -5.78
+      0.645, 0.618, 0.599, 0.569
     };
   }
 

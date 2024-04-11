@@ -27,7 +27,7 @@ public class AutoAlign extends Command {
     this.driveBase = driveBase;
     this.shooter = shooter;
 
-    drivePID.setTolerance(0.15);
+    drivePID.setTolerance(0.1);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

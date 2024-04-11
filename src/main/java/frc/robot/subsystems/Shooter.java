@@ -81,6 +81,8 @@ public class Shooter extends SubsystemBase {
 
   public void setWristSetPoint(double wristSetPoint) {
     wantedWristPosition = MathUtil.clamp(wristSetPoint, Constants.ManipulatorConstants.shooterWristMin, Constants.ManipulatorConstants.shooterWristMax);
+    SmartDashboard.putNumber("Shooter Wrist SetPoint", wantedWristPosition);
+
     wristPID.setSetpoint(wantedWristPosition);
   }
 
@@ -101,8 +103,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean atWristSetPoint() {
-    double wristPos = wrist.getEncoder().getPosition();
+    double wristPos = enc.getAbsolutePosition();
     // System.out.println(wristPos - wantedWristPosition);
-    return (Math.abs(wristPos - wantedWristPosition) < (Constants.ManipulatorConstants.shooterWristTolerance * 10));
+    return (Math.abs(wristPos - wantedWristPosition) < (Constants.ManipulatorConstants.shooterWristTolerance * 5));
   }
 }
