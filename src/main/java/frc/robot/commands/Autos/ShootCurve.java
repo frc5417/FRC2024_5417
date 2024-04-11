@@ -18,14 +18,16 @@ import frc.robot.subsystems.DriveBase;
 public class ShootCurve extends SequentialCommandGroup {
   Pose2d startPose = new Pose2d(1.22, 5.55, Rotation2d.fromDegrees(0)); //right in front of speaker
   Pose2d closeStartPose = new Pose2d(1.5, 5.55, Rotation2d.fromDegrees(0)); //right in front of speaker
+  Pose2d left = new Pose2d(1.5, 6.85, Rotation2d.fromDegrees(0)); //right in front of speaker
   Pose2d pickUpNote1 = new Pose2d(2.33, 5.55, Rotation2d.fromDegrees(0)); //note in front of speaker
-  Pose2d prePickUpNote2 = new Pose2d(1.7, 6.72, Rotation2d.fromDegrees(0)); //note next to amp
-  Pose2d pickUpNote2 = new Pose2d(2.33, 6.72, Rotation2d.fromDegrees(0)); //note next to amp
+  // Pose2d prePickUpNote2 = new Pose2d(1.7, 6.72, Rotation2d.fromDegrees(0)); //note next to amp
+  Pose2d pickUpNote2 = new Pose2d(2.33, 6.85, Rotation2d.fromDegrees(0)); //note next to amp
 
   Pose2d[] forwardPath1 =  { startPose, pickUpNote1 };
   Pose2d[] backToSpeaker1 = { pickUpNote1, closeStartPose };
-  Pose2d[] forwardPath2 = { closeStartPose, prePickUpNote2, pickUpNote2 };
   Pose2d[] backToSpeaker2 = { pickUpNote2, closeStartPose };
+  Pose2d[] side = { closeStartPose, left};
+  Pose2d[] forwardPath2 = { left, pickUpNote2 };
 
   /** Creates a new ShootForward. */
   public ShootCurve(DriveBase driveBase) {
@@ -41,6 +43,7 @@ public class ShootCurve extends SequentialCommandGroup {
         new FollowBezier(driveBase, backToSpeaker1, 70, false)
       ),
       CustomNamedCommands.getCommand("SmartShoot"), // shoot 2nd note then go get 3rd
+      new FollowBezier(driveBase, side, 70, false),
       Commands.parallel(
         CustomNamedCommands.getCommand("IntakeIn"),
         new FollowBezier(driveBase, forwardPath2, 70, false)
