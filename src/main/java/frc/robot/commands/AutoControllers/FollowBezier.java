@@ -48,7 +48,9 @@ public class FollowBezier extends Command {
   public void initialize() {
     if (resetInit) {
       m_driveBase.resetOdometry(path[0]);
+      m_driveBase.setAngleOffsetTeleop(path[0].getRotation().getDegrees());
     }
+
     m_driveBase.setDriveSpeed(new ChassisSpeeds());
   }
 
@@ -83,8 +85,6 @@ public class FollowBezier extends Command {
     double currentY = m_driveBase.getCurrentPose().getY();
     double currentTheta = m_driveBase.getCurrentPose().getRotation().getDegrees(); //getGoodAngle(m_driveBase.getCurrentPose().getRotation().getRadians());
 
-    
-    
     if (finalPose != bezierFunction.apply(time)) {
       // Pose2d computedPose = RobotContainer.WPI_to_Custom(bezierFunction.apply(time));
       setPIDSetpoints(bezierFunction.apply(time));

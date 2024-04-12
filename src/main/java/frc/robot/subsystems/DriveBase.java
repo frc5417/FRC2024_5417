@@ -11,6 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -48,10 +49,14 @@ public class DriveBase extends SubsystemBase {
 
     ChassisSpeeds autoSetSpeed = new ChassisSpeeds();
 
+    boolean hasUpdatedOffset = true;
+    double savedOffetPos = 0.0d;
+
     public DriveBase(Kinematics kinematics, AHRS ahrs) {
         m_kinematics = kinematics;
         m_ahrs = ahrs;
-        m_ahrs.reset();
+        // m_ahrs.reset();
+        setAngleOffsetTeleop(0);
 
         moduleGroup = new Module[4];
         for (int i = 0; i < 4; i++) {
@@ -78,6 +83,11 @@ public class DriveBase extends SubsystemBase {
                 new SwerveModulePosition(odomDeltas[0], new Rotation2d(odomAngles[0]))
             }, new Pose2d (x, y, new Rotation2d(yaw))
         );
+    }
+
+    public void setAngleOffsetTeleop(double amount) {
+        hasUpdatedOffset = false;
+        savedOffetPos = amount;
     }
 
     public Pose2d getCurrentPose() {
@@ -156,6 +166,11 @@ public class DriveBase extends SubsystemBase {
 
     @Override
     public void periodic() {
+        if (!hasUpdatedOffset && Robot.INSTANCE.isTeleopEnabled()) {
+            hasUpdatedOffset = true;
+            m_ahrs.setAngleAdjustment(savedOffetPos);
+        }
+
         // RobotContainer.m_photonsubsystem.updatePose();
         for (int i = 0; i < 4; i++) {
             moduleGroup[i].setSpeedAndAngle(targetModuleStates[i]);

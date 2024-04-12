@@ -26,7 +26,7 @@ public class Shooter extends SubsystemBase {
 
   private final static DutyCycleEncoder enc = new DutyCycleEncoder(Constants.ManipulatorConstants.shooterEncoderPort);
 
-  private double wantedWristPosition = 0.0;
+  private double wantedWristPosition = 0.72;
   private boolean setInitialPosition = false;
 
   private final double[] wPID = Constants.ManipulatorConstants.shooterWristPID;
@@ -46,7 +46,7 @@ public class Shooter extends SubsystemBase {
     wrist.setIdleMode(IdleMode.kBrake);
 
     wristPID.setTolerance(Constants.ManipulatorConstants.shooterWristTolerance);
-    wrist.getEncoder().setPosition(0);
+    setWristSetPoint(0.71);
   }
 
   @Override
@@ -72,7 +72,7 @@ public class Shooter extends SubsystemBase {
 
   public void setWristPower(double wristPower) {
     wrist.set(Constants.ManipulatorConstants.shooterWristMaxPower * wristPower);
-    SmartDashboard.putNumber("Shooter Wrist Power", Constants.ManipulatorConstants.intakeWristMaxPower * wristPower);
+    SmartDashboard.putNumber("Shooter Wrist Power", Constants.ManipulatorConstants.shooterWristMaxPower * wristPower);
   }
 
   public void incrementWristPos(double wristSetPointDelta) {

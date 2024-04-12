@@ -196,6 +196,7 @@ public class RobotContainer {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     m_driverController.b().whileTrue(new RunShooter(shooter, -.15));
+    m_driverController.y().whileTrue(new ShooterWristSetPoint(shooter, Constants.ManipulatorConstants.shooterWristTrapPoint));
 
     m_manipulatorController.povUp().whileTrue(intestineForward).whileTrue(intakeOut);
     m_manipulatorController.povDown().whileTrue(intestineBackward);
@@ -212,6 +213,7 @@ public class RobotContainer {
                     new RunIntestine(shooter, 1))));
     m_manipulatorController.a().whileTrue(alignAndShoot);
     m_manipulatorController.b().whileTrue(passOffPoint);
+
     m_manipulatorController.rightTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeOut);
     m_manipulatorController.leftTrigger(Constants.OperatorConstants.joystickDeadband).whileTrue(intakeIn);
   }

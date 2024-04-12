@@ -4,6 +4,7 @@
 
 package frc.robot.commands.combined;
 
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -27,12 +28,15 @@ public class PassOffPoint extends SequentialCommandGroup {
           new IntakeWristSetPoint(intake, Constants.ManipulatorConstants.intakeWristPassOffPoint, true),
           new ShooterWristSetPoint(shooter, Constants.ManipulatorConstants.shooterWristPassOffPoint, true)
         ),
-        new ToggleIntake(intake, -0.2, false)
+        new ToggleIntake(intake, -0.6, false)
       ),
       new WaitCommand(0.3),
       new ParallelCommandGroup(
         new Intestine(shooter),
-        new ToggleIntake(intake, 0.8)
+        Commands.race(
+          new WaitCommand(0.3),
+          new ToggleIntake(intake, 0.6)
+        )
       )
     );
   }

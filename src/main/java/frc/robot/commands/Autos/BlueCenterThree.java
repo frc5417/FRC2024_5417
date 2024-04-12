@@ -15,7 +15,7 @@ import frc.robot.subsystems.DriveBase;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ShootCurve extends SequentialCommandGroup {
+public class BlueCenterThree extends SequentialCommandGroup {
   Pose2d startPose = new Pose2d(1.22, 5.55, Rotation2d.fromDegrees(0)); //right in front of speaker
   Pose2d closeStartPose = new Pose2d(1.5, 5.55, Rotation2d.fromDegrees(0)); //right in front of speaker
   Pose2d left = new Pose2d(1.5, 6.85, Rotation2d.fromDegrees(0)); //right in front of speaker
@@ -30,7 +30,7 @@ public class ShootCurve extends SequentialCommandGroup {
   Pose2d[] forwardPath2 = { left, pickUpNote2 };
 
   /** Creates a new ShootForward. */
-  public ShootCurve(DriveBase driveBase) {
+  public BlueCenterThree(DriveBase driveBase) {
     // Add your commands in the addCommands() call
     addCommands(
       CustomNamedCommands.getCommand("Shoot"),

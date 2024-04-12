@@ -21,14 +21,8 @@ public class InputOn extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      Commands.race(
-        new IntakeWristSetPoint(intake, 27.8, true),
-        new WaitCommand(0.5)
-      ),
-      Commands.race(
-        new ToggleIntake(intake, -1, false, false),
-        new WaitCommand(0.1)
-      )
+      new IntakeWristSetPoint(intake, 27.8, true).withTimeout(0.5),
+      new ToggleIntake(intake, -1, false, false).withTimeout(0.1)
     );
   }
 }
