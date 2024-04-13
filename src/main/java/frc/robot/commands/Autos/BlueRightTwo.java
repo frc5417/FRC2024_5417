@@ -30,11 +30,11 @@ public class BlueRightTwo extends SequentialCommandGroup {
       CustomNamedCommands.getCommand("Shoot"),
       Commands.parallel(
         CustomNamedCommands.getCommand("IntakeIn"),
-        new FollowBezier(driveBase, path1, 100, true)
+        new FollowBezier(driveBase, path1, 55, true)
       ),
       Commands.parallel(
         CustomNamedCommands.getCommand("PassOff"),
-        new FollowBezier(driveBase, path2, 100, false)
+        new FollowBezier(driveBase, path2, 55, false)
       ),
       CustomNamedCommands.getCommand("Shoot")
     );

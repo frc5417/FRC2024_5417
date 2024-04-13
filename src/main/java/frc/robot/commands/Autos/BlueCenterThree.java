@@ -36,21 +36,21 @@ public class BlueCenterThree extends SequentialCommandGroup {
       CustomNamedCommands.getCommand("Shoot"),
       Commands.parallel(
         CustomNamedCommands.getCommand("IntakeIn"),
-        new FollowBezier(driveBase, forwardPath1, 70, true)
+        new FollowBezier(driveBase, forwardPath1, 55, true)
       ),
       Commands.parallel(
         CustomNamedCommands.getCommand("PassOff"),
-        new FollowBezier(driveBase, backToSpeaker1, 70, false)
+        new FollowBezier(driveBase, backToSpeaker1, 55, false)
       ),
       CustomNamedCommands.getCommand("SmartShoot"), // shoot 2nd note then go get 3rd
-      new FollowBezier(driveBase, side, 70, false),
+      new FollowBezier(driveBase, side, 55, false),
       Commands.parallel(
         CustomNamedCommands.getCommand("IntakeIn"),
-        new FollowBezier(driveBase, forwardPath2, 70, false)
+        new FollowBezier(driveBase, forwardPath2, 55, false)
       ),
       Commands.parallel(
         CustomNamedCommands.getCommand("PassOff"),
-        new FollowBezier(driveBase, backToSpeaker2, 70, false)
+        new FollowBezier(driveBase, backToSpeaker2, 55, false)
       ),
       CustomNamedCommands.getCommand("SmartShoot")
     );

@@ -30,10 +30,12 @@ public class AutonLoader {
         RobotContainer.registerNamedCommands();
 
         autoChooser.addOption("None", Commands.none());
-        autoChooser.addOption("BlueLeftTwo", new BlueLeftTwo(m_driveBase));
         autoChooser.addOption("BlueCenterThree", new BlueCenterThree(m_driveBase));
+        autoChooser.addOption("BlueCenterTwo", new BlueCenterTwo(m_driveBase));
+        autoChooser.addOption("BlueLeftTwo", new BlueLeftTwo(m_driveBase));
         autoChooser.addOption("BlueRightTwo", new BlueRightTwo(m_driveBase));
         autoChooser.addOption("RedCenterThree", new RedCenterThree(m_driveBase));
+        autoChooser.addOption("RedCenterTwo", new RedCenterTwo(m_driveBase));
         autoChooser.addOption("RedLeftTwo", new RedLeftTwo(m_driveBase));
         autoChooser.addOption("RedRightTwo", new RedRightTwo(m_driveBase));
         autoChooser.addOption("RedLeftDisrupter", new RedLeftDisrupter(m_driveBase, m_intake));

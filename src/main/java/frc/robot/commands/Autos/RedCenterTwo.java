@@ -15,25 +15,25 @@ import frc.robot.subsystems.DriveBase;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class BlueLeftTwo extends SequentialCommandGroup {
-  Pose2d startPose = new Pose2d(0.73, 6.72, Rotation2d.fromDegrees(60));
-  Pose2d note1 = new Pose2d(2.47, 6.98, Rotation2d.fromDegrees(0));
+public class RedCenterTwo extends SequentialCommandGroup {
+  Pose2d startPose = new Pose2d(15.33, 5.55, Rotation2d.fromDegrees(180)); //right in front of speaker
+  Pose2d note1 = new Pose2d(14, 5.55, Rotation2d.fromDegrees(180)); // note in front of speaker
 
-  Pose2d[] path1 = { startPose, note1 };
-  Pose2d[] path2 = { note1, startPose };
+  Pose2d[] forwardPath =  { startPose, note1 };
+  Pose2d[] backToSpeaker = { note1, startPose };
 
   /** Creates a new ShootForward. */
-  public BlueLeftTwo(DriveBase driveBase) {
+  public RedCenterTwo(DriveBase driveBase) {
     // Add your commands in the addCommands() call
     addCommands(
       CustomNamedCommands.getCommand("Shoot"),
       Commands.parallel(
         CustomNamedCommands.getCommand("IntakeIn"),
-        new FollowBezier(driveBase, path1, 55, true)
+        new FollowBezier(driveBase, forwardPath, 55, false).withTimeout(3)
       ),
       Commands.parallel(
         CustomNamedCommands.getCommand("PassOff"),
-        new FollowBezier(driveBase, path2, 55, false)
+        new FollowBezier(driveBase, backToSpeaker, 55, false).withTimeout(3)
       ),
       CustomNamedCommands.getCommand("Shoot")
     );
