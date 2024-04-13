@@ -4,9 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -26,7 +23,7 @@ public class Intake extends SubsystemBase {
   CANSparkMax intake = new CANSparkMax(Constants.MotorConstants.intakeMotorID, MotorType.kBrushless);
   
   DigitalInput intakeSwitch = new DigitalInput(Constants.ManipulatorConstants.intakeLimitSwithPort);  
-  private int cyclesElapsed = 0;
+  // private int cyclesElapsed = 0;
   private double wantedWristPosition = 0.0;
   private final double[] wPID = Constants.ManipulatorConstants.intakeWristPID;
   public final PIDController wristPID = new PIDController(wPID[0], wPID[1], wPID[2]);
@@ -54,11 +51,11 @@ public class Intake extends SubsystemBase {
     double power = wristPID.calculate(wristPos);
     SmartDashboard.putNumber("Wrist PID", power);
     
-    if (!atWristSetPoint() && Robot.INSTANCE != null && Robot.INSTANCE.isEnabled()){
-      cyclesElapsed ++;
-    } else {
-      cyclesElapsed = 0;
-    }
+    // if (!atWristSetPoint() && Robot.INSTANCE != null && Robot.INSTANCE.isEnabled()){
+    //   cyclesElapsed ++;
+    // } else {
+    //   cyclesElapsed = 0;
+    // }
 
     // if (cyclesElapsed >= frc.robot.Constants.MotorConstants.maxWristPowerCycles){
     //   power = 0;

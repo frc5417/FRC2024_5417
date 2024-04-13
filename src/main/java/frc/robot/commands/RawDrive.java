@@ -8,9 +8,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveBase;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
@@ -60,17 +58,6 @@ public class RawDrive extends Command {
     double xVel = (x * 0.125) + (prev_xVel * 0.875); 
     double yVel = (y * 0.125) + (prev_yVel * 0.875); 
     double omega = (omeg * 0.225) + (prev_omega * 0.55);
-
-    // if (omeg == 0) {
-    //   double currentAngle = m_driveBase.getCurrentPose().getRotation().getRadians();
-    //   drivePID.setSetpoint(startingAngle);
-
-    //   SmartDashboard.putNumber("currentAngleAuto", currentAngle);
-    //   SmartDashboard.putNumber("wantedAngleAuto", startingAngle);
-
-    //   omega = MathUtil.clamp(drivePID.calculate(currentAngle), -1, 1);
-    //   omega *= 0.5;
-    // }
 
     prev_xVel = xVel;
     prev_yVel = yVel;

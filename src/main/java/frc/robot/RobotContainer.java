@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.*;
-import frc.robot.commands.combined.InputOn;
+import frc.robot.commands.combined.IntakeInAndOut;
 import frc.robot.commands.combined.Intestine;
 import frc.robot.commands.combined.PassOffPoint;
 import frc.robot.subsystems.*;
@@ -173,7 +173,7 @@ public class RobotContainer {
             new PassOffPoint(intake, shooter),
             new WaitCommand(2)));
 
-    CustomNamedCommands.registerCommand("IntakeIn", new InputOn(intake));
+    CustomNamedCommands.registerCommand("IntakeIn", new IntakeInAndOut(intake));
   }
 
   /**

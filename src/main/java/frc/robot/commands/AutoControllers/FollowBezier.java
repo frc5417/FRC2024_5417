@@ -99,6 +99,8 @@ public class FollowBezier extends Command {
         Math.abs(currentY-finalPose.getY()) > Constants.Auton.poseTolerance ||
         Math.abs(currentTheta-finalPose.getRotation().getDegrees()) > Constants.Auton.thetaTolerance
     ) {
+      SmartDashboard.putBoolean("IsRed", m_driveBase.isRed());
+
       if (m_driveBase.isRed())
         m_driveBase.setRedAutoSpeed(new ChassisSpeeds(MathUtil.clamp(x_pid.calculate(currentX), -Constants.Auton.speedClamp, Constants.Auton.speedClamp), MathUtil.clamp(y_pid.calculate(currentY), -Constants.Auton.speedClamp, Constants.Auton.speedClamp), MathUtil.clamp(omega_pid.calculate(currentTheta), -Constants.Auton.speedRotClamp, Constants.Auton.speedRotClamp)));
       else

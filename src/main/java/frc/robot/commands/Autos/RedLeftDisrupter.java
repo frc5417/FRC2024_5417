@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.CustomNamedCommands;
+import frc.robot.Constants.ManipulatorConstants;
 import frc.robot.commands.IntakeWristSetPoint;
 import frc.robot.commands.AutoControllers.FollowBezier;
 import frc.robot.subsystems.DriveBase;
@@ -47,7 +48,7 @@ public class RedLeftDisrupter extends SequentialCommandGroup {
     addCommands(
       CustomNamedCommands.getCommand("Shoot"),
       Commands.parallel(
-        new IntakeWristSetPoint(intake, 0),
+        new IntakeWristSetPoint(intake, ManipulatorConstants.intakeWristMax),
         new FollowBezier(driveBase, curveToNote1, 250, true).withTimeout(3)
       ),
       new FollowBezier(driveBase, moveFirstNote, 55, false).withTimeout(3),

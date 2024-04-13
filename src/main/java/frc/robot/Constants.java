@@ -67,7 +67,7 @@ public final class Constants {
     // Motor SetPoints
     public static final double intakeWristSetPointMaxDelta = 0.3;
     public static final double intakeWristShootingPoint = 2.2857;
-    public static final double intakeWristPassOffPoint = 1.40574; // TODO: uh oh
+    public static final double intakeWristPassOffPoint = 1.40574;
     public static final double intakeWristMin = 0.60;
     public static final double intakeWristMax = 28.95;
     public static final double intakeRest = 1.0;
@@ -140,8 +140,7 @@ public final class Constants {
     public static final double[] ROTATION_PID =  { 0.25, 0.01, 0 };
     public static final double[] TRANSLATION_PID = { 0, 0, 0 };
     public static final Integer wheels = 4;
-    public static final boolean[] invertedMotors = {true, true, true, false};
-    //TODO: tune pid constants
+    public static final boolean[] invertedMotors = { true, true, true, false };
   }
 
   public static class Auton {
@@ -167,12 +166,12 @@ public final class Constants {
     public static final double limelightAngle = 20.0; // in degrees
     public static final double limelightToShooterZ = 0.0508; // in meters
     public static final double limelightToShooterY = 0.244475; // in meters
-    public static final double limelightToShooterX = -Units.inchesToMeters(6); // in meters, TODO: change
+    public static final double limelightToShooterX = 0; // in meters
     public static final double aprilTagToTarget = -0.66675; // in meters (changed from -0.30595 to 2.086)
-    public static final double aprilTagToLowerTarget = -0.62865; // in meters, TODO: change
+    public static final double aprilTagToLowerTarget = -0.62865; // in meters
     public static final double startingShooterDegrees = 5;
     public static final double shooterDegreeRatio = 360 / 45; // 45 : 1
-    public static final double aprilTagToTargetZ = 0.01; // in meters TODO: change
+    public static final double aprilTagToTargetZ = 0.01; // in meters
 
     public static final double[] distanceDataX = {
       1.25, 1.69, 2.04, 2.6

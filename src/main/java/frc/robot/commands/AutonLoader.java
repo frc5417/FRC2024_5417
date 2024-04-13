@@ -30,6 +30,7 @@ public class AutonLoader {
         RobotContainer.registerNamedCommands();
 
         autoChooser.addOption("None", Commands.none());
+        autoChooser.addOption("Shoot", new ShootAuto(m_driveBase));
         autoChooser.addOption("BlueCenterThree", new BlueCenterThree(m_driveBase));
         autoChooser.addOption("BlueCenterTwo", new BlueCenterTwo(m_driveBase));
         autoChooser.addOption("BlueLeftTwo", new BlueLeftTwo(m_driveBase));

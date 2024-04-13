@@ -12,13 +12,12 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 import frc.robot.Regression;
 import frc.robot.Robot;
-import frc.robot.RobotContainer;
+
 import frc.robot.Constants.LimelightConstants;
 
 public class Vision extends SubsystemBase {
@@ -27,9 +26,9 @@ public class Vision extends SubsystemBase {
   private static final NetworkTableEntry txEntry = table.getEntry("tx");
   private static final NetworkTableEntry tyEntry = table.getEntry("ty");
   private static final NetworkTableEntry targetPoseEntry = table.getEntry("targetpose_cameraspace");
-  private static final NetworkTableEntry priorityid = table.getEntry("priorityid");
-
-  private boolean setID = false;
+  
+  // private static final NetworkTableEntry priorityid = table.getEntry("priorityid");
+  // private boolean setID = false;
 
   /** Creates a new Vision. */
   public Vision() {}

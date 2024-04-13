@@ -7,7 +7,6 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import frc.robot.Constants;
@@ -101,19 +100,6 @@ public class DriveBase extends SubsystemBase {
             return alliance.get() == DriverStation.Alliance.Red;
         }
         return false;
-    }
-
-    public boolean shouldFlipPath() {
-        // if (DriverStation.getAlliance().equals(Alliance.Blue)) {
-        //     return Constants.Swerve.shouldFlipAuto;
-        // } else if ((DriverStation.getAlliance().equals(Alliance.Red))) {
-        //     return !Constants.Swerve.shouldFlipAuto;
-        // } else {
-        //     System.out.println("IDK THE ROBOT ALLIANCE BRO"); 
-        //     return false;
-        // }
-        
-        return Constants.Swerve.shouldFlipAuto;
     }
 
     public void resetOdometry(Pose2d pose) {
