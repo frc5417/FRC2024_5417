@@ -141,12 +141,11 @@ public class RobotContainer {
                         Commands.parallel(
                             Commands.race(
                                 new RunIntestine(shooter, -0.2),
-                                new WaitCommand(.15)),
+                                new WaitCommand(.1)),
                             new RunShooter(shooter, 1),
                             new WaitCommand(0.35).andThen(
-                                new WaitCommand(0.25).andThen(
-                                    new RunIntestine(shooter, 1)))))),
-            new WaitCommand(2.4)));
+                                    new RunIntestine(shooter, 1).withTimeout(0.4))))),
+            new WaitCommand(2)));
 
     CustomNamedCommands.registerCommand("SmartShoot",
         Commands.race(
@@ -166,13 +165,13 @@ public class RobotContainer {
                                 new RunShooter(shooter, 1),
                                 Commands.race(
                                     new WaitCommand(0.35).andThen(
-                                        new RunIntestine(shooter, 1))))))),
-            new WaitCommand(2.3)));
+                                        new RunIntestine(shooter, 1).withTimeout(0.4))))))),
+            new WaitCommand(2)));
 
     CustomNamedCommands.registerCommand("PassOff",
         Commands.race(
             new PassOffPoint(intake, shooter),
-            new WaitCommand(3.0)));
+            new WaitCommand(2)));
 
     CustomNamedCommands.registerCommand("IntakeIn", new InputOn(intake));
   }

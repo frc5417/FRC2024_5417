@@ -30,7 +30,7 @@ public class PassOffPoint extends SequentialCommandGroup {
         ),
         new ToggleIntake(intake, -0.6, false)
       ),
-      new WaitCommand(0.3),
+      new WaitCommand(0.15),
       new ParallelCommandGroup(
         new Intestine(shooter),
         Commands.race(

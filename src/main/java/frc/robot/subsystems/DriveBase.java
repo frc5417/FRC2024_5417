@@ -146,7 +146,7 @@ public class DriveBase extends SubsystemBase {
     }
 
     public void setRedAutoSpeed(ChassisSpeeds chassisSpeeds) {
-        ChassisSpeeds inverted = new ChassisSpeeds(chassisSpeeds.vyMetersPerSecond, chassisSpeeds.vxMetersPerSecond, chassisSpeeds.omegaRadiansPerSecond);
+        ChassisSpeeds inverted = new ChassisSpeeds(chassisSpeeds.vyMetersPerSecond * -1.0, chassisSpeeds.vxMetersPerSecond, chassisSpeeds.omegaRadiansPerSecond);
         targetModuleStates = m_kinematics.getComputedModuleStates(inverted);
     }
 
@@ -157,7 +157,7 @@ public class DriveBase extends SubsystemBase {
     }
 
     public double smallestAngle(double largeAngle) {
-        if(largeAngle > 0) {
+        if (largeAngle > 0) {
             return largeAngle - Math.floor(Math.abs(largeAngle)/(2*Math.PI)) * (2*Math.PI);
         } else {
             return (largeAngle + Math.floor(Math.abs(largeAngle)/(2*Math.PI)) * (2*Math.PI)) + (2*Math.PI);

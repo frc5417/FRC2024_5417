@@ -31,6 +31,8 @@ public class AutonLoader {
         autoChooser.addOption("BlueCenterThree", new BlueCenterThree(m_driveBase));
         autoChooser.addOption("BlueRightTwo", new BlueRightTwo(m_driveBase));
         autoChooser.addOption("RedCenterThree", new RedCenterThree(m_driveBase));
+        autoChooser.addOption("RedLeftTwo", new RedLeftTwo(m_driveBase));
+        autoChooser.addOption("RedRightTwo", new RedRightTwo(m_driveBase));
 
         SmartDashboard.putData("Auto Chooser", autoChooser);
         SmartDashboard.updateValues();
