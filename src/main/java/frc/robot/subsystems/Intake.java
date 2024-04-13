@@ -60,12 +60,12 @@ public class Intake extends SubsystemBase {
       cyclesElapsed = 0;
     }
 
-    if (cyclesElapsed >= frc.robot.Constants.MotorConstants.maxWristPowerCycles){
-      power = 0;
-      if (cyclesElapsed % 20 == 0){ 
-         System.out.println("WARNING: Intake pivot motor detected invalid setpoint. Disabling intake pivot.");
-      }
-    }
+    // if (cyclesElapsed >= frc.robot.Constants.MotorConstants.maxWristPowerCycles){
+    //   power = 0;
+    //   if (cyclesElapsed % 20 == 0){ 
+    //      System.out.println("WARNING: Intake pivot motor detected invalid setpoint. Disabling intake pivot.");
+    //   }
+    // }
 
     setWristPower(MathUtil.clamp(power, -1, 1));
 

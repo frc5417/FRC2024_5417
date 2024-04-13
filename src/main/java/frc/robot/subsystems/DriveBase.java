@@ -146,7 +146,7 @@ public class DriveBase extends SubsystemBase {
     }
 
     public void setRedAutoSpeed(ChassisSpeeds chassisSpeeds) {
-        ChassisSpeeds inverted = new ChassisSpeeds(chassisSpeeds.vyMetersPerSecond * -1.0, chassisSpeeds.vxMetersPerSecond, chassisSpeeds.omegaRadiansPerSecond);
+        ChassisSpeeds inverted = new ChassisSpeeds(chassisSpeeds.vyMetersPerSecond, chassisSpeeds.vxMetersPerSecond, chassisSpeeds.omegaRadiansPerSecond);
         targetModuleStates = m_kinematics.getComputedModuleStates(inverted);
     }
 
