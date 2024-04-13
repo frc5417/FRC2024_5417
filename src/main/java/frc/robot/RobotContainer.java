@@ -120,7 +120,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Register Named Commands
 
-    autonLoader = new AutonLoader(driveBase, shooter);
+    autonLoader = new AutonLoader(driveBase, shooter, intake);
 
     // Configure the trigger bindings
     configureBindings();
