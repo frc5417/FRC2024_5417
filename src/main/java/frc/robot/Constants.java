@@ -67,13 +67,13 @@ public final class Constants {
     // Motor SetPoints
     public static final double intakeWristSetPointMaxDelta = 0.3;
     public static final double intakeWristShootingPoint = 2.2857;
-    public static final double intakeWristPassOffPoint = 1.40574;
+    public static final double intakeWristPassOffPoint = 1.1; //1.40574
     public static final double intakeWristMin = 0.60;
     public static final double intakeWristMax = 28.95;
     public static final double intakeRest = 1.0;
     
     public static final double shooterWristSetPointMaxDelta = 0.01;
-    public static final double shooterWristPassOffPoint = 0.7;
+    public static final double shooterWristPassOffPoint = 0.7105;
     public static final double shooterWristTrapPoint = 0.676;
     public static final double shooterWristMin = 0.26;
     public static final double shooterWristMax = 0.715;
