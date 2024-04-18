@@ -71,6 +71,8 @@ public class ToggleIntake extends Command {
         direction = 0;
         return doDisable;
       }
+    } else if (intake.limitSwitch() && counter > 0) {
+      counter -= 1;
     }
     return false;
   }

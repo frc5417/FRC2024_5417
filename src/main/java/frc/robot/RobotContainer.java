@@ -171,7 +171,7 @@ public class RobotContainer {
     CustomNamedCommands.registerCommand("PassOff",
         Commands.race(
             new PassOffPoint(intake, shooter),
-            new WaitCommand(2)));
+            new WaitCommand(3.0)));
 
     CustomNamedCommands.registerCommand("IntakeIn", new IntakeInAndOut(intake));
   }

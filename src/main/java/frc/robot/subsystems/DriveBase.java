@@ -15,6 +15,7 @@ import frc.robot.Robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveBase extends SubsystemBase {
@@ -50,6 +51,8 @@ public class DriveBase extends SubsystemBase {
 
     boolean hasUpdatedOffset = true;
     double savedOffetPos = 0.0d;
+
+    Field2d field2d = new Field2d();
 
     public DriveBase(Kinematics kinematics, AHRS ahrs) {
         m_kinematics = kinematics;
@@ -187,10 +190,13 @@ public class DriveBase extends SubsystemBase {
         // SmartDashboard.putNumber("Mod3_delta", Math.abs(odomDeltas[2]));
         // SmartDashboard.putNumber("Mod4_delta", Math.abs(odomDeltas[3]));
 
-        SmartDashboard.putNumber("Mod1_theta", -Math.abs(Math.toDegrees(odomAngles[0]))-90);
-        SmartDashboard.putNumber("Mod2_theta", -Math.abs(Math.toDegrees(odomAngles[1]))-90);
-        SmartDashboard.putNumber("Mod3_theta", -Math.abs(Math.toDegrees(odomAngles[2]))-90);
-        SmartDashboard.putNumber("Mod4_theta", -Math.abs(Math.toDegrees(odomAngles[3]))-90);
+        // SmartDashboard.putNumber("Mod1_theta", -Math.abs(Math.toDegrees(odomAngles[0]))-90);
+        // SmartDashboard.putNumber("Mod2_theta", -Math.abs(Math.toDegrees(odomAngles[1]))-90);
+        // SmartDashboard.putNumber("Mod3_theta", -Math.abs(Math.toDegrees(odomAngles[2]))-90);
+        // SmartDashboard.putNumber("Mod4_theta", -Math.abs(Math.toDegrees(odomAngles[3]))-90);
+
+        field2d.setRobotPose(getCurrentPose());
+        SmartDashboard.putData(field2d);
         
         SmartDashboard.updateValues();
         

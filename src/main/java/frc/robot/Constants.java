@@ -73,7 +73,7 @@ public final class Constants {
     public static final double intakeRest = 1.0;
     
     public static final double shooterWristSetPointMaxDelta = 0.01;
-    public static final double shooterWristPassOffPoint = 0.7105;
+    public static final double shooterWristPassOffPoint = 0.700;
     public static final double shooterWristTrapPoint = 0.676;
     public static final double shooterWristMin = 0.26;
     public static final double shooterWristMax = 0.715;
@@ -100,7 +100,7 @@ public final class Constants {
   public static class Swerve {
     public static final Double angularPercentage = -1.0;
     public static final Double XPercentage = -1.0;
-    public static final Double YPercentage = - 1.0;
+    public static final Double YPercentage = -1.0;
 
     public static final int driveAmpLimit = 45;
     public static final int angleAmpLimit = 35;
@@ -151,8 +151,8 @@ public final class Constants {
     public static final PIDController Theta_Pos = new PIDController(0.04, 0.0, 0.0); //0.5 p 0.15 0.035
     public static final double speedClamp = 0.7;
     public static final double speedRotClamp = 0.3;
-    public static final double poseTolerance = 0.1;
-    public static final double thetaTolerance = 3; // rotations
+    public static final double poseTolerance = 0.1; //0.1 4-18-24 
+    public static final double thetaTolerance = 5; // rotations
 
     public static final Double[] robot_size = {0.66, 0.66};
     public static final Double[] field_size = {8.2, 16.0};

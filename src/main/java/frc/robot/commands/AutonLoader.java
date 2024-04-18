@@ -40,6 +40,8 @@ public class AutonLoader {
         autoChooser.addOption("RedLeftTwo", new RedLeftTwo(m_driveBase));
         autoChooser.addOption("RedRightTwo", new RedRightTwo(m_driveBase));
         autoChooser.addOption("RedLeftDisrupter", new RedLeftDisrupter(m_driveBase, m_intake));
+        autoChooser.addOption("BlueSourcerDisrupter", new BlueSourceDistuptor(m_driveBase));
+        autoChooser.addOption("RedSourcerDisrupter", new RedSourceDistuptor(m_driveBase));
 
         SmartDashboard.putData("Auto Chooser", autoChooser);
         SmartDashboard.updateValues();
