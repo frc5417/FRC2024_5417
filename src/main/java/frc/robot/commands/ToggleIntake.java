@@ -14,7 +14,7 @@ public class ToggleIntake extends Command {
   private final double initialDirection;
   private double direction;
 
-  private final double seconds = 0.6;
+  private final double seconds = 0.2;
   private int counter = 0;
 
   public ToggleIntake(Intake intake, double direction) {

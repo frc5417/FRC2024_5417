@@ -146,10 +146,10 @@ public final class Constants {
   public static class Auton {
     public static final String[] paths = {"rotateInPlace, moveForward, PathPlannerTest"};
 
-    public static final PIDController X_Pos = new PIDController(1.8, 0, 0);
-    public static final PIDController Y_Pos = new PIDController(1.8, 0, 0);
+    public static final PIDController X_Pos = new PIDController(1.3, 0, 0.1);//new PIDController(1.8, 0, 0);
+    public static final PIDController Y_Pos = new PIDController(1.3, 0, 0.1);
     public static final PIDController Theta_Pos = new PIDController(0.04, 0.0, 0.0); //0.5 p 0.15 0.035
-    public static final double speedClamp = 0.7;
+    public static final double speedClamp = 0.4;
     public static final double speedRotClamp = 0.3;
     public static final double poseTolerance = 0.1; //0.1 4-18-24 
     public static final double thetaTolerance = 5; // rotations

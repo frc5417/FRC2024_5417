@@ -16,26 +16,24 @@ import frc.robot.subsystems.DriveBase;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class RedSourceDistuptor extends SequentialCommandGroup {
-  Pose2d startPose = new Pose2d(16.00, 4.5, Rotation2d.fromDegrees(240)); //right in front of speaker
-  Pose2d middlerandopoint = new Pose2d(13.63, 1.25, Rotation2d.fromDegrees(240));
-  Pose2d opponentsarebozos = new Pose2d(8.6, 0.75, Rotation2d.fromDegrees(240)); //note in front of speaker
+public class RedAmpMobile extends SequentialCommandGroup {
+  Pose2d startPose = new Pose2d(15.80, 6.51, Rotation2d.fromDegrees(120)); //right in front of speaker
+  Pose2d opponentsarebozos = new Pose2d(12.65, 7.86, Rotation2d.fromDegrees(120)); //note in front of speaker
 
-  Pose2d bookit = new Pose2d(9.6, 0.75, Rotation2d.fromDegrees(240));
+  // Pose2d bookit = new Pose2d(9.6, 0.75, Rotation2d.fromDegrees(240));
 
-  Pose2d[] forwardPath =  { startPose, middlerandopoint, opponentsarebozos };
-  Pose2d[] bookitPath = { opponentsarebozos, bookit };
+  Pose2d[] forwardPath =  { startPose, opponentsarebozos };
+  // Pose2d[] bookitPath = { opponentsarebozos, bookit };
   
   // Pose2d[] backToSpeaker = { pickUpNote1, startPose };
 
   /** Creates a new ShootForward. */
-  public RedSourceDistuptor(DriveBase driveBase) {
+  public RedAmpMobile(DriveBase driveBase) {
     // Add your commands in the addCommands() call
     addCommands(
       CustomNamedCommands.getCommand("Shoot"),
-      // new WaitCommand(2.0),
-      new FollowBezier(driveBase, forwardPath, 200, true),
-      new FollowBezier(driveBase, bookitPath, 200, false)
+      new WaitCommand(10.0),
+      new FollowBezier(driveBase, forwardPath, 10, true)
     );
   }
 }
