@@ -43,6 +43,7 @@ public class AutonLoader {
         autoChooser.addOption("BlueSourcerDisrupter", new BlueSourceDistuptor(m_driveBase));
         autoChooser.addOption("RedSourcerDisrupter", new RedSourceDistuptor(m_driveBase));
         autoChooser.addOption("RedAmpMobile", new RedAmpMobile(m_driveBase));
+        autoChooser.addOption("BlueSourceMobile", new BlueSourceMobile(m_driveBase));
 
         SmartDashboard.putData("Auto Chooser", autoChooser);
         SmartDashboard.updateValues();

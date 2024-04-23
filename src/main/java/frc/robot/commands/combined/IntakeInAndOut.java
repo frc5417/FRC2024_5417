@@ -5,9 +5,13 @@
 package frc.robot.commands.combined;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.ManipulatorConstants;
 import frc.robot.commands.IntakeWristSetPoint;
+import frc.robot.commands.ShooterWristSetPoint;
 import frc.robot.commands.ToggleIntake;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -15,10 +19,12 @@ import frc.robot.subsystems.Intake;
 public class IntakeInAndOut extends SequentialCommandGroup {
   
   /** Creates a new InputOn. */
-  public IntakeInAndOut(Intake intake) {
+  public IntakeInAndOut(Intake intake, Shooter shooter) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new ShooterWristSetPoint(shooter, ManipulatorConstants.shooterWristMax).withTimeout(0.5),
+      new WaitCommand(0.25),
       new IntakeWristSetPoint(intake, 27.8, true).withTimeout(0.5),
       new ToggleIntake(intake, -1, false, false).withTimeout(0.1)
     );

@@ -106,10 +106,10 @@ public class Module {
     }
 
     double x = speed * invertMultiplier;
-    // if (Robot.INSTANCE.isAutonomousEnabled()) {
-    //   x = MathUtil.clamp(x, -1, 1);
-    //   x *= 0.25;
-    // }
+    if (Robot.INSTANCE.isAutonomousEnabled()) {
+      x = MathUtil.clamp(x, -1, 1);
+      x *= 0.25;
+    }
     
     driveMotor.set(x);
     return x;

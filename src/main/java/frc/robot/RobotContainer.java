@@ -173,7 +173,7 @@ public class RobotContainer {
             new PassOffPoint(intake, shooter),
             new WaitCommand(3.0)));
 
-    CustomNamedCommands.registerCommand("IntakeIn", new IntakeInAndOut(intake));
+    CustomNamedCommands.registerCommand("IntakeIn", new IntakeInAndOut(intake, shooter));
   }
 
   /**
