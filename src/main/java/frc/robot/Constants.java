@@ -75,7 +75,7 @@ public final class Constants {
     public static final double shooterWristSetPointMaxDelta = 0.01;
     public static final double shooterWristPassOffPoint = 0.7;
     public static final double shooterWristTrapPoint = 0.676;
-    public static final double shooterWristMin = 0.26;
+    public static final double shooterWristMin = 0.10;
     public static final double shooterWristMax = 0.715;
 
     // Motor PIDs
